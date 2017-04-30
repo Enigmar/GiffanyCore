@@ -1,6 +1,6 @@
-package de.linzn.giffanyCore.inputProcessing;
+package de.linzn.aiCore.inputProcessing;
 
-import de.linzn.giffanyCore.App;
+import de.linzn.aiCore.App;
 
 public class InputProcessing {
 	private App app;

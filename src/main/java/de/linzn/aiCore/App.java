@@ -1,9 +1,9 @@
-package de.linzn.giffanyCore;
+package de.linzn.aiCore;
 
-import de.linzn.giffanyCore.database.MySQLDatabase;
-import de.linzn.giffanyCore.inputProcessing.InputProcessing;
-import de.linzn.giffanyCore.inputProcessing.network.NetworkProcessing;
-import de.linzn.giffanyCore.inputProcessing.terminal.TerminalProcessing;
+import de.linzn.aiCore.database.MySQLDatabase;
+import de.linzn.aiCore.inputProcessing.InputProcessing;
+import de.linzn.aiCore.inputProcessing.network.NetworkProcessing;
+import de.linzn.aiCore.inputProcessing.terminal.TerminalProcessing;
 
 public class App {
 	

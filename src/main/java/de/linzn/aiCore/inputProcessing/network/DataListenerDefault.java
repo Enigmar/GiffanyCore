@@ -1,6 +1,6 @@
-package de.linzn.giffanyCore.inputProcessing.network;
+package de.linzn.aiCore.inputProcessing.network;
 
-import de.linzn.giffanyCore.App;
+import de.linzn.aiCore.App;
 import de.linzn.javaSocket.server.events.SocketDataEvent;
 import de.linzn.javaSocket.server.interfaces.IDataListener;
 

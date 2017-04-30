@@ -18,7 +18,7 @@
 					<archive>
 						<manifest>
 							<addClasspath>true</addClasspath>
-							<mainClass>de.linzn.giffanyCore.App</mainClass>
+							<mainClass>de.linzn.aiCore.App</mainClass>
 							<classpathPrefix>lib/</classpathPrefix>
 						</manifest>
 					</archive>

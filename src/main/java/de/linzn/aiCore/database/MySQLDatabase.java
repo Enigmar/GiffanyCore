@@ -1,10 +1,10 @@
-package de.linzn.giffanyCore.database;
+package de.linzn.aiCore.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import de.linzn.giffanyCore.App;
+import de.linzn.aiCore.App;
 
 public class MySQLDatabase {
 	private App app;

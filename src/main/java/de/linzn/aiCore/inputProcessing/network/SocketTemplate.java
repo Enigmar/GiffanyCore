@@ -1,4 +1,4 @@
-package de.linzn.giffanyCore.inputProcessing.network;
+package de.linzn.aiCore.inputProcessing.network;
 
 import de.linzn.javaSocket.server.interfaces.IServerMask;
 

@@ -1,15 +1,15 @@
-package de.linzn.giffanyCore.inputProcessing.network;
+package de.linzn.aiCore.inputProcessing.network;
 
 import de.linzn.javaSocket.server.events.SocketTypeEvent;
 import de.linzn.javaSocket.server.interfaces.EventTypes;
 import de.linzn.javaSocket.server.interfaces.ITypeListener;
 
-public class TypeListenerConnect implements ITypeListener{
+public class TypeListenerDisconnect implements ITypeListener{
 
 	@Override
 	public EventTypes getType() {
 		// TODO Auto-generated method stub
-		return EventTypes.CONNECT;
+		return EventTypes.DISCONNECT;
 	}
 
 	@Override
