@@ -7,30 +7,30 @@ public class NetworkProcessing {
 	private App app;
 	public EnigmarSockserver eSockserver;
 	public SocketTemplate eSocktemplate;
-	
-	//Channels
+
+	// Channels
 	public String defaultChannel = "defaultTransfer";
-	
-	public NetworkProcessing(App app){
+
+	public NetworkProcessing(App app) {
+		App.logger("Loading NetworkProcessing module.");
 		this.app = app;
 		this.eSocktemplate = new SocketTemplate();
 		this.eSockserver = new EnigmarSockserver();
 		this.eSockserver.setCoreMask(this.eSocktemplate);
-		this.eSockserver.setPort(42293);
-		this.eSockserver.setHostname("localhost");
+		this.eSockserver.setPort(this.app.aiSettings.socketPort);
+		this.eSockserver.setHostname(this.app.aiSettings.socketHost);
 		this.eSockserver.setup();
 		this.eSockserver.registerEventListener(new TypeListenerConnect());
 		this.eSockserver.registerEventListener(new DataListenerDefault(this.app));
+		this.createNetwork();
 	}
-	
-	public void createNetwork(){
+
+	public void createNetwork() {
 		this.eSockserver.start();
 	}
-	
-	public void deleteNetwork(){
+
+	public void deleteNetwork() {
 		this.eSockserver.stop();
 	}
-	
-	
 
 }

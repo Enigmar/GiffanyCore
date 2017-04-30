@@ -12,22 +12,25 @@ public class MySQLDatabase {
 	private String username;
 	private String password;
 	private Connection connection;
-	
-	
-	public MySQLDatabase(App app){
+
+	public MySQLDatabase(App app) {
+		App.logger("Loading MySQLDatabase module.");
 		this.app = app;
+		this.url = "jdbc:mysql://" + this.app.aiSettings.sqlHostName + ":" + this.app.aiSettings.sqlPort + "/"
+				+ this.app.aiSettings.sqlDatabaseName;
+		this.username = this.app.aiSettings.sqlUserName;
+		this.password = this.app.aiSettings.sqlPassword;
 		updateConnection();
 	}
-	
-	
-	public Connection getConnection(){
+
+	public Connection getConnection() {
 		return updateConnection();
 	}
-	
-	private Connection updateConnection(){
+
+	private Connection updateConnection() {
 
 		try {
-			if (this.connection == null || this.connection.isClosed()){
+			if (this.connection == null || this.connection.isClosed()) {
 				this.connection = DriverManager.getConnection(this.url, this.username, this.password);
 			}
 		} catch (SQLException e) {

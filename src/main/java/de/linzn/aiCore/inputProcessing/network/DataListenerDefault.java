@@ -4,11 +4,11 @@ import de.linzn.aiCore.App;
 import de.linzn.javaSocket.server.events.SocketDataEvent;
 import de.linzn.javaSocket.server.interfaces.IDataListener;
 
-public class DataListenerDefault implements IDataListener{
-	
+public class DataListenerDefault implements IDataListener {
+
 	private App app;
-	
-	public DataListenerDefault(App app){
+
+	public DataListenerDefault(App app) {
 		this.app = app;
 	}
 
@@ -21,7 +21,7 @@ public class DataListenerDefault implements IDataListener{
 	@Override
 	public void onDataRecieve(SocketDataEvent event) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
