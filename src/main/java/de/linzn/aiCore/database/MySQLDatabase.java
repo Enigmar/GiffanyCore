@@ -7,12 +7,14 @@ import java.sql.SQLException;
 import de.linzn.aiCore.App;
 
 public class MySQLDatabase {
+	//Define variables
 	private App app;
 	private String url;
 	private String username;
 	private String password;
 	private Connection connection;
 
+	// the class
 	public MySQLDatabase(App app) {
 		App.logger("Loading MySQLDatabase module.");
 		this.app = app;
@@ -23,10 +25,12 @@ public class MySQLDatabase {
 		updateConnection();
 	}
 
+	// Get the active sql connection
 	public Connection getConnection() {
 		return updateConnection();
 	}
 
+	// Check and refresh the sql connection
 	private Connection updateConnection() {
 
 		try {

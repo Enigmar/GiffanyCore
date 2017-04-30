@@ -11,6 +11,7 @@ public class InputProcessing {
 	}
 
 	public void receiveInput(String args[]) {
+		//Processing content later here...
 		for (String arg : args) {
 			System.out.print(arg + " ");
 		}
