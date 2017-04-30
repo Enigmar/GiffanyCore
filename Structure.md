@@ -1,11 +1,15 @@
 ## AiCore Structure
 
 ### App Instance
-- Database
+- Heartbeat	(Heart thread)
+- Database	(MySQL backend)
 - InputProcessing
   - NetworkProcessing
       - DataListener
       - TypeListener
   - TerminalProcessing
+      - TerminalCommands
+           - <TermCommands>
+      - TerminalExecutes (iFace)
 - Settings
 
