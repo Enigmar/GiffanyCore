@@ -22,12 +22,14 @@ public class Heartbeat implements Runnable, Executor {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if (!this.app.taskList.isEmpty()){
-			Runnable run = this.app.taskList.removeFirst();
-			heartbeat.execute(run);
+			if (!this.app.taskList.isEmpty()) {
+				Runnable run = this.app.taskList.removeFirst();
+				heartbeat.execute(run);
 			}
 
 		}
+		this.app.networkProc.deleteNetwork();
+		System.exit(0);
 
 	}
 

@@ -32,7 +32,7 @@ public class DataListenerDefault implements IDataListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		this.app.inputProc.receiveInput(values);
 
 	}

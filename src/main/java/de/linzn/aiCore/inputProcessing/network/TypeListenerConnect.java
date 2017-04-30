@@ -6,13 +6,12 @@ import de.linzn.javaSocket.server.interfaces.EventTypes;
 import de.linzn.javaSocket.server.interfaces.ITypeListener;
 
 public class TypeListenerConnect implements ITypeListener {
-	
+
 	private App app;
-	
-	public TypeListenerConnect(App app){
+
+	public TypeListenerConnect(App app) {
 		this.app = app;
 	}
-	
 
 	@Override
 	public EventTypes getType() {

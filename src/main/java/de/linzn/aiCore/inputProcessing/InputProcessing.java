@@ -11,7 +11,10 @@ public class InputProcessing {
 	}
 
 	public void receiveInput(String args[]) {
-		System.out.println("Received: " + args[0]);
+		for (String arg : args) {
+			System.out.print(arg + " ");
+		}
+		System.out.println("");
 	}
 
 }

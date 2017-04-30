@@ -8,11 +8,11 @@ import de.linzn.javaSocket.server.interfaces.ITypeListener;
 public class TypeListenerDisconnect implements ITypeListener {
 
 	private App app;
-	
-	public TypeListenerDisconnect(App app){
+
+	public TypeListenerDisconnect(App app) {
 		this.app = app;
 	}
-	
+
 	@Override
 	public EventTypes getType() {
 		// TODO Auto-generated method stub

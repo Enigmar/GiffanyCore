@@ -48,12 +48,12 @@ public class App {
 		this.heartbeat = new Heartbeat(appInstance);
 		new Thread(this.heartbeat).start();
 	}
-	
-	public void runTaskSync(Runnable sync){
+
+	public void runTaskSync(Runnable sync) {
 		this.taskList.add(sync);
 	}
-	
-	public void runTaskAsync(Runnable async){
+
+	public void runTaskAsync(Runnable async) {
 		Runnable runnable = new Runnable() {
 
 			@Override

@@ -5,7 +5,6 @@ import de.linzn.javaSocket.server.interfaces.IServerMask;
 
 public class SocketTemplate implements IServerMask {
 
-
 	@Override
 	public void serverSchedulerAsync(Runnable runnable) {
 		// TODO Auto-generated method stub
