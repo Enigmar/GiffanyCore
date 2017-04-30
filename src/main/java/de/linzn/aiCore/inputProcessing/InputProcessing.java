@@ -11,7 +11,7 @@ public class InputProcessing {
 	}
 
 	public void receiveInput(String args[]) {
-
+		System.out.println("Received: " + args[0]);
 	}
 
 }
