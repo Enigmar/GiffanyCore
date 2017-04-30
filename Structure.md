@@ -9,7 +9,8 @@
       - TypeListener
   - TerminalProcessing
       - TerminalCommands
-           - <TermCommands>
+           - {TermCommands}
+           - ...
       - TerminalExecutes (iFace)
 - Settings
 
