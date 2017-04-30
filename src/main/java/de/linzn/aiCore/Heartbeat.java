@@ -10,6 +10,7 @@ public class Heartbeat implements Runnable, Executor {
 		App.logger("Creating new Heartbeat instance.");
 		this.heartbeat = this;
 		this.app = app;
+		this.app.isAlive = true;
 	}
 
 	public void run() {
@@ -21,8 +22,10 @@ public class Heartbeat implements Runnable, Executor {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			if (!this.app.taskList.isEmpty()){
 			Runnable run = this.app.taskList.removeFirst();
 			heartbeat.execute(run);
+			}
 
 		}
 

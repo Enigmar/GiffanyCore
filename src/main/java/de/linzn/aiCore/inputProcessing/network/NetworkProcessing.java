@@ -20,7 +20,8 @@ public class NetworkProcessing {
 		this.eSockserver.setPort(this.app.aiSettings.socketPort);
 		this.eSockserver.setHostname(this.app.aiSettings.socketHost);
 		this.eSockserver.setup();
-		this.eSockserver.registerEventListener(new TypeListenerConnect());
+		this.eSockserver.registerEventListener(new TypeListenerConnect(this.app));
+		this.eSockserver.registerEventListener(new TypeListenerDisconnect(this.app));
 		this.eSockserver.registerEventListener(new DataListenerDefault(this.app));
 		this.createNetwork();
 	}

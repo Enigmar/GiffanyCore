@@ -27,7 +27,7 @@ public class App {
 
 	public static void main(String[] args) {
 		App.logger("Creating new App instance.");
-		appInstance = new App(args);
+		new App(args);
 	}
 
 	public static void logger(String log) {
@@ -35,6 +35,7 @@ public class App {
 	}
 
 	public App(String[] args) {
+		appInstance = this;
 		loadModules();
 	}
 
@@ -47,12 +48,12 @@ public class App {
 		this.heartbeat = new Heartbeat(appInstance);
 		new Thread(this.heartbeat).start();
 	}
-
-	public void runTaskSync(Runnable sync) {
+	
+	public void runTaskSync(Runnable sync){
 		this.taskList.add(sync);
 	}
-
-	public void runTaskAsync(Runnable async) {
+	
+	public void runTaskAsync(Runnable async){
 		Runnable runnable = new Runnable() {
 
 			@Override

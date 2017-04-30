@@ -26,16 +26,16 @@ public class AiSettings {
 	public AiSettings(App app) {
 		App.logger("Loading AiSettings module.");
 		this.app = app;
-		init();
+		this.init();
 
 	}
 
 	public void init() {
-		File file = new File(fileName);
+		File file = new File(this.fileName);
 		if (!file.exists()) {
 			create();
 		}
-		load();
+		this.load();
 
 	}
 
@@ -46,7 +46,7 @@ public class AiSettings {
 
 		try {
 
-			output = new FileOutputStream(fileName);
+			output = new FileOutputStream(this.fileName);
 			// set the properties value
 			prop.setProperty("socketHost", "0.0.0.0");
 			prop.setProperty("socketPort", "11102");
@@ -71,19 +71,18 @@ public class AiSettings {
 		InputStream input = null;
 
 		try {
-			input = new FileInputStream(fileName);
+			input = new FileInputStream(this.fileName);
 
 			prop.load(input);
 
-			socketHost = prop.getProperty("socketHost");
-			socketPort = Integer.parseInt(prop.getProperty("socketPort"));
+			this.socketHost = prop.getProperty("socketHost");
+			this.socketPort = Integer.parseInt(prop.getProperty("socketPort"));
 
-			sqlHostName = prop.getProperty("sqlHostname");
-			sqlPort = Integer.parseInt(prop.getProperty("sqlPort"));
-			sqlDatabaseName = prop.getProperty("sqlDatabaseName");
-			sqlUserName = prop.getProperty("sqlUserName");
-			sqlPassword = prop.getProperty("sqlPassword");
-
+			this.sqlHostName = prop.getProperty("sqlHostname");
+			this.sqlPort = Integer.parseInt(prop.getProperty("sqlPort"));
+			this.sqlDatabaseName = prop.getProperty("sqlDatabaseName");
+			this.sqlUserName = prop.getProperty("sqlUserName");
+			this.sqlPassword = prop.getProperty("sqlPassword");
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
