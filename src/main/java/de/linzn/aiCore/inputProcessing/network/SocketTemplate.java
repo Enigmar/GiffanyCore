@@ -1,19 +1,19 @@
 package de.linzn.aiCore.inputProcessing.network;
 
 import de.linzn.aiCore.App;
-import de.linzn.javaSocket.server.interfaces.IServerMask;
+import de.linzn.javaSocket.server.interfaces.IMask;
 
-public class SocketTemplate implements IServerMask {
+public class SocketTemplate implements IMask {
 
 	@Override
-	public void serverSchedulerAsync(Runnable runnable) {
+	public void schedulerAsync(Runnable runnable) {
 		// TODO Auto-generated method stub
 		App.appInstance.runTaskAsync(runnable);
 
 	}
 
 	@Override
-	public void serverSchedulerSync(Runnable runnable) {
+	public void schedulerSync(Runnable runnable) {
 		// TODO Auto-generated method stub
 		App.appInstance.runTaskSync(runnable);
 	}
