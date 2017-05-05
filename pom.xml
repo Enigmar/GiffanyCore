@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.linzn</groupId>
 	<packaging>jar</packaging>
-	<name>GiffanyCore</name>
+	<name>AiCore</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -36,7 +36,7 @@
 		</plugins>
 	</build>
 	<version>0.0.1</version>
-	<artifactId>giffanyCore</artifactId>
+	<artifactId>aicore</artifactId>
 	<dependencies>
 		<dependency>
 			<groupId>de.linzn</groupId>
