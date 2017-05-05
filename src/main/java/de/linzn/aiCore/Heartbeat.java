@@ -3,11 +3,11 @@ package de.linzn.aiCore;
 import java.util.concurrent.Executor;
 
 public class Heartbeat implements Runnable, Executor {
-	//Define instances and variables
+	// Define instances and variables
 	private Heartbeat heartbeat;
 	private App app;
 
-	//The class
+	// The class
 	public Heartbeat(App app) {
 		App.logger("Creating new Heartbeat instance.");
 		this.heartbeat = this;
@@ -15,9 +15,9 @@ public class Heartbeat implements Runnable, Executor {
 		this.app.isAlive = true;
 	}
 
-	//The runnable for extends runnable
+	// The runnable for extends runnable
 	public void run() {
-		//Is running, until alive is false
+		// Is running, until alive is false
 		while (this.app.isAlive) {
 			try {
 				Thread.sleep(20);
@@ -31,16 +31,20 @@ public class Heartbeat implements Runnable, Executor {
 			}
 
 		}
-		//Shutdown the Heartbeat
+		// Shutdown the Heartbeat
 		this.app.networkProc.deleteNetwork();
 		System.exit(0);
 
 	}
 
-	//The Executor for running something in the main thread
+	// The Executor for running something in the main thread
 	@Override
 	public void execute(Runnable runnable) {
-		runnable.run();
+        try {
+        	runnable.run();
+        } catch (Exception e){
+        	e.printStackTrace();
+        }
 	}
 
 }

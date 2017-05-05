@@ -4,6 +4,7 @@ import java.util.TreeMap;
 
 import de.linzn.aiCore.App;
 import de.linzn.aiCore.inputProcessing.terminal.execudes.TermExit;
+import de.linzn.aiCore.inputProcessing.terminal.execudes.TermTest;
 
 public class TerminalCommands {
 	private App app;
@@ -27,6 +28,7 @@ public class TerminalCommands {
 
 	private void initialTerminalExecudes() {
 		this.terminalExecutes.put("exit", new TermExit());
+		this.terminalExecutes.put("test", new TermTest());
 	}
 
 }

@@ -5,9 +5,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import de.linzn.aiCore.App;
+import de.linzn.aiCore.database.access.DBSettings;
 
 public class MySQLDatabase {
-	//Define variables
+	// Define variables
 	private App app;
 	private String url;
 	private String username;
@@ -23,6 +24,7 @@ public class MySQLDatabase {
 		this.username = this.app.aiSettings.sqlUserName;
 		this.password = this.app.aiSettings.sqlPassword;
 		updateConnection();
+		DBSettings.loadSettings();
 	}
 
 	// Get the active sql connection
@@ -32,7 +34,6 @@ public class MySQLDatabase {
 
 	// Check and refresh the sql connection
 	private Connection updateConnection() {
-
 		try {
 			if (this.connection == null || this.connection.isClosed()) {
 				this.connection = DriverManager.getConnection(this.url, this.username, this.password);
