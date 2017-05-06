@@ -5,6 +5,7 @@ import de.linzn.aiCore.internal.IObjectClass;
 import de.linzn.aiCore.internal.KeywordContainer;
 import de.linzn.aiCore.internal.ObjectContainer;
 import de.linzn.aiCore.internal.ResultContainer;
+import de.linzn.aiCore.internal.SentenceContainer;
 
 public class InputProcessing {
 	private App app;
@@ -62,7 +63,7 @@ public class InputProcessing {
 
 		if (objectCon == null) {
 			// Nothing found
-			System.out.println("No ObjectContainer found");
+			App.logger("No ObjectContainer found");
 			this.textSearch(input);
 		} else {
 			for (String split : splitedInput) {
@@ -73,7 +74,7 @@ public class InputProcessing {
 
 			if (keywordCon == null) {
 				// No keyword found
-				System.out.println("No KeywordContainer found");
+				App.logger("No KeywordContainer found");
 				keywordCon = new KeywordContainer(0, objectCon.objectID, null, null);
 			}
 
@@ -85,17 +86,24 @@ public class InputProcessing {
 
 			if (resultCon == null) {
 				// No keyword found
-				System.out.println("No ResultContainer found");
+				App.logger("No ResultContainer found");
 			}
 			
-
-			System.out.println("Result: " + resultCon.result);
+			App.logger("Result: " + resultCon.result);
+			
 		}
 
 	}
 
 	private void textSearch(String input) {
-		System.out.println("Testresult: " + input);
+		SentenceContainer sentenceCon = this.app.mysqlData.dbsentence.getSentence(input);
+		if (sentenceCon == null){
+			// No keyword found
+			App.logger("No SentenceContainer found");
+		} else {
+			App.logger("Sentence: " + sentenceCon.result);
+		}
+		
 	}
 
 

@@ -8,6 +8,7 @@ import de.linzn.aiCore.App;
 import de.linzn.aiCore.database.access.DBKeyword;
 import de.linzn.aiCore.database.access.DBObject;
 import de.linzn.aiCore.database.access.DBResult;
+import de.linzn.aiCore.database.access.DBSentence;
 import de.linzn.aiCore.database.access.DBSettings;
 
 public class MySQLDatabase {
@@ -21,6 +22,7 @@ public class MySQLDatabase {
 	public DBKeyword dbkeyword;
 	public DBObject dbobject;
 	public DBResult dbresult;
+	public DBSentence dbsentence;
 
 	// the class
 	public MySQLDatabase(App app) {
@@ -34,6 +36,7 @@ public class MySQLDatabase {
 		this.dbkeyword = new DBKeyword(this);
 		this.dbobject = new DBObject(this);
 		this.dbresult = new DBResult(this);
+		this.dbsentence = new DBSentence(this);
 		updateConnection();
 		this.dbsetting.loadSettings();
 	}
