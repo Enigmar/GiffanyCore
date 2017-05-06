@@ -20,11 +20,12 @@ public class TerminalProcessing implements Runnable {
 	public void run() {
 		while (this.app.isAlive) {
 			String[] inputArray;
+			String input;
 			if (this.terminalMode) {
-				String input = System.console().readLine("#~: ");
+			    input = System.console().readLine("#~: ");
 				inputArray = input.split(" ");
 			} else {
-				String input = System.console().readLine(": ");
+				input = System.console().readLine(": ");
 				inputArray = input.split(" ");
 			}
 			String keyword = inputArray[0];
@@ -46,9 +47,7 @@ public class TerminalProcessing implements Runnable {
 						App.logger("No result for this input!");
 					}
 				} else {
-					// Default Communication
-					String[] stringArray = Arrays.copyOfRange(inputArray, 0, inputArray.length);
-					this.app.inputProc.receiveInput(stringArray);
+					this.app.inputProc.receiveInput(input);
 				}
 			}
 		}

@@ -25,9 +25,9 @@ public class DataListenerDefault implements IDataListener {
 	public void onDataRecieve(SocketDataEvent event) {
 		// TODO Auto-generated method stub
 		DataInputStream in = this.app.networkProc.eSockserver.readByteArray(event.getStreamBytes());
-		String[] values = new String[1];
+		String values = null;
 		try {
-			values[0] = in.readUTF();
+			values = in.readUTF();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
