@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import de.linzn.aiCore.App;
+import de.linzn.aiCore.database.access.DBKeyword;
+import de.linzn.aiCore.database.access.DBObject;
 import de.linzn.aiCore.database.access.DBSettings;
 
 public class MySQLDatabase {
@@ -14,6 +16,9 @@ public class MySQLDatabase {
 	private String username;
 	private String password;
 	private Connection connection;
+	public DBSettings dbsetting;
+	public DBKeyword dbkeyword;
+	public DBObject dbobject;
 
 	// the class
 	public MySQLDatabase(App app) {
@@ -23,8 +28,11 @@ public class MySQLDatabase {
 				+ this.app.aiSettings.sqlDatabaseName;
 		this.username = this.app.aiSettings.sqlUserName;
 		this.password = this.app.aiSettings.sqlPassword;
+		this.dbsetting = new DBSettings(this);
+		this.dbkeyword = new DBKeyword(this);
+		this.dbobject = new DBObject(this);
 		updateConnection();
-		DBSettings.loadSettings();
+		this.dbsetting.loadSettings();
 	}
 
 	// Get the active sql connection

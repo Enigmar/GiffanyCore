@@ -5,17 +5,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import de.linzn.aiCore.App;
+import de.linzn.aiCore.database.MySQLDatabase;
 import de.linzn.aiCore.internal.KeywordContainer;
 import de.linzn.aiCore.internal.ObjectContainer;
 
 public class DBKeyword {
-
-	public static KeywordContainer getKeyword(ObjectContainer objectCon, String keyword) {
+	private MySQLDatabase mysqlsb;
+	
+	public DBKeyword(MySQLDatabase mysqlsb){
+		this.mysqlsb = mysqlsb;
+	}
+	
+	public  KeywordContainer getKeyword(ObjectContainer objectCon, String keyword) {
 		KeywordContainer keywordCont = null;
 		try {
 
-			Connection con = App.appInstance.mysqlData.getConnection();
+			Connection con = this.mysqlsb.getConnection();
 			Statement st = con.createStatement();
 			String sql = ("SELECT * FROM aicore_keyword WHERE objectid ='" + objectCon.objectID + "' AND keyword ='"
 					+ keyword + "';");

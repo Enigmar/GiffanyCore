@@ -6,12 +6,18 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import de.linzn.aiCore.App;
+import de.linzn.aiCore.database.MySQLDatabase;
 
 public class DBSettings {
-	public static String aicore_name;
+	public String aicore_name;
+	private MySQLDatabase mysqlsb;
+	
+	public DBSettings(MySQLDatabase mysqlsb){
+		this.mysqlsb = mysqlsb;
+	}
 
-	public static boolean loadSettings() {
-		Connection con = App.appInstance.mysqlData.getConnection();
+	public boolean loadSettings() {
+		Connection con = this.mysqlsb.getConnection();
 		try {
 			Statement st = con.createStatement();
 			String sql = ("SELECT * FROM aicore_setting;");
