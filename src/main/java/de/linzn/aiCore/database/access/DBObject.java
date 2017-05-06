@@ -22,10 +22,10 @@ public class DBObject {
 
 			Connection con = this.mysqlsb.getConnection();
 			Statement st = con.createStatement();
-			String sql = ("SELECT * FROM aicore_object WHERE call ='" + objectName + "';");
+			String sql = ("SELECT * FROM aicore_object WHERE objectname ='" + objectName + "'");
 			ResultSet rs = st.executeQuery(sql);
 			if (rs.next()) {
-				objectCont = new ObjectContainer(rs.getInt("id"), rs.getString("call"), rs.getString("class"));
+				objectCont = new ObjectContainer(rs.getInt("id"), rs.getString("objectname"), rs.getString("class"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
