@@ -11,12 +11,12 @@ import de.linzn.aiCore.internal.ObjectContainer;
 
 public class DBKeyword {
 	private MySQLDatabase mysqlsb;
-	
-	public DBKeyword(MySQLDatabase mysqlsb){
+
+	public DBKeyword(MySQLDatabase mysqlsb) {
 		this.mysqlsb = mysqlsb;
 	}
-	
-	public  KeywordContainer getKeyword(ObjectContainer objectCon, String keyword) {
+
+	public KeywordContainer getKeyword(ObjectContainer objectCon, String keyword) {
 		KeywordContainer keywordCont = null;
 		try {
 

@@ -10,18 +10,18 @@ import de.linzn.aiCore.internal.SentenceContainer;
 
 public class DBSentence {
 	private MySQLDatabase mysqlsb;
-	
-	public DBSentence(MySQLDatabase mysqlsb){
+
+	public DBSentence(MySQLDatabase mysqlsb) {
 		this.mysqlsb = mysqlsb;
 	}
-	
-	public  SentenceContainer getSentence(String sentence) {
+
+	public SentenceContainer getSentence(String sentence) {
 		SentenceContainer sentenceCont = null;
 		try {
 
 			Connection con = this.mysqlsb.getConnection();
 			Statement st = con.createStatement();
-			String sql = ("SELECT * FROM aicore_sentence WHERE sentence ='"+ sentence + "';");
+			String sql = ("SELECT * FROM aicore_sentence WHERE sentence ='" + sentence + "';");
 			ResultSet rs = st.executeQuery(sql);
 			if (rs.next()) {
 				sentenceCont = new SentenceContainer(rs.getInt("id"), rs.getString("sentence"));

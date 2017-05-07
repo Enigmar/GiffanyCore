@@ -9,14 +9,14 @@ import de.linzn.aiCore.database.MySQLDatabase;
 import de.linzn.aiCore.internal.ObjectContainer;
 
 public class DBObject {
-	
+
 	private MySQLDatabase mysqlsb;
-	
-	public DBObject(MySQLDatabase mysqlsb){
+
+	public DBObject(MySQLDatabase mysqlsb) {
 		this.mysqlsb = mysqlsb;
 	}
 
-	public  ObjectContainer getObject(String objectName) {
+	public ObjectContainer getObject(String objectName) {
 		ObjectContainer objectCont = null;
 		try {
 

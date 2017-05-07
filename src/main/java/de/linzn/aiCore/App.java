@@ -21,7 +21,6 @@ public class App {
 	public MySQLDatabase mysqlData;
 	public Heartbeat heartbeat;
 	private long start_time;
-	
 
 	// The alive value for the heartbeat thread
 	public boolean isAlive;
@@ -36,7 +35,7 @@ public class App {
 
 	// The default logger
 	public static void logger(String log) {
-		System.out.print("[" +Thread.currentThread().getName()+ "] " + log + "\n");
+		System.out.print("[" + Thread.currentThread().getName() + "] " + log + "\n");
 		System.out.flush();
 	}
 
@@ -91,7 +90,6 @@ public class App {
 
 		};
 
-		
 		this.runTaskSync(settings);
 		this.runTaskSync(mysql);
 		this.runTaskSync(input);
@@ -103,7 +101,7 @@ public class App {
 		Runnable finish = new Runnable() {
 			@Override
 			public void run() {
-				logger("Startup finished in " + (int)((System.nanoTime() - start_time)/1e6) + " ms.");
+				logger("Startup finished in " + (int) ((System.nanoTime() - start_time) / 1e6) + " ms.");
 			}
 
 		};

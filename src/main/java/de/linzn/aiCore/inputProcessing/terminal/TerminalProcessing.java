@@ -22,7 +22,7 @@ public class TerminalProcessing implements Runnable {
 			String[] inputArray;
 			String input;
 			if (this.terminalMode) {
-			    input = System.console().readLine("#~: ");
+				input = System.console().readLine("#~: ");
 				inputArray = input.split(" ");
 			} else {
 				input = System.console().readLine(": ");

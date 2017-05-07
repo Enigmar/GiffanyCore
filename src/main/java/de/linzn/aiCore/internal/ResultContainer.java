@@ -4,7 +4,7 @@ public class ResultContainer {
 	public int objectID;
 	public int keywordID;
 	public String result;
-	
+
 	public int sentenceID;
 
 	public ResultContainer(int objectID, int keywordID, String result) {
@@ -12,7 +12,7 @@ public class ResultContainer {
 		this.keywordID = keywordID;
 		this.result = result;
 	}
-	
+
 	public ResultContainer(int sentenceID, String result) {
 		this.sentenceID = sentenceID;
 		this.result = result;

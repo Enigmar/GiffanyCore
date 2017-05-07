@@ -3,8 +3,8 @@ package de.linzn.aiCore.internal;
 import java.lang.reflect.InvocationTargetException;
 
 public class Reflector {
-	
-	public void runTask(IObjectClass classObject, String function){
+
+	public void runTask(IObjectClass classObject, String function) {
 		java.lang.reflect.Method method;
 		try {
 			method = classObject.getClass().getMethod(function);

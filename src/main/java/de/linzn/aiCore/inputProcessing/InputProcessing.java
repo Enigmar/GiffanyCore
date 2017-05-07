@@ -42,9 +42,15 @@ public class InputProcessing {
 
 	public void receiveInput(String input) {
 		// First clean up the string
+		System.out.println("Test 2: " + input);
 		for (char c : symbols) {
 			input = input.replace(String.valueOf(c), "");
 		}
+		// For special case
+		if (input.toCharArray()[0] == ' ') {
+			input = input.replaceFirst(" ", "");
+		}
+
 		// Replace in case than more than one spacer
 		input = input.replaceAll("[ ]{2,}", " ");
 		input = input.toLowerCase();
@@ -98,7 +104,7 @@ public class InputProcessing {
 	private void textSearch(String input) {
 		SentenceContainer sentenceCon;
 		ResultContainer resultCon;
-
+		System.out.println("Test 2: " + input);
 		sentenceCon = this.app.mysqlData.dbsentence.getSentence(input);
 		if (sentenceCon == null) {
 			// No keyword found

@@ -16,11 +16,10 @@ public class NiklasPC implements IObjectClass {
 		App.logger("Restart niklaspc");
 		new PowerControl().restartUniversal("10.40.0.10", 22, "root");
 	}
-	
-	public void wakeUp(){
+
+	public void wakeUp() {
 		App.logger("Wakeup NiklasPC");
 		new PowerControl().wakeOnLan("4c:cc:6a:0e:16:58");
 	}
-	
 
 }

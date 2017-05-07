@@ -3,9 +3,9 @@ package de.linzn.aiCore.internal.apiClasses;
 import java.io.IOException;
 
 public class PowerControl {
-	
-	public void wakeOnLan(String mac){
-		//Need "apt-get install etherwake" packet installed
+
+	public void wakeOnLan(String mac) {
+		// Need "apt-get install etherwake" packet installed
 		try {
 			Runtime.getRuntime().exec("etherwake " + mac).waitFor();
 		} catch (IOException | InterruptedException e) {
@@ -13,9 +13,9 @@ public class PowerControl {
 			e.printStackTrace();
 		}
 	}
-	
-	public void restartUniversal(String ip, int port, String user){
-		//Need deposit ssh key first
+
+	public void restartUniversal(String ip, int port, String user) {
+		// Need deposit ssh key first
 		try {
 			Runtime.getRuntime().exec("ssh " + user + "@" + ip + " -p " + port + " 'reboot'").waitFor();
 		} catch (IOException | InterruptedException e) {

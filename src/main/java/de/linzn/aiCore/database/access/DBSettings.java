@@ -12,8 +12,8 @@ public class DBSettings {
 	public String aicore_name;
 	public long aicore_created;
 	private MySQLDatabase mysqlsb;
-	
-	public DBSettings(MySQLDatabase mysqlsb){
+
+	public DBSettings(MySQLDatabase mysqlsb) {
 		this.mysqlsb = mysqlsb;
 	}
 
@@ -27,7 +27,7 @@ public class DBSettings {
 				if (rs.getString("key").equalsIgnoreCase("aicore_name")) {
 					aicore_name = rs.getString("value");
 					App.logger("Setting aicore_name: " + aicore_name);
-				} else if (rs.getString("key").equalsIgnoreCase("aicore_created")){
+				} else if (rs.getString("key").equalsIgnoreCase("aicore_created")) {
 					aicore_created = rs.getLong("value");
 					App.logger("Setting aicore_created: " + aicore_created);
 				}

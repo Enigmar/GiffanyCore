@@ -40,11 +40,11 @@ public class Heartbeat implements Runnable, Executor {
 	// The Executor for running something in the main thread
 	@Override
 	public void execute(Runnable runnable) {
-        try {
-        	runnable.run();
-        } catch (Exception e){
-        	e.printStackTrace();
-        }
+		try {
+			runnable.run();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
