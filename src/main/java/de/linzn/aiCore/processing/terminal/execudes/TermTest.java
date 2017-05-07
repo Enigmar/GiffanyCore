@@ -1,7 +1,7 @@
-package de.linzn.aiCore.inputProcessing.terminal.execudes;
+package de.linzn.aiCore.processing.terminal.execudes;
 
-import de.linzn.aiCore.inputProcessing.terminal.TerminalExecutes;
 import de.linzn.aiCore.internal.objectClasses.Test_debug;
+import de.linzn.aiCore.processing.terminal.TerminalExecutes;
 
 public class TermTest implements TerminalExecutes {
 

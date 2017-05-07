@@ -1,10 +1,10 @@
-package de.linzn.aiCore.inputProcessing.terminal;
+package de.linzn.aiCore.processing.terminal;
 
 import java.util.TreeMap;
 
 import de.linzn.aiCore.App;
-import de.linzn.aiCore.inputProcessing.terminal.execudes.TermExit;
-import de.linzn.aiCore.inputProcessing.terminal.execudes.TermTest;
+import de.linzn.aiCore.processing.terminal.execudes.TermExit;
+import de.linzn.aiCore.processing.terminal.execudes.TermTest;
 
 public class TerminalCommands {
 	private App app;

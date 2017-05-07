@@ -9,7 +9,7 @@ public class Device_raspberry_wohnzimmer_2 implements IObjectClass {
 
 	@Override
 	public void runTask(String function) {
-		new Reflector().runTask(this, function);
+		new Reflector().functionRunner(this, function);
 	}
 
 	public void restart() {

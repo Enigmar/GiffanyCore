@@ -1,4 +1,4 @@
-package de.linzn.aiCore.inputProcessing.terminal;
+package de.linzn.aiCore.processing.terminal;
 
 import java.util.Arrays;
 

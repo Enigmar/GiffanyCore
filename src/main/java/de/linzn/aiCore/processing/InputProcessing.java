@@ -1,9 +1,9 @@
-package de.linzn.aiCore.inputProcessing;
+package de.linzn.aiCore.processing;
 
 import de.linzn.aiCore.App;
-import de.linzn.aiCore.internal.IObjectClass;
 import de.linzn.aiCore.internal.KeywordContainer;
 import de.linzn.aiCore.internal.ObjectContainer;
+import de.linzn.aiCore.internal.Reflector;
 import de.linzn.aiCore.internal.ResultContainer;
 import de.linzn.aiCore.internal.SentenceContainer;
 
@@ -36,12 +36,11 @@ public class InputProcessing {
 			'÷', 'ø', 'ù', 'ú', 'û', 'ü', 'ý', 'þ', 'ÿ' };
 
 	public InputProcessing(App app) {
-		App.logger("Loading InputPocessing module.");
 		this.app = app;
 	}
 
-	public void receiveInput(String input) {
-		if (input.isEmpty()){
+	public void processingInput(String input) {
+		if (input.isEmpty()) {
 			return;
 		}
 		// First clean up the string
@@ -87,7 +86,7 @@ public class InputProcessing {
 			}
 
 			if (keywordCon.keywordID != 0) {
-				this.classRunner(objectCon, keywordCon);
+				new Reflector().classRunner(objectCon, keywordCon);
 			}
 
 			resultCon = this.app.mysqlData.dbresult.getResultByObjects(objectCon, keywordCon);
@@ -120,18 +119,6 @@ public class InputProcessing {
 			} else {
 				App.logger("Sentence: " + resultCon.result);
 			}
-		}
-	}
-
-	@SuppressWarnings("unchecked")
-	private void classRunner(ObjectContainer objectCon, KeywordContainer keywordCon) {
-		Class<IObjectClass> act;
-		try {
-			act = (Class<IObjectClass>) Class.forName("de.linzn.aiCore.internal.objectClasses." + objectCon.classname);
-			IObjectClass objectclass = act.newInstance();
-			objectclass.runTask(keywordCon.function);
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-			e.printStackTrace();
 		}
 	}
 

@@ -1,4 +1,4 @@
-package de.linzn.aiCore.inputProcessing.network;
+package de.linzn.aiCore.processing.network;
 
 import de.linzn.aiCore.App;
 import de.linzn.javaSocket.server.events.SocketTypeEvent;

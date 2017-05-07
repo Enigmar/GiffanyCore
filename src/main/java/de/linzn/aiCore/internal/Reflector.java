@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 
 public class Reflector {
 
-	public void runTask(IObjectClass classObject, String function) {
+	public void functionRunner(IObjectClass classObject, String function) {
 		java.lang.reflect.Method method;
 		try {
 			method = classObject.getClass().getMethod(function);
@@ -26,6 +26,18 @@ public class Reflector {
 			e.printStackTrace();
 		}
 
+	}
+
+	@SuppressWarnings("unchecked")
+	public void classRunner(ObjectContainer objectCon, KeywordContainer keywordCon) {
+		Class<IObjectClass> act;
+		try {
+			act = (Class<IObjectClass>) Class.forName("de.linzn.aiCore.internal.objectClasses." + objectCon.classname);
+			IObjectClass objectclass = act.newInstance();
+			objectclass.runTask(keywordCon.function);
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

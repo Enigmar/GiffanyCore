@@ -5,9 +5,9 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import de.linzn.aiCore.database.MySQLDatabase;
-import de.linzn.aiCore.inputProcessing.InputProcessing;
-import de.linzn.aiCore.inputProcessing.network.NetworkProcessing;
-import de.linzn.aiCore.inputProcessing.terminal.TerminalProcessing;
+import de.linzn.aiCore.processing.Processing;
+import de.linzn.aiCore.processing.network.NetworkProcessing;
+import de.linzn.aiCore.processing.terminal.TerminalProcessing;
 import de.linzn.aiCore.settings.AiSettings;
 
 public class App {
@@ -15,7 +15,7 @@ public class App {
 	public static App appInstance;
 	// Define new variables for later
 	public AiSettings aiSettings;
-	public InputProcessing inputProc;
+	public Processing inputProc;
 	public NetworkProcessing networkProc;
 	public TerminalProcessing terminalProc;
 	public MySQLDatabase mysqlData;
@@ -71,7 +71,7 @@ public class App {
 		Runnable input = new Runnable() {
 			@Override
 			public void run() {
-				inputProc = new InputProcessing(appInstance);
+				inputProc = new Processing(appInstance);
 			}
 
 		};

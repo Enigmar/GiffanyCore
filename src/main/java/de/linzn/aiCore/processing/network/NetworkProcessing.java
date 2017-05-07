@@ -1,4 +1,4 @@
-package de.linzn.aiCore.inputProcessing.network;
+package de.linzn.aiCore.processing.network;
 
 import de.linzn.aiCore.App;
 import de.linzn.javaSocket.server.EnigmarSockserver;
@@ -10,6 +10,8 @@ public class NetworkProcessing {
 
 	// Channels
 	public String defaultChannel = "defaultTransfer";
+	public String textInsertChannel = "textInsertChannel";
+	public String objectInsertChannel = "objectInsertChannel";
 
 	public NetworkProcessing(App app) {
 		App.logger("Loading NetworkProcessing module.");
@@ -24,6 +26,8 @@ public class NetworkProcessing {
 		this.eSockserver.registerEventListener(new TypeListenerConnect(this.app));
 		this.eSockserver.registerEventListener(new TypeListenerDisconnect(this.app));
 		this.eSockserver.registerEventListener(new DataListenerDefault(this.app));
+		this.eSockserver.registerEventListener(new DataListenerTextInsert(this.app));
+		this.eSockserver.registerEventListener(new DataListenerObjectInsert(this.app));
 		this.createNetwork();
 	}
 
