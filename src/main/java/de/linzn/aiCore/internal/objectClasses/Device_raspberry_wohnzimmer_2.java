@@ -5,7 +5,7 @@ import de.linzn.aiCore.internal.IObjectClass;
 import de.linzn.aiCore.internal.Reflector;
 import de.linzn.aiCore.internal.apiClasses.PowerControl;
 
-public class NiklasPC implements IObjectClass {
+public class Device_raspberry_wohnzimmer_2 implements IObjectClass {
 
 	@Override
 	public void runTask(String function) {
@@ -13,12 +13,12 @@ public class NiklasPC implements IObjectClass {
 	}
 
 	public void restart() {
-		App.logger("Restart niklaspc");
-		new PowerControl().restartUniversal("10.40.0.10", 22, "root");
+		App.logger("Restart Raspel-2");
+		new PowerControl().restartUniversal("10.40.0.11", 22, "root");
 	}
 
 	public void wakeUp() {
-		App.logger("Wakeup NiklasPC");
+		App.logger("Wakeup raspel2");
 		new PowerControl().wakeOnLan("4c:cc:6a:0e:16:58");
 	}
 

@@ -5,7 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import de.linzn.aiCore.App;
 import de.linzn.aiCore.internal.IObjectClass;
 
-public class TestObject implements IObjectClass {
+public class Test_debug implements IObjectClass {
 
 	@Override
 	public void runTask(String function) {

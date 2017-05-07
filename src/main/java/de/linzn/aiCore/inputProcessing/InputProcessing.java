@@ -41,8 +41,10 @@ public class InputProcessing {
 	}
 
 	public void receiveInput(String input) {
+		if (input.isEmpty()){
+			return;
+		}
 		// First clean up the string
-		System.out.println("Test 2: " + input);
 		for (char c : symbols) {
 			input = input.replace(String.valueOf(c), "");
 		}
@@ -104,7 +106,6 @@ public class InputProcessing {
 	private void textSearch(String input) {
 		SentenceContainer sentenceCon;
 		ResultContainer resultCon;
-		System.out.println("Test 2: " + input);
 		sentenceCon = this.app.mysqlData.dbsentence.getSentence(input);
 		if (sentenceCon == null) {
 			// No keyword found
