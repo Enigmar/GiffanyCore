@@ -24,7 +24,7 @@ public class DBSentence {
 			String sql = ("SELECT * FROM aicore_sentence WHERE sentence ='"+ sentence + "';");
 			ResultSet rs = st.executeQuery(sql);
 			if (rs.next()) {
-				sentenceCont = new SentenceContainer(rs.getInt("id"), rs.getString("sentence"), rs.getString("result"));
+				sentenceCont = new SentenceContainer(rs.getInt("id"), rs.getString("sentence"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

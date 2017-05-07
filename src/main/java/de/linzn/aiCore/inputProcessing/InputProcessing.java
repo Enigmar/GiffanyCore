@@ -78,34 +78,43 @@ public class InputProcessing {
 				keywordCon = new KeywordContainer(0, objectCon.objectID, null, null);
 			}
 
-			if (keywordCon.keywordID != 0){
+			if (keywordCon.keywordID != 0) {
 				this.classRunner(objectCon, keywordCon);
 			}
-			
-			resultCon = this.app.mysqlData.dbresult.getResult(objectCon, keywordCon);
+
+			resultCon = this.app.mysqlData.dbresult.getResultByObjects(objectCon, keywordCon);
 
 			if (resultCon == null) {
 				// No keyword found
 				App.logger("No ResultContainer found");
+			} else {
+
+				App.logger("Result: " + resultCon.result);
 			}
-			
-			App.logger("Result: " + resultCon.result);
-			
 		}
 
 	}
 
 	private void textSearch(String input) {
-		SentenceContainer sentenceCon = this.app.mysqlData.dbsentence.getSentence(input);
-		if (sentenceCon == null){
+		SentenceContainer sentenceCon;
+		ResultContainer resultCon;
+
+		sentenceCon = this.app.mysqlData.dbsentence.getSentence(input);
+		if (sentenceCon == null) {
 			// No keyword found
 			App.logger("No SentenceContainer found");
 		} else {
-			App.logger("Sentence: " + sentenceCon.result);
-		}
-		
-	}
 
+			resultCon = this.app.mysqlData.dbresult.getResultByText(sentenceCon);
+
+			if (resultCon == null) {
+				// No keyword found
+				App.logger("No ResultContainer found");
+			} else {
+				App.logger("Sentence: " + resultCon.result);
+			}
+		}
+	}
 
 	@SuppressWarnings("unchecked")
 	private void classRunner(ObjectContainer objectCon, KeywordContainer keywordCon) {
