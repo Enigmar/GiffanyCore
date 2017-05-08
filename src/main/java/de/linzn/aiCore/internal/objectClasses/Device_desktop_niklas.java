@@ -17,7 +17,7 @@ public class Device_desktop_niklas implements IObjectClass {
 		new PowerControl().restartUniversal("10.40.0.10", 22, "root");
 	}
 
-	public void wakeUp() {
+	public void wakeup() {
 		App.logger("Wakeup NiklasPC");
 		new PowerControl().wakeOnLan("4c:cc:6a:0e:16:58");
 	}

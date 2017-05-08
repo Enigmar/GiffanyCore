@@ -13,17 +13,17 @@ import de.linzn.aiCore.internal.SentenceContainer;
 
 public class DBResult {
 
-	private MySQLDatabase mysqlsb;
+	private MySQLDatabase mysqldb;
 
-	public DBResult(MySQLDatabase mysqlsb) {
-		this.mysqlsb = mysqlsb;
+	public DBResult(MySQLDatabase mysqldb) {
+		this.mysqldb = mysqldb;
 	}
 
 	public ResultContainer getResultByObjects(ObjectContainer objectCon, KeywordContainer keywordCon) {
 		ResultContainer resultCont = null;
 		try {
 
-			Connection con = this.mysqlsb.getConnection();
+			Connection con = this.mysqldb.getConnection();
 			Statement st = con.createStatement();
 			String sql = ("SELECT * FROM aicore_resultindex WHERE objectid ='" + objectCon.objectID
 					+ "' AND keywordid = '" + keywordCon.keywordID + "';");
@@ -53,7 +53,7 @@ public class DBResult {
 		ResultContainer resultCont = null;
 		try {
 
-			Connection con = this.mysqlsb.getConnection();
+			Connection con = this.mysqldb.getConnection();
 			Statement st = con.createStatement();
 			String sql = ("SELECT * FROM aicore_resultindex WHERE sentenceid = '" + sentenceCon.sentenceID + "';");
 			ResultSet rs = st.executeQuery(sql);

@@ -10,6 +10,7 @@ import de.linzn.aiCore.database.access.DBObject;
 import de.linzn.aiCore.database.access.DBResult;
 import de.linzn.aiCore.database.access.DBSentence;
 import de.linzn.aiCore.database.access.DBSettings;
+import de.linzn.aiCore.database.insert.DBInsert;
 
 public class MySQLDatabase {
 	// Define variables
@@ -23,6 +24,7 @@ public class MySQLDatabase {
 	public DBObject dbobject;
 	public DBResult dbresult;
 	public DBSentence dbsentence;
+	public DBInsert dbinsert;
 
 	// the class
 	public MySQLDatabase(App app) {
@@ -37,6 +39,7 @@ public class MySQLDatabase {
 		this.dbobject = new DBObject(this);
 		this.dbresult = new DBResult(this);
 		this.dbsentence = new DBSentence(this);
+		this.dbinsert = new DBInsert(this);
 		updateConnection();
 		this.dbsetting.loadSettings();
 	}

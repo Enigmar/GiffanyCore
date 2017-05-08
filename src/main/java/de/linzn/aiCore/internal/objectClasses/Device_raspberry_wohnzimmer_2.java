@@ -17,7 +17,7 @@ public class Device_raspberry_wohnzimmer_2 implements IObjectClass {
 		new PowerControl().restartUniversal("10.40.0.11", 22, "root");
 	}
 
-	public void wakeUp() {
+	public void wakeup() {
 		App.logger("Wakeup raspel2");
 		new PowerControl().wakeOnLan("4c:cc:6a:0e:16:58");
 	}

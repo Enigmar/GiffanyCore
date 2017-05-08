@@ -32,7 +32,8 @@ public class Reflector {
 	public void classRunner(ObjectContainer objectCon, KeywordContainer keywordCon) {
 		Class<IObjectClass> act;
 		try {
-			act = (Class<IObjectClass>) Class.forName("de.linzn.aiCore.internal.objectClasses." + objectCon.classname);
+			act = (Class<IObjectClass>) Class.forName("de.linzn.aiCore.internal.objectClasses."
+					+ Character.toUpperCase(objectCon.classname.charAt(0)) + objectCon.classname.substring(1));
 			IObjectClass objectclass = act.newInstance();
 			objectclass.runTask(keywordCon.function);
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
