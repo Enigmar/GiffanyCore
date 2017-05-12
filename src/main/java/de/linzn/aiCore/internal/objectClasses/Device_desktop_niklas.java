@@ -12,10 +12,6 @@ public class Device_desktop_niklas implements IObjectClass {
 		new Reflector().functionRunner(this, function);
 	}
 
-	public void restart() {
-		App.logger("Restart niklaspc");
-		new PowerControl().restartUniversal("10.40.0.10", 22, "root");
-	}
 
 	public void wakeup() {
 		App.logger("Wakeup NiklasPC");
