@@ -1,6 +1,7 @@
 package de.linzn.aiCore.processing;
 
 import de.linzn.aiCore.App;
+import de.linzn.aiCore.internal.ClientContainer;
 
 public class Processing {
 	private App app;
@@ -10,8 +11,8 @@ public class Processing {
 		this.app = app;
 	}
 
-	public void receiveInput(String input) {
-		new InputProcessing(app).processingInput(input);
+	public void receiveInput(ClientContainer clientContainer, String input) {
+		new InputProcessing(app).processingInput(clientContainer, input);
 	}
 
 	public void receiveInsertText(String textSentence, String textResult) {

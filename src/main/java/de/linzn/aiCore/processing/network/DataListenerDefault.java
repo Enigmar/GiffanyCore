@@ -4,6 +4,8 @@ import java.io.DataInputStream;
 import java.io.IOException;
 
 import de.linzn.aiCore.App;
+import de.linzn.aiCore.internal.ClientContainer;
+import de.linzn.aiCore.internal.ClientType;
 import de.linzn.javaSocket.server.events.SocketDataEvent;
 import de.linzn.javaSocket.server.interfaces.IDataListener;
 
@@ -32,8 +34,9 @@ public class DataListenerDefault implements IDataListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		ClientContainer clientContainer = new ClientContainer(event.getMessenger().getClientUUID(), ClientType.DEFAULT);
 
-		this.app.inputProc.receiveInput(values);
+		this.app.inputProc.receiveInput(clientContainer, values);
 
 	}
 

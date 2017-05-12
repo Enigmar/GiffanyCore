@@ -1,18 +1,23 @@
 package de.linzn.aiCore.processing.terminal;
 
 import java.util.Arrays;
+import java.util.UUID;
 
 import de.linzn.aiCore.App;
+import de.linzn.aiCore.internal.ClientContainer;
+import de.linzn.aiCore.internal.ClientType;
 
 public class TerminalProcessing implements Runnable {
 	private App app;
 	private boolean terminalMode;
 	private TerminalCommands termCommands;
+	public UUID clientUUID;
 
 	public TerminalProcessing(App app) {
 		App.logger("Loading TerminalProcessing module.");
 		this.app = app;
-		this.app.runTaskAsync(this);
+		this.clientUUID = UUID.randomUUID();
+        this.app.runTaskAsync(this);
 		this.termCommands = new TerminalCommands(this.app);
 	}
 
@@ -47,7 +52,8 @@ public class TerminalProcessing implements Runnable {
 						App.logger("No result for this input!");
 					}
 				} else {
-					this.app.inputProc.receiveInput(input);
+					ClientContainer clientContainer = new ClientContainer(clientUUID, ClientType.TERMINAL);
+					this.app.inputProc.receiveInput(clientContainer, input);
 				}
 			}
 		}

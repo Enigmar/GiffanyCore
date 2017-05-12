@@ -10,6 +10,7 @@ public class NetworkProcessing {
 
 	// Channels
 	public String defaultChannel = "defaultTransfer";
+	public String resultChannel = "resultTransfer";
 	public String textInsertChannel = "textInsertChannel";
 	public String objectInsertChannel = "objectInsertChannel";
 

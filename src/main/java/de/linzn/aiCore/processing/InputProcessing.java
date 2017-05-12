@@ -1,11 +1,7 @@
 package de.linzn.aiCore.processing;
 
 import de.linzn.aiCore.App;
-import de.linzn.aiCore.internal.KeywordContainer;
-import de.linzn.aiCore.internal.ObjectContainer;
-import de.linzn.aiCore.internal.Reflector;
-import de.linzn.aiCore.internal.ResultContainer;
-import de.linzn.aiCore.internal.SentenceContainer;
+import de.linzn.aiCore.internal.*;
 
 public class InputProcessing {
 	private App app;
@@ -39,7 +35,7 @@ public class InputProcessing {
 		this.app = app;
 	}
 
-	public void processingInput(String input) {
+	public void processingInput(ClientContainer clientContainer, String input) {
 		if (input.isEmpty()) {
 			return;
 		}
@@ -71,7 +67,7 @@ public class InputProcessing {
 		if (objectCon == null) {
 			// Nothing found
 			App.logger("No ObjectContainer found");
-			this.textSearch(input);
+			this.textSearch(clientContainer, input);
 		} else {
 			for (String split : splitedInput) {
 				if (keywordCon == null) {
@@ -95,14 +91,13 @@ public class InputProcessing {
 				// No keyword found
 				App.logger("No ResultContainer found");
 			} else {
-
-				App.logger("Result: " + resultCon.result);
+				clientContainer.sendResult(resultCon.result);
 			}
 		}
 
 	}
 
-	private void textSearch(String input) {
+	private void textSearch(ClientContainer clientContainer, String input) {
 		SentenceContainer sentenceCon;
 		ResultContainer resultCon;
 		sentenceCon = this.app.mysqlData.dbsentence.getSentence(input);
@@ -117,7 +112,7 @@ public class InputProcessing {
 				// No keyword found
 				App.logger("No ResultContainer found");
 			} else {
-				App.logger("Sentence: " + resultCon.result);
+				clientContainer.sendResult("Sentence: " + resultCon.result);
 			}
 		}
 	}
