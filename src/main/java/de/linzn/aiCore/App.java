@@ -22,6 +22,7 @@ public class App {
 	public Heartbeat heartbeat;
 	private long start_time;
 
+
 	// The alive value for the heartbeat thread
 	public boolean isAlive;
 	// The task list for next heartbeat
