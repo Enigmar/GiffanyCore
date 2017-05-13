@@ -1,28 +1,46 @@
 package de.linzn.aiCore.processing;
 
 import de.linzn.aiCore.App;
-import de.linzn.aiCore.internal.ClientContainer;
+import de.linzn.aiCore.internal.container.ClientContainer;
 
 public class Processing {
-	private App app;
+    private App app;
 
-	public Processing(App app) {
-		App.logger("Loading Pocessing module.");
-		this.app = app;
-	}
+    public Processing(App app) {
+        App.logger("Loading Pocessing module.");
+        this.app = app;
+    }
 
-	public void receiveInput(ClientContainer clientContainer, String input) {
-		new InputProcessing(app).processingInput(clientContainer, input);
-	}
+    public void receiveInput(ClientContainer clientContainer, String input) {
 
-	public void receiveInsertText(String textSentence, String textResult) {
-		new InsertProcessing(app).processingInsertText(textSentence, textResult);
-	}
+        Runnable task = new Runnable() {
+            @Override
+            public void run() {
+                new InputProcessing(app).processingInput(clientContainer, input);
+            }
+        };
+        this.app.runTaskAsync(task);
+    }
 
-	public void receiveInsertObject(String objectName, String objectClass, String keywordName, String keywordFunction,
-			String objectResult) {
-		new InsertProcessing(app).processingInsertObject(objectName, objectClass, keywordName, keywordFunction,
-				objectResult);
-	}
+    public void receiveInsertText(String textSentence, String textResult) {
+        Runnable task = new Runnable() {
+            @Override
+            public void run() {
+                new InsertProcessing(app).processingInsertText(textSentence, textResult);
+            }
+        };
+        this.app.runTaskAsync(task);
+    }
 
+    public void receiveInsertObject(String objectName, String objectClass, String keywordName, String keywordFunction,
+                                    String objectResult) {
+
+        Runnable task = new Runnable() {
+            @Override
+            public void run() {
+                new InsertProcessing(app).processingInsertObject(objectName, objectClass, keywordName, keywordFunction,
+                        objectResult);
+            }
+        };
+    }
 }
