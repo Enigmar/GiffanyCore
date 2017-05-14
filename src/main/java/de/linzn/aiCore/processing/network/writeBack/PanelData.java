@@ -21,8 +21,8 @@ public class PanelData {
                         App.appInstance.networkProc.requestDataTransfer);
                 try {
                     out.writeFloat(panelContainer.temperature);
-                    out.writeUTF(panelContainer.date);
-                    out.writeUTF(panelContainer.time);
+                    out.writeLong(panelContainer.date);
+                    out.writeLong(panelContainer.refreshDate);
 
                 } catch (IOException e) {
                     e.printStackTrace();

@@ -3,18 +3,16 @@ package de.linzn.aiCore.internal.container;
 
 public class PanelContainer {
     public float temperature;
-    public String date;
-    public String time;
+    public long date;
+    public long refreshDate;
 
     public void setTemperature(float temperature) {
         this.temperature = temperature;
     }
 
-    public void setDate(String date) {
+    public void setDate(long date) {
         this.date = date;
     }
 
-    public void setTime(String time) {
-        this.time = time;
-    }
+    public void setRefreshDate(long refreshDate){this.refreshDate = refreshDate;}
 }
