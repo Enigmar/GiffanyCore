@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class App {
     // The main instance
@@ -24,7 +25,7 @@ public class App {
     private long start_time;
 
     // The alive value for the heartbeat thread
-    public boolean isAlive;
+    public AtomicBoolean isAlive;
     // The task list for next heartbeat
     public LinkedList<Runnable> taskList = new LinkedList<Runnable>();
 

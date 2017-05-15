@@ -8,7 +8,7 @@ public class TermExit implements TerminalExecutes {
     @Override
     public boolean executeTerminal() {
         System.out.println("Set alive mode to false.");
-        App.appInstance.isAlive = false;
+        App.appInstance.isAlive.set(false);
         return true;
     }
 

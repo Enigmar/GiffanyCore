@@ -23,7 +23,7 @@ public class TerminalProcessing implements Runnable {
 
     @Override
     public void run() {
-        while (this.app.isAlive) {
+        while (this.app.isAlive.get()) {
             String[] inputArray;
             String input;
             if (this.terminalMode) {

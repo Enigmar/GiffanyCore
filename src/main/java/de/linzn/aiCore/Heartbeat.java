@@ -12,13 +12,13 @@ public class Heartbeat implements Runnable, Executor {
         App.logger("Creating new Heartbeat instance.");
         this.heartbeat = this;
         this.app = app;
-        this.app.isAlive = true;
+        this.app.isAlive.set(true);
     }
 
     // The runnable for extends runnable
     public void run() {
         // Is running, until alive is false
-        while (this.app.isAlive) {
+        while (this.app.isAlive.get()) {
             try {
                 Thread.sleep(20);
             } catch (InterruptedException e) {
