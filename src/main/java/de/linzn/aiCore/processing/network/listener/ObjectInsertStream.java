@@ -41,7 +41,6 @@ public class ObjectInsertStream implements IDataListener {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
         this.app.inputProc.receiveInsertObject(objectName, objectClass, keywordName, keywordFunction, objectResult);
 
     }

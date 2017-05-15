@@ -42,5 +42,6 @@ public class Processing {
                         objectResult);
             }
         };
+        this.app.runTaskAsync(task);
     }
 }
