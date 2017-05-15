@@ -4,6 +4,7 @@ package de.linzn.aiCore.internal.requests;
 import de.linzn.aiCore.App;
 import de.linzn.aiCore.internal.container.ClientContainer;
 import de.linzn.aiCore.internal.container.PanelContainer;
+import de.linzn.aiCore.internal.skillsApi.WeatherAPI;
 import de.linzn.aiCore.processing.network.writeBack.PanelData;
 import net.aksingh.owmjapis.CurrentWeather;
 import net.aksingh.owmjapis.OpenWeatherMap;
@@ -31,23 +32,12 @@ public class Panel {
 
     private PanelContainer getData() {
         PanelContainer panelContainer = new PanelContainer();
-        CurrentWeather cwd = getWeather();
+        WeatherAPI weatherAPI = new WeatherAPI(0);
         panelContainer.setDate(new Date().getTime());
-        panelContainer.setTemperature(cwd.getMainInstance().getTemperature());
+        panelContainer.setTemperature(weatherAPI.cwd.getMainInstance().getTemperature());
         panelContainer.setRefreshDate(new Date().getTime());
         return panelContainer;
     }
 
-    private CurrentWeather getWeather() {
-        OpenWeatherMap owm = new OpenWeatherMap("0b33ae42ba7acd32ab5ca39535b7568f");
-        owm.setUnits(OpenWeatherMap.Units.METRIC);
-        CurrentWeather cwd = null;
-        try {
-            cwd = owm.currentWeatherByCityName("Niederwuerzbach");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return cwd;
 
-    }
 }
