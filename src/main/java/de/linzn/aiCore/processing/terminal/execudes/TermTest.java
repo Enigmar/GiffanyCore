@@ -7,7 +7,7 @@ public class TermTest implements TerminalExecutes {
 
     @Override
     public boolean executeTerminal() {
-        new Panel(null).printTest();
+
         return true;
     }
 
