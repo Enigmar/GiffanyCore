@@ -28,10 +28,11 @@ public class Panel {
         App.appInstance.runTaskAsync(task);
     }
 
-    public void printTest(){
+    public void printTest() {
         PanelContainer test = getData();
         System.out.println("Date: " + test.temperature);
     }
+
     private PanelContainer getData() {
         PanelContainer panelContainer = new PanelContainer();
         CurrentWeather cwd = getWeather();
@@ -41,7 +42,7 @@ public class Panel {
         return panelContainer;
     }
 
-    private CurrentWeather getWeather(){
+    private CurrentWeather getWeather() {
         OpenWeatherMap owm = new OpenWeatherMap("0b33ae42ba7acd32ab5ca39535b7568f");
         owm.setUnits(OpenWeatherMap.Units.METRIC);
         CurrentWeather cwd = null;

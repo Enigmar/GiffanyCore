@@ -14,5 +14,7 @@ public class PanelContainer {
         this.date = date;
     }
 
-    public void setRefreshDate(long refreshDate){this.refreshDate = refreshDate;}
+    public void setRefreshDate(long refreshDate) {
+        this.refreshDate = refreshDate;
+    }
 }
