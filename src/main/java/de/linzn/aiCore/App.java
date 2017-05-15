@@ -44,6 +44,7 @@ public class App {
     // The instance
     public App(String[] args) {
         this.start_time = System.nanoTime();
+        this.isAlive = new AtomicBoolean();
         appInstance = this;
         this.heartbeat = new Heartbeat(appInstance);
         Thread heart = new Thread(this.heartbeat);
