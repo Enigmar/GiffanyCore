@@ -1,4 +1,4 @@
-package de.linzn.aiCore.internal.Requests;
+package de.linzn.aiCore.internal.requests;
 
 
 import de.linzn.aiCore.App;
@@ -28,10 +28,6 @@ public class Panel {
         App.appInstance.runTaskAsync(task);
     }
 
-    public void printTest() {
-        PanelContainer test = getData();
-        System.out.println("Date: " + test.temperature);
-    }
 
     private PanelContainer getData() {
         PanelContainer panelContainer = new PanelContainer();
