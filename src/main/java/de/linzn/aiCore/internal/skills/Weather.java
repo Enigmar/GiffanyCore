@@ -1,9 +1,7 @@
 package de.linzn.aiCore.internal.skills;
 
-import de.linzn.aiCore.App;
 import de.linzn.aiCore.internal.IObjectClass;
 import de.linzn.aiCore.internal.Reflector;
-import de.linzn.aiCore.internal.skillsApi.PowerControl;
 
 public class Weather implements IObjectClass {
 

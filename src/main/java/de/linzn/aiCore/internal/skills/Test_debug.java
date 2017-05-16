@@ -4,8 +4,6 @@ import de.linzn.aiCore.App;
 import de.linzn.aiCore.internal.IObjectClass;
 import de.linzn.aiCore.internal.Reflector;
 
-import java.lang.reflect.InvocationTargetException;
-
 public class Test_debug implements IObjectClass {
 
     @Override

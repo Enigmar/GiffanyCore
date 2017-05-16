@@ -1,6 +1,7 @@
 package de.linzn.aiCore;
 
 import de.linzn.aiCore.database.MySQLDatabase;
+import de.linzn.aiCore.internal.skillsApi.SkillApi;
 import de.linzn.aiCore.processing.Processing;
 import de.linzn.aiCore.processing.network.NetworkProcessing;
 import de.linzn.aiCore.processing.terminal.TerminalProcessing;
@@ -21,6 +22,7 @@ public class App {
     public NetworkProcessing networkProc;
     public TerminalProcessing terminalProc;
     public MySQLDatabase mysqlData;
+    public SkillApi skillApi;
     public Heartbeat heartbeat;
     private long start_time;
 
@@ -93,11 +95,20 @@ public class App {
 
         };
 
+        Runnable skill = new Runnable() {
+            @Override
+            public void run() {
+                skillApi = new SkillApi(appInstance);
+            }
+
+        };
+
         this.runTaskSync(settings);
         this.runTaskSync(mysql);
         this.runTaskSync(input);
         this.runTaskSync(network);
         this.runTaskSync(terminal);
+        this.runTaskSync(skill);
     }
 
     private void finishStartup() {

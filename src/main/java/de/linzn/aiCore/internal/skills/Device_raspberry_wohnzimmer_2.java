@@ -3,7 +3,6 @@ package de.linzn.aiCore.internal.skills;
 import de.linzn.aiCore.App;
 import de.linzn.aiCore.internal.IObjectClass;
 import de.linzn.aiCore.internal.Reflector;
-import de.linzn.aiCore.internal.skillsApi.PowerControl;
 
 public class Device_raspberry_wohnzimmer_2 implements IObjectClass {
 
@@ -14,7 +13,7 @@ public class Device_raspberry_wohnzimmer_2 implements IObjectClass {
 
     public void restart() {
         App.logger("Restart Raspel-2");
-        new PowerControl().restartUniversal("10.40.0.11", 22, "root");
+        App.appInstance.skillApi.powerControl.restartUniversal("10.40.0.11", 22, "root");
     }
 
 

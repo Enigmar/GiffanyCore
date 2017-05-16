@@ -4,12 +4,8 @@ package de.linzn.aiCore.internal.requests;
 import de.linzn.aiCore.App;
 import de.linzn.aiCore.internal.container.ClientContainer;
 import de.linzn.aiCore.internal.container.PanelContainer;
-import de.linzn.aiCore.internal.skillsApi.WeatherAPI;
 import de.linzn.aiCore.processing.network.writeBack.PanelData;
-import net.aksingh.owmjapis.CurrentWeather;
-import net.aksingh.owmjapis.OpenWeatherMap;
 
-import java.io.IOException;
 import java.util.Date;
 
 public class Panel {
@@ -32,9 +28,8 @@ public class Panel {
 
     private PanelContainer getData() {
         PanelContainer panelContainer = new PanelContainer();
-        WeatherAPI weatherAPI = new WeatherAPI(0);
         panelContainer.setDate(new Date().getTime());
-        panelContainer.setTemperature(weatherAPI.cwd.getMainInstance().getTemperature());
+        panelContainer.setTemperature(App.appInstance.skillApi.weatherApi.weatherCurrent.getMainInstance().getTemperature());
         panelContainer.setRefreshDate(new Date().getTime());
         return panelContainer;
     }
