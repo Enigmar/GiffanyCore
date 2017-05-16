@@ -12,7 +12,6 @@ public class Device_raspberry_niklas_3 implements IObjectClass {
     }
 
     public void restart() {
-        App.logger("Restart Raspel-3");
         App.appInstance.skillApi.powerControl.restartUniversal("10.40.0.10", 22, "root");
     }
 

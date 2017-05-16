@@ -12,7 +12,6 @@ public class Device_raspberry_wohnzimmer_2 implements IObjectClass {
     }
 
     public void restart() {
-        App.logger("Restart Raspel-2");
         App.appInstance.skillApi.powerControl.restartUniversal("10.40.0.11", 22, "root");
     }
 

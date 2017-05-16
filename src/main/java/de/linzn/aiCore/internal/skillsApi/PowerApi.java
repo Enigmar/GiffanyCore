@@ -15,6 +15,7 @@ public class PowerApi {
     public void wakeOnLan(String mac) {
         // Need "apt-get install etherwake" packet installed
         try {
+            App.logger("Send wakeonlan packet to " + mac);
             Runtime.getRuntime().exec("etherwake " + mac).waitFor(1000, TimeUnit.MILLISECONDS);
         } catch (IOException | InterruptedException e) {
             // TODO Auto-generated catch block
@@ -25,6 +26,7 @@ public class PowerApi {
     public void restartUniversal(String ip, int port, String user) {
         // Need deposit ssh key first
         try {
+            App.logger("Send restart signal to " + ip);
             Runtime.getRuntime().exec("ssh " + user + "@" + ip + " -p " + port + " 'reboot'").waitFor(1000, TimeUnit.MILLISECONDS);
         } catch (IOException | InterruptedException e) {
             // TODO Auto-generated catch block
@@ -35,6 +37,7 @@ public class PowerApi {
     public void shutdownUniversal(String ip, int port, String user) {
         // Need deposit ssh key first
         try {
+            App.logger("Send shutdown signal to " + ip);
             Runtime.getRuntime().exec("ssh " + user + "@" + ip + " -p " + port + " 'shutdown -h now'").waitFor(1000, TimeUnit.MILLISECONDS);
         } catch (IOException | InterruptedException e) {
             // TODO Auto-generated catch block

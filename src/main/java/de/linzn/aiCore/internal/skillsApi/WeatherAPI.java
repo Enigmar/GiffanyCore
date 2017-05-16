@@ -43,8 +43,12 @@ public class WeatherAPI {
 
     private void praseWeather() {
         try {
+            App.logger("Get new weather data for location " + this.location);
+            App.logger("Get new weather for current time");
             weatherCurrent = owm.currentWeatherByCityName(this.location);
+            App.logger("Get new weather for next day");
             weatherNextDay = owm.dailyForecastByCityName(this.location, (byte) 1);
+            App.logger("Get new weather for next 2 day");
             weatherNextTwoDay = owm.dailyForecastByCityName(this.location, (byte) 2);
         } catch (IOException e) {
             e.printStackTrace();

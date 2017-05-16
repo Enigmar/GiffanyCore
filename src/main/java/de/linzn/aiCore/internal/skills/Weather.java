@@ -13,7 +13,6 @@ public class Weather implements IObjectClass {
 
     public void today() {
         System.out.println("Asking for weather today");
-
     }
 
     public void oneDay() {
