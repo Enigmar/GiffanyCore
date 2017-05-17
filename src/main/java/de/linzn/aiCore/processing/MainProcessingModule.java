@@ -13,7 +13,7 @@ public class MainProcessingModule {
         this.app = app;
     }
 
-    public void receiveInput(ClientContainer clientContainer, String input) {
+    public void provideInput(ClientContainer clientContainer, String input) {
 
         Runnable task = new Runnable() {
             @Override

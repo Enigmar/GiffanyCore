@@ -69,5 +69,10 @@
             <artifactId>owm-japis</artifactId>
             <version>2.5.0.3</version>
         </dependency>
+        <dependency>
+            <groupId>de.linzn</groupId>
+            <artifactId>ch7466ce-api</artifactId>
+            <version>0.2.1</version>
+        </dependency>
     </dependencies>
 </project>

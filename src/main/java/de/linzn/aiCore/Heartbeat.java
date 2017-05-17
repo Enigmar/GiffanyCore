@@ -9,7 +9,7 @@ public class Heartbeat implements Runnable, Executor {
 
     // The class
     public Heartbeat(App app) {
-        App.logger("Creating new Heartbeat instance.");
+        App.logger("Creating new Heartbeat instance ");
         this.heartbeat = this;
         this.app = app;
         this.app.isAlive.set(true);

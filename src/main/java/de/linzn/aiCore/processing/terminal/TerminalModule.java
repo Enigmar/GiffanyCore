@@ -54,7 +54,7 @@ public class TerminalModule implements Runnable {
                     }
                 } else {
                     ClientContainer clientContainer = new ClientContainer(clientUUID, ClientType.TERMINAL);
-                    this.app.inputProc.receiveInput(clientContainer, input);
+                    this.app.inputProc.provideInput(clientContainer, input);
                 }
             }
         }

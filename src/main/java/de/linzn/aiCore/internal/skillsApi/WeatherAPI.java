@@ -29,7 +29,7 @@ public class WeatherAPI {
                 do {
                     praseWeather();
                     try {
-                        Thread.sleep(1000 * 60);
+                        Thread.sleep(1000 * 120);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
