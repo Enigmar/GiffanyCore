@@ -1,6 +1,6 @@
 package de.linzn.aiCore.database.access;
 
-import de.linzn.aiCore.database.MySQLDatabase;
+import de.linzn.aiCore.database.DatabaseModule;
 import de.linzn.aiCore.internal.container.KeywordContainer;
 import de.linzn.aiCore.internal.container.ObjectContainer;
 import de.linzn.aiCore.internal.container.ResultContainer;
@@ -13,9 +13,9 @@ import java.sql.Statement;
 
 public class DBResult {
 
-    private MySQLDatabase mysqldb;
+    private DatabaseModule mysqldb;
 
-    public DBResult(MySQLDatabase mysqldb) {
+    public DBResult(DatabaseModule mysqldb) {
         this.mysqldb = mysqldb;
     }
 
@@ -43,6 +43,8 @@ public class DBResult {
                 resultCont = new ResultContainer(objectid, keywordid, rs.getString("value"));
             }
 
+            // Release connection.
+            this.mysqldb.releaseConnection(con);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -69,6 +71,8 @@ public class DBResult {
             if (rs.next()) {
                 resultCont = new ResultContainer(sentenceID, rs.getString("value"));
             }
+            // Release connection.
+            this.mysqldb.releaseConnection(con);
 
         } catch (SQLException e) {
             e.printStackTrace();

@@ -1,7 +1,7 @@
 package de.linzn.aiCore.processing.terminal.execudes;
 
 import de.linzn.aiCore.App;
-import de.linzn.aiCore.processing.terminal.TerminalExecutes;
+import de.linzn.aiCore.processing.terminal.template.TerminalExecutes;
 
 public class TermExit implements TerminalExecutes {
 

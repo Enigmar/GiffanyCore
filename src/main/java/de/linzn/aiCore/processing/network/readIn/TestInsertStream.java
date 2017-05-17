@@ -1,6 +1,7 @@
-package de.linzn.aiCore.processing.network.listener;
+package de.linzn.aiCore.processing.network.readIn;
 
 import de.linzn.aiCore.App;
+import de.linzn.aiCore.processing.network.template.Channel;
 import de.linzn.javaSocket.server.events.SocketDataEvent;
 import de.linzn.javaSocket.server.interfaces.IDataListener;
 
@@ -18,7 +19,7 @@ public class TestInsertStream implements IDataListener {
     @Override
     public String getChannel() {
         // TODO Auto-generated method stub
-        return this.app.networkProc.textInsertChannel;
+        return Channel.textInsertChannel;
     }
 
     @Override

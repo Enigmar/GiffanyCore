@@ -1,8 +1,9 @@
-package de.linzn.aiCore.processing.network.listener;
+package de.linzn.aiCore.processing.network.readIn;
 
 import de.linzn.aiCore.App;
 import de.linzn.aiCore.internal.ClientType;
 import de.linzn.aiCore.internal.container.ClientContainer;
+import de.linzn.aiCore.processing.network.template.Channel;
 import de.linzn.javaSocket.server.events.SocketDataEvent;
 import de.linzn.javaSocket.server.interfaces.IDataListener;
 
@@ -20,7 +21,7 @@ public class DefaultStream implements IDataListener {
     @Override
     public String getChannel() {
         // TODO Auto-generated method stub
-        return this.app.networkProc.defaultChannel;
+        return Channel.defaultChannel;
     }
 
     @Override

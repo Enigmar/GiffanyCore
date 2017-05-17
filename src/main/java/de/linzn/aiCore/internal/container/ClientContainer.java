@@ -3,6 +3,7 @@ package de.linzn.aiCore.internal.container;
 
 import de.linzn.aiCore.App;
 import de.linzn.aiCore.internal.ClientType;
+import de.linzn.aiCore.processing.network.template.Channel;
 import de.linzn.javaSocket.server.run.ConnectedClient;
 
 import java.io.ByteArrayOutputStream;
@@ -29,7 +30,7 @@ public class ClientContainer {
             if (connectedClient != null) {
                 ByteArrayOutputStream b = new ByteArrayOutputStream();
                 DataOutputStream out = App.appInstance.networkProc.eSockserver.initialChannel(b,
-                        App.appInstance.networkProc.resultChannel);
+                        Channel.resultChannel);
 
                 try {
                     out.writeUTF(result);

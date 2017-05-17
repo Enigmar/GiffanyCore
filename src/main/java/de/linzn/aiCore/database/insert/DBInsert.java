@@ -1,6 +1,6 @@
 package de.linzn.aiCore.database.insert;
 
-import de.linzn.aiCore.database.MySQLDatabase;
+import de.linzn.aiCore.database.DatabaseModule;
 import de.linzn.aiCore.internal.container.KeywordContainer;
 import de.linzn.aiCore.internal.container.ObjectContainer;
 import de.linzn.aiCore.internal.container.ResultContainer;
@@ -11,9 +11,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DBInsert {
-    private MySQLDatabase mysqldb;
+    private DatabaseModule mysqldb;
 
-    public DBInsert(MySQLDatabase mysqldb) {
+    public DBInsert(DatabaseModule mysqldb) {
         this.mysqldb = mysqldb;
     }
 
@@ -38,10 +38,12 @@ public class DBInsert {
                             rs.getString("class"));
                 }
             }
-
+            // Release connection.
+            this.mysqldb.releaseConnection(con);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return objectCont;
     }
 
@@ -70,6 +72,8 @@ public class DBInsert {
                 }
             }
 
+            // Release connection.
+            this.mysqldb.releaseConnection(con);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -118,6 +122,8 @@ public class DBInsert {
                 resultCont = new ResultContainer(objectCon.objectID, keywordCon.keywordID, rs.getString("value"));
             }
 
+            // Release connection.
+            this.mysqldb.releaseConnection(con);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -170,7 +176,8 @@ public class DBInsert {
 
                 resultCont = new ResultContainer(sentenceID, rs.getString("value"));
             }
-
+            // Release connection.
+            this.mysqldb.releaseConnection(con);
         } catch (SQLException e) {
             e.printStackTrace();
         }

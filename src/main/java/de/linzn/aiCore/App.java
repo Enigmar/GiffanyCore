@@ -1,11 +1,11 @@
 package de.linzn.aiCore;
 
-import de.linzn.aiCore.database.MySQLDatabase;
+import de.linzn.aiCore.database.DatabaseModule;
 import de.linzn.aiCore.internal.skillsApi.SkillApi;
-import de.linzn.aiCore.processing.Processing;
-import de.linzn.aiCore.processing.network.NetworkProcessing;
-import de.linzn.aiCore.processing.terminal.TerminalProcessing;
-import de.linzn.aiCore.settings.AiSettings;
+import de.linzn.aiCore.processing.MainProcessingModule;
+import de.linzn.aiCore.processing.network.NetworkModule;
+import de.linzn.aiCore.processing.terminal.TerminalModule;
+import de.linzn.aiCore.settings.FileSettings;
 
 import java.util.LinkedList;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -17,11 +17,11 @@ public class App {
     // The main instance
     public static App appInstance;
     // Define new variables for later
-    public AiSettings aiSettings;
-    public Processing inputProc;
-    public NetworkProcessing networkProc;
-    public TerminalProcessing terminalProc;
-    public MySQLDatabase mysqlData;
+    public FileSettings aiSettings;
+    public MainProcessingModule inputProc;
+    public NetworkModule networkProc;
+    public TerminalModule terminalProc;
+    public DatabaseModule mysqlData;
     public SkillApi skillApi;
     public Heartbeat heartbeat;
     private long start_time;
@@ -62,35 +62,35 @@ public class App {
         Runnable settings = new Runnable() {
             @Override
             public void run() {
-                aiSettings = new AiSettings(appInstance);
+                aiSettings = new FileSettings(appInstance);
             }
 
         };
         Runnable mysql = new Runnable() {
             @Override
             public void run() {
-                mysqlData = new MySQLDatabase(appInstance);
+                mysqlData = new DatabaseModule(appInstance);
             }
 
         };
         Runnable input = new Runnable() {
             @Override
             public void run() {
-                inputProc = new Processing(appInstance);
+                inputProc = new MainProcessingModule(appInstance);
             }
 
         };
         Runnable network = new Runnable() {
             @Override
             public void run() {
-                networkProc = new NetworkProcessing(appInstance);
+                networkProc = new NetworkModule(appInstance);
             }
 
         };
         Runnable terminal = new Runnable() {
             @Override
             public void run() {
-                terminalProc = new TerminalProcessing(appInstance);
+                terminalProc = new TerminalModule(appInstance);
             }
 
         };
