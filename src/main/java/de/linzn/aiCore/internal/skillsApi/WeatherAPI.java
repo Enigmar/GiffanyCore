@@ -10,8 +10,6 @@ import java.io.IOException;
 
 public class WeatherAPI {
     public App app;
-    private String apiKey = "0b33ae42ba7acd32ab5ca39535b7568f";
-    private String location = "Niederwuerzbach";
     private OpenWeatherMap owm;
     public CurrentWeather weatherCurrent;
     public DailyForecast weatherNextDay;
@@ -20,36 +18,30 @@ public class WeatherAPI {
 
     public WeatherAPI(App app) {
         this.app = app;
-        owm = new OpenWeatherMap(this.apiKey);
+        owm = new OpenWeatherMap((String) this.app.mysqlData.dbsetting.getSetting("weather_apiKey"));
         owm.setUnits(OpenWeatherMap.Units.METRIC);
         owm.setLang(OpenWeatherMap.Language.GERMAN);
         Runnable runTask = new Runnable() {
             @Override
             public void run() {
-                do {
-                    praseWeather();
-                    try {
-                        Thread.sleep(1000 * 120);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                } while (true);
-
+                parseWeather();
             }
         };
-        App.appInstance.runTaskAsync(runTask);
+        App.appInstance.runRepeatTaskAsync(runTask, 2000, 1000 * 120);
+
 
     }
 
-    private void praseWeather() {
+    private void parseWeather() {
         try {
-            App.logger("Get new weather data for location " + this.location);
+            String location = (String) this.app.mysqlData.dbsetting.getSetting("weather_location");
+            App.logger("Get new weather data for location " + location);
             App.logger("Get new weather for current time");
-            weatherCurrent = owm.currentWeatherByCityName(this.location);
+            weatherCurrent = owm.currentWeatherByCityName(location);
             App.logger("Get new weather for next day");
-            weatherNextDay = owm.dailyForecastByCityName(this.location, (byte) 1);
+            weatherNextDay = owm.dailyForecastByCityName(location, (byte) 1);
             App.logger("Get new weather for next 2 day");
-            weatherNextTwoDay = owm.dailyForecastByCityName(this.location, (byte) 2);
+            weatherNextTwoDay = owm.dailyForecastByCityName(location, (byte) 2);
         } catch (IOException e) {
             e.printStackTrace();
         }

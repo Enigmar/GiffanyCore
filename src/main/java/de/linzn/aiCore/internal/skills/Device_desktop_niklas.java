@@ -13,7 +13,7 @@ public class Device_desktop_niklas implements IObjectClass {
 
 
     public void wakeup() {
-        App.appInstance.skillApi.powerControl.wakeOnLan("4c:cc:6a:0e:16:58");
+        App.appInstance.skillApi.powerControl.wakeOnLan("device_desktop_niklas");
     }
 
 }

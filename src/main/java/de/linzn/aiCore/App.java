@@ -8,8 +8,7 @@ import de.linzn.aiCore.processing.terminal.TerminalModule;
 import de.linzn.aiCore.settings.FileSettings;
 
 import java.util.LinkedList;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -122,6 +121,10 @@ public class App {
         this.runTaskSync(finish);
     }
 
+    public void runRepeatTaskAsync(Runnable run, int delay, int period) {
+        Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(run, delay, period, TimeUnit.MILLISECONDS);
+    }
+
     // Add a sync task to the heartbeat tasklist
     public void runTaskSync(Runnable sync) {
         this.taskList.add(sync);
@@ -130,11 +133,9 @@ public class App {
     // add a async task to the heartbeat tasklist
     public void runTaskAsync(Runnable async) {
         Runnable runnable = new Runnable() {
-
             @Override
             public void run() {
-                new ThreadPoolExecutor(1, 1, 250L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>())
-                        .submit(async);
+                Executors.newSingleThreadExecutor().submit(async);
             }
 
         };

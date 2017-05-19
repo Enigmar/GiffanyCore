@@ -12,7 +12,7 @@ public class Device_raspberry_wohnzimmer_2 implements IObjectClass {
     }
 
     public void restart() {
-        App.appInstance.skillApi.powerControl.restartUniversal("10.40.0.11", 22, "root");
+        App.appInstance.skillApi.powerControl.restartUnix("device_raspberry_wohnzimmer_2");
     }
 
 

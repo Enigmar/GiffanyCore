@@ -21,7 +21,7 @@ public class DBSettings {
         Connection con = this.mysqldb.getConnection();
         try {
             Statement st = con.createStatement();
-            String sql = ("SELECT * FROM aicore_setting WHERE key ='" + settingKey + "';");
+            String sql = ("SELECT * FROM aicore_setting WHERE keyset = '" + settingKey + "';");
             ResultSet rs = st.executeQuery(sql);
             if (rs.next()) {
                 App.logger("Receive setting: " + settingKey);
