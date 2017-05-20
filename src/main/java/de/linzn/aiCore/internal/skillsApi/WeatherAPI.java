@@ -10,10 +10,10 @@ import java.io.IOException;
 
 public class WeatherAPI {
     public App app;
-    private OpenWeatherMap owm;
     public CurrentWeather weatherCurrent;
     public DailyForecast weatherNextDay;
     public DailyForecast weatherNextTwoDay;
+    private OpenWeatherMap owm;
 
 
     public WeatherAPI(App app) {

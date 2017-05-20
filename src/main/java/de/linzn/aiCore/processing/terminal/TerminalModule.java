@@ -9,10 +9,10 @@ import java.util.Arrays;
 import java.util.UUID;
 
 public class TerminalModule implements Runnable {
+    public UUID clientUUID;
     private App app;
     private boolean terminalMode;
     private TerminalCommands termCommands;
-    public UUID clientUUID;
 
     public TerminalModule(App app) {
         App.logger("Loading TerminalModule");

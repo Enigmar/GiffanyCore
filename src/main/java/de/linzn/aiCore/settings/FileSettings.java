@@ -6,17 +6,15 @@ import java.io.*;
 import java.util.Properties;
 
 public class FileSettings {
-    private App app;
-    private String fileName = "aiCore.properties";
-
     public String socketHost;
     public int socketPort;
-
     public String sqlHostName;
     public int sqlPort;
     public String sqlDatabaseName;
     public String sqlUserName;
     public String sqlPassword;
+    private App app;
+    private String fileName = "aiCore.properties";
 
     public FileSettings(App app) {
         App.logger("Loading FileSettings module.");

@@ -23,24 +23,11 @@ public class App {
     public DatabaseModule mysqlData;
     public SkillApi skillApi;
     public Heartbeat heartbeat;
-    private long start_time;
-
     // The alive value for the heartbeat thread
     public AtomicBoolean isAlive;
     // The task list for next heartbeat
     public LinkedList<Runnable> taskList = new LinkedList<Runnable>();
-
-    // Main for init this framework
-    public static void main(String[] args) {
-        App.logger("Creating new App instance.");
-        new App(args);
-    }
-
-    // The default logger
-    public static synchronized void logger(String log) {
-        System.out.print("[" + Thread.currentThread().getName() + "] " + log + "\n");
-        System.out.flush();
-    }
+    private long start_time;
 
     // The instance
     public App(String[] args) {
@@ -53,6 +40,18 @@ public class App {
         loadModules();
         finishStartup();
 
+    }
+
+    // Main for init this framework
+    public static void main(String[] args) {
+        App.logger("Creating new App instance.");
+        new App(args);
+    }
+
+    // The default logger
+    public static synchronized void logger(String log) {
+        System.out.print("[" + Thread.currentThread().getName() + "] " + log + "\n");
+        System.out.flush();
     }
 
     // Load the modules for the framework

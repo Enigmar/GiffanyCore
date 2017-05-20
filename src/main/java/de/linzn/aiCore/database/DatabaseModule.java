@@ -9,17 +9,17 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseModule {
-    // Define variables
-    private App app;
-    private String url;
-    private String username;
-    private String password;
     public DBSettings dbsetting;
     public DBKeyword dbkeyword;
     public DBObject dbobject;
     public DBResult dbresult;
     public DBSentence dbsentence;
     public DBInsert dbinsert;
+    // Define variables
+    private App app;
+    private String url;
+    private String username;
+    private String password;
 
     // the class
     public DatabaseModule(App app) {

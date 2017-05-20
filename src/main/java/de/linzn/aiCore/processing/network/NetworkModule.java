@@ -6,9 +6,9 @@ import de.linzn.aiCore.processing.network.template.SocketTemplate;
 import de.linzn.javaSocket.server.EnigmarSockserver;
 
 public class NetworkModule {
-    private App app;
     public EnigmarSockserver eSockserver;
     public SocketTemplate eSocktemplate;
+    private App app;
 
     public NetworkModule(App app) {
         App.logger("Loading NetworkModule");
