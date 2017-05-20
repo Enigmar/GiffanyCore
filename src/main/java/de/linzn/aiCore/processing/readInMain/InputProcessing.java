@@ -5,7 +5,6 @@ import de.linzn.aiCore.internal.Reflector;
 import de.linzn.aiCore.internal.container.*;
 
 public class InputProcessing {
-    private App app;
     // All illegal symbols
     char symbols[] = {'!', '"', '§', '$', '%', '&', '/', '(', ')', '=', '?', '`', '²', '³', '{', '[', ']', '}', '*',
             '€', '@', '#', '-', '.', '_', ':', ',', ';', '<', '>', '|', 'µ', '^', '°', '~', '+', '¡', '¢', '£', '¤',
@@ -31,6 +30,7 @@ public class InputProcessing {
             'Í', 'Î', 'Ï', 'Ð', 'Ñ', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', '×', 'Ø', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'Þ', 'ß', 'à', 'á',
             'â', 'ã', 'ä', 'å', 'æ', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ð', 'ñ', 'ò', 'ó', 'ô', 'õ', 'ö',
             '÷', 'ø', 'ù', 'ú', 'û', 'ü', 'ý', 'þ', 'ÿ'};
+    private App app;
 
     public InputProcessing(App app) {
         this.app = app;
@@ -81,19 +81,9 @@ public class InputProcessing {
                 App.logger("No KeywordContainer found");
                 keywordCon = new KeywordContainer(0, objectCon.objectID, null, null);
             }
+            new Reflector().classRunner(clientContainer, objectCon, keywordCon);
 
-            if (keywordCon.keywordID != 0) {
-                new Reflector().classRunner(objectCon, keywordCon);
-            }
 
-            resultCon = this.app.mysqlData.dbresult.getResultByObjects(objectCon, keywordCon);
-
-            if (resultCon == null) {
-                // No keyword found
-                App.logger("No ResultContainer found");
-            } else {
-                clientContainer.sendResult(resultCon.result);
-            }
         }
 
     }

@@ -11,12 +11,18 @@ public class ModemApi {
     }
 
 
-    public void restartCBNModem() {
+    public boolean restartCBNModem() {
         String cbnHost = (String) this.app.mysqlData.dbsetting.getSetting("cbn_ip");
         String cbnUsername = (String) this.app.mysqlData.dbsetting.getSetting("cbn_username");
         String cbnPassword = (String) this.app.mysqlData.dbsetting.getSetting("cbn_password");
         CBNApi api = new CBNApi(cbnHost, cbnUsername, cbnPassword);
-        api.restartCBN();
+        try {
+            api.restartCBN();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
 }

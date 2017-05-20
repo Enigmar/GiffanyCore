@@ -1,5 +1,6 @@
 package de.linzn.aiCore.internal;
 
+import de.linzn.aiCore.internal.container.ClientContainer;
 import de.linzn.aiCore.internal.container.KeywordContainer;
 import de.linzn.aiCore.internal.container.ObjectContainer;
 
@@ -32,12 +33,13 @@ public class Reflector {
     }
 
     @SuppressWarnings("unchecked")
-    public void classRunner(ObjectContainer objectCon, KeywordContainer keywordCon) {
+    public void classRunner(ClientContainer clientCon, ObjectContainer objectCon, KeywordContainer keywordCon) {
         Class<IObjectClass> act;
         try {
             act = (Class<IObjectClass>) Class.forName("de.linzn.aiCore.internal.skills."
                     + Character.toUpperCase(objectCon.classname.charAt(0)) + objectCon.classname.substring(1));
             IObjectClass objectclass = act.newInstance();
+            objectclass.initial(clientCon, objectCon, keywordCon);
             objectclass.runTask(keywordCon.function);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
