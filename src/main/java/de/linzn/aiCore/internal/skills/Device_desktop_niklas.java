@@ -7,6 +7,7 @@ import de.linzn.aiCore.internal.container.ClientContainer;
 import de.linzn.aiCore.internal.container.KeywordContainer;
 import de.linzn.aiCore.internal.container.ObjectContainer;
 import de.linzn.aiCore.internal.container.ResultContainer;
+import de.linzn.aiCore.processing.network.writeBack.SendNotification;
 
 public class Device_desktop_niklas implements IObjectClass {
     private ClientContainer clientContainer;
@@ -32,6 +33,7 @@ public class Device_desktop_niklas implements IObjectClass {
             App.logger("No ResultContainer found");
         } else {
             this.clientContainer.sendResult(resultCon.result);
+            new SendNotification().sendNotification(resultCon.result);
         }
     }
 

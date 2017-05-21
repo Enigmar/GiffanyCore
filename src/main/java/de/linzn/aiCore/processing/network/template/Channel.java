@@ -11,5 +11,6 @@ public class Channel {
     public static String textInsertChannel = "textInsertChannel";
     public static String objectInsertChannel = "objectInsertChannel";
     public static String requestDataTransfer = "requestDataTransfer";
+    public static String notificationTransfer = "notificationTransfer";
 
 }
