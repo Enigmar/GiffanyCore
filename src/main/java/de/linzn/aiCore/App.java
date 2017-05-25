@@ -7,9 +7,6 @@ import de.linzn.aiCore.processing.network.NetworkModule;
 import de.linzn.aiCore.processing.terminal.TerminalModule;
 import de.linzn.aiCore.settings.FileSettings;
 
-import java.util.LinkedList;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class App {
@@ -25,8 +22,6 @@ public class App {
     public Heartbeat heartbeat;
     // The alive value for the heartbeat thread
     public AtomicBoolean isAlive;
-    // The task list for next heartbeat
-    public LinkedList<Runnable> taskList = new LinkedList<Runnable>();
     private long start_time;
 
     // The instance
@@ -101,12 +96,12 @@ public class App {
 
         };
 
-        this.runTaskSync(settings);
-        this.runTaskSync(mysql);
-        this.runTaskSync(input);
-        this.runTaskSync(network);
-        this.runTaskSync(terminal);
-        this.runTaskSync(skill);
+        this.heartbeat.runTaskSynchronous(settings);
+        this.heartbeat.runTaskSynchronous(mysql);
+        this.heartbeat.runTaskSynchronous(input);
+        this.heartbeat.runTaskSynchronous(network);
+        this.heartbeat.runTaskSynchronous(terminal);
+        this.heartbeat.runTaskSynchronous(skill);
     }
 
     private void finishStartup() {
@@ -117,29 +112,8 @@ public class App {
             }
 
         };
-        this.runTaskSync(finish);
+        this.heartbeat.runTaskSynchronous(finish);
     }
 
-    public void runRepeatTaskAsync(Runnable run, int delay, int period) {
-        Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(run, delay, period, TimeUnit.MILLISECONDS);
-    }
-
-    // Add a sync task to the heartbeat tasklist
-    public void runTaskSync(Runnable sync) {
-        this.taskList.add(sync);
-    }
-
-    // add a async task to the heartbeat tasklist
-    public void runTaskAsync(Runnable async) {
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                Executors.newSingleThreadExecutor().submit(async);
-            }
-
-        };
-
-        this.taskList.add(runnable);
-    }
 
 }

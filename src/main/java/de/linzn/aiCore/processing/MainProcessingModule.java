@@ -21,7 +21,7 @@ public class MainProcessingModule {
                 new InputProcessing(app).processingInput(clientContainer, input);
             }
         };
-        this.app.runTaskAsync(task);
+        this.app.heartbeat.runTaskAsynchronous(task);
     }
 
     public void receiveInsertText(String textSentence, String textResult) {
@@ -31,7 +31,7 @@ public class MainProcessingModule {
                 new InsertProcessing(app).processingInsertText(textSentence, textResult);
             }
         };
-        this.app.runTaskAsync(task);
+        this.app.heartbeat.runTaskAsynchronous(task);
     }
 
     public void receiveInsertObject(String objectName, String objectClass, String keywordName, String keywordFunction,
@@ -44,6 +44,6 @@ public class MainProcessingModule {
                         objectResult);
             }
         };
-        this.app.runTaskAsync(task);
+        this.app.heartbeat.runTaskAsynchronous(task);
     }
 }

@@ -8,14 +8,14 @@ public class SocketTemplate implements IMask {
     @Override
     public void schedulerAsync(Runnable runnable) {
         // TODO Auto-generated method stub
-        App.appInstance.runTaskAsync(runnable);
+        App.appInstance.heartbeat.runTaskAsynchronous(runnable);
 
     }
 
     @Override
     public void schedulerSync(Runnable runnable) {
         // TODO Auto-generated method stub
-        App.appInstance.runTaskSync(runnable);
+        App.appInstance.heartbeat.runTaskSynchronous(runnable);
     }
 
     @Override

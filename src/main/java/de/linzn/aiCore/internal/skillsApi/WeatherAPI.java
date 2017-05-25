@@ -21,13 +21,8 @@ public class WeatherAPI {
         owm = new OpenWeatherMap((String) this.app.mysqlData.dbsetting.getSetting("weather_apiKey"));
         owm.setUnits(OpenWeatherMap.Units.METRIC);
         owm.setLang(OpenWeatherMap.Language.GERMAN);
-        Runnable runTask = new Runnable() {
-            @Override
-            public void run() {
-                parseWeather();
-            }
-        };
-        App.appInstance.runRepeatTaskAsync(runTask, 2000, 1000 * 120);
+        Runnable runTask = () -> parseWeather();
+        App.appInstance.heartbeat.runRepeatTaskAsynchronous(runTask, 2000, 1000 * 120);
 
 
     }

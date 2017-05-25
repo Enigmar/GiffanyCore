@@ -8,11 +8,11 @@ import de.linzn.javaSocket.server.interfaces.IDataListener;
 import java.io.DataInputStream;
 import java.io.IOException;
 
-public class TestInsertStream implements IDataListener {
+public class TextInsertStream implements IDataListener {
 
     private App app;
 
-    public TestInsertStream(App app) {
+    public TextInsertStream(App app) {
         this.app = app;
     }
 

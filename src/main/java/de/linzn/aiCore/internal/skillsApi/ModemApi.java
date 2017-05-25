@@ -8,6 +8,8 @@ public class ModemApi {
 
     public ModemApi(App app) {
         this.app = app;
+        Runnable runTask = () -> restartCBNModem();
+        App.appInstance.heartbeat.runDailyTimedTaskAsynchronous(runTask, 3, 30);
     }
 
 

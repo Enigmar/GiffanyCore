@@ -22,7 +22,7 @@ public class Panel {
                 new PanelData().sendDataToPanel(clientContainer, getData());
             }
         };
-        App.appInstance.runTaskAsync(task);
+        App.appInstance.heartbeat.runTaskAsynchronous(task);
     }
 
 
