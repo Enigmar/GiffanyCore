@@ -35,7 +35,7 @@ public class DefaultStream implements IDataListener {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        ClientContainer clientContainer = new ClientContainer(event.getMessenger().getClientUUID(), ClientType.DEFAULT);
+        ClientContainer clientContainer = new ClientContainer(event.getMessenger().clientUUID, ClientType.DEFAULT);
 
         this.app.inputProc.provideInput(clientContainer, values);
 

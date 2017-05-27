@@ -21,7 +21,7 @@ public class ConnectEvent implements ITypeListener {
 
     @Override
     public void onTypeEvent(SocketTypeEvent event) {
-        App.logger("A new Client connect: " + event.getMessenger().getClientUUID());
+        App.logger("A new Client connect: " + event.getMessenger().clientUUID);
     }
 
 }

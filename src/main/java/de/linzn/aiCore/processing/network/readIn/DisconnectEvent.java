@@ -22,7 +22,7 @@ public class DisconnectEvent implements ITypeListener {
     @Override
     public void onTypeEvent(SocketTypeEvent event) {
         // TODO Auto-generated method stub
-        App.logger("A Client disconnect: " + event.getMessenger().getClientUUID());
+        App.logger("A Client disconnect: " + event.getMessenger().clientUUID);
     }
 
 }

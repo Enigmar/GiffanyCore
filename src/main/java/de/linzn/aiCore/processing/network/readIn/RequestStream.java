@@ -37,7 +37,7 @@ public class RequestStream implements IDataListener {
             e.printStackTrace();
         }
         if (values.equalsIgnoreCase("get")) {
-            ClientContainer clientContainer = new ClientContainer(event.getMessenger().getClientUUID(), ClientType.CONTROL);
+            ClientContainer clientContainer = new ClientContainer(event.getMessenger().clientUUID, ClientType.CONTROL);
             App.logger("New Request for data refresh by " + clientContainer.clientUUID);
             new Panel(clientContainer).sendUpdates();
         }
