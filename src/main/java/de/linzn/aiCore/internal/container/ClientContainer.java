@@ -2,9 +2,9 @@ package de.linzn.aiCore.internal.container;
 
 
 import de.linzn.aiCore.App;
-import de.linzn.aiCore.internal.ClientType;
+import de.linzn.aiCore.internal.ProcessType;
 import de.linzn.aiCore.processing.network.template.Channel;
-import de.linzn.javaSocket.server.run.ConnectedClient;
+import de.linzn.javaSocket.server.run.RemoteClient;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -13,34 +13,33 @@ import java.util.UUID;
 
 public class ClientContainer {
     public UUID clientUUID;
-    public ClientType clientType;
+    public ProcessType clientType;
 
-    public ClientContainer(UUID clientUUID, ClientType clientType) {
+    public ClientContainer(UUID clientUUID, ProcessType clientType) {
         this.clientUUID = clientUUID;
         this.clientType = clientType;
     }
 
     public void sendResult(String result) {
-        if (this.clientType == ClientType.TERMINAL) {
+        if (this.clientType == ProcessType.TERMINAL) {
             if (this.clientUUID == App.appInstance.terminalProc.clientUUID) {
                 System.out.println("Result: " + result);
             }
         } else {
-            ConnectedClient connectedClient = App.appInstance.networkProc.eSockserver.getClient(this.clientUUID);
-            if (connectedClient != null) {
-                ByteArrayOutputStream b = new ByteArrayOutputStream();
-                DataOutputStream out = App.appInstance.networkProc.eSockserver.initialChannel(b,
-                        Channel.resultChannel);
+            RemoteClient connectedClient = App.appInstance.networkProc.eSockserver.getClient(this.clientUUID);
+            try {
+                if (connectedClient != null) {
+                    ByteArrayOutputStream b = new ByteArrayOutputStream();
+                    DataOutputStream out = App.appInstance.networkProc.eSockserver.initialChannel(b,
+                            Channel.resultChannel);
 
-                try {
                     out.writeUTF(result);
+                    App.appInstance.networkProc.eSockserver.sentToClient(connectedClient, b);
 
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
-                App.appInstance.networkProc.eSockserver.sentToClient(connectedClient, b);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-
         }
     }
 }

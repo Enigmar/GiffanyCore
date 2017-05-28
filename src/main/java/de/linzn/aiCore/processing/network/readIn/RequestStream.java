@@ -1,7 +1,7 @@
 package de.linzn.aiCore.processing.network.readIn;
 
 import de.linzn.aiCore.App;
-import de.linzn.aiCore.internal.ClientType;
+import de.linzn.aiCore.internal.ProcessType;
 import de.linzn.aiCore.internal.container.ClientContainer;
 import de.linzn.aiCore.internal.requests.Panel;
 import de.linzn.aiCore.processing.network.template.Channel;
@@ -37,7 +37,7 @@ public class RequestStream implements IDataListener {
             e.printStackTrace();
         }
         if (values.equalsIgnoreCase("get")) {
-            ClientContainer clientContainer = new ClientContainer(event.getMessenger().clientUUID, ClientType.CONTROL);
+            ClientContainer clientContainer = new ClientContainer(event.getMessenger().clientUUID, ProcessType.NETSERVER);
             App.logger("New Request for data refresh by " + clientContainer.clientUUID);
             new Panel(clientContainer).sendUpdates();
         }

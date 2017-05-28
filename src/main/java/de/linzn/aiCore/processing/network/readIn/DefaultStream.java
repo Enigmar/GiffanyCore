@@ -1,7 +1,7 @@
 package de.linzn.aiCore.processing.network.readIn;
 
 import de.linzn.aiCore.App;
-import de.linzn.aiCore.internal.ClientType;
+import de.linzn.aiCore.internal.ProcessType;
 import de.linzn.aiCore.internal.container.ClientContainer;
 import de.linzn.aiCore.processing.network.template.Channel;
 import de.linzn.javaSocket.server.events.SocketDataEvent;
@@ -35,7 +35,7 @@ public class DefaultStream implements IDataListener {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        ClientContainer clientContainer = new ClientContainer(event.getMessenger().clientUUID, ClientType.DEFAULT);
+        ClientContainer clientContainer = new ClientContainer(event.getMessenger().clientUUID, ProcessType.NETSERVER);
 
         this.app.inputProc.provideInput(clientContainer, values);
 

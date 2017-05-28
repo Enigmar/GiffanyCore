@@ -10,14 +10,16 @@ import java.io.IOException;
 
 public class SendNotification {
     public void sendNotification(String notification) {
-        ByteArrayOutputStream b = new ByteArrayOutputStream();
-        DataOutputStream out = App.appInstance.networkProc.eSockserver.initialChannel(b,
-                Channel.notificationTransfer);
+
         try {
+            ByteArrayOutputStream b = new ByteArrayOutputStream();
+            DataOutputStream out = App.appInstance.networkProc.eSockserver.initialChannel(b,
+                    Channel.notificationTransfer);
             out.writeUTF(notification);
+            App.appInstance.networkProc.eSockserver.sentToAllClients(b);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        App.appInstance.networkProc.eSockserver.sentToAllClients(b);
     }
+
 }

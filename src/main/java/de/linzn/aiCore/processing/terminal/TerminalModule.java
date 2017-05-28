@@ -1,7 +1,7 @@
 package de.linzn.aiCore.processing.terminal;
 
 import de.linzn.aiCore.App;
-import de.linzn.aiCore.internal.ClientType;
+import de.linzn.aiCore.internal.ProcessType;
 import de.linzn.aiCore.internal.container.ClientContainer;
 import de.linzn.aiCore.processing.terminal.readIn.TerminalCommands;
 
@@ -53,7 +53,7 @@ public class TerminalModule implements Runnable {
                         App.logger("No result for this input!");
                     }
                 } else {
-                    ClientContainer clientContainer = new ClientContainer(clientUUID, ClientType.TERMINAL);
+                    ClientContainer clientContainer = new ClientContainer(clientUUID, ProcessType.TERMINAL);
                     this.app.inputProc.provideInput(clientContainer, input);
                 }
             }

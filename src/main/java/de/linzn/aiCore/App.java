@@ -7,11 +7,18 @@ import de.linzn.aiCore.processing.network.NetworkModule;
 import de.linzn.aiCore.processing.terminal.TerminalModule;
 import de.linzn.aiCore.settings.FileSettings;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 public class App {
     // The main instance
     public static App appInstance;
+    public static Logger fileLogger;
     // Define new variables for later
     public FileSettings aiSettings;
     public MainProcessingModule inputProc;
@@ -39,14 +46,36 @@ public class App {
 
     // Main for init this framework
     public static void main(String[] args) {
+        logSetup();
         App.logger("Creating new App instance.");
         new App(args);
     }
 
-    // The default logger
+    // The default fileLogger
     public static synchronized void logger(String log) {
         System.out.print("[" + Thread.currentThread().getName() + "] " + log + "\n");
         System.out.flush();
+        fileLogger.info("[" + Thread.currentThread().getName() + "] " + log);
+    }
+
+    private static void logSetup() {
+        fileLogger = Logger.getLogger("aicore");
+        fileLogger.setUseParentHandlers(false);
+        FileHandler fh;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+
+        try {
+
+            // This block configure the fileLogger with handler and formatter
+            fh = new FileHandler("logs/" + dateFormat.format(new Date().getTime()) + ".log");
+            fileLogger.addHandler(fh);
+            SimpleFormatter formatter = new SimpleFormatter();
+            fh.setFormatter(formatter);
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // Load the modules for the framework

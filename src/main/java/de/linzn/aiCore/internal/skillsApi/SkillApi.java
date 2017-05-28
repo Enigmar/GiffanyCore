@@ -8,11 +8,13 @@ public class SkillApi {
     public WeatherAPI weatherApi;
     public PowerApi powerControl;
     public ModemApi modemApi;
+    public StatusAPI statusApi;
 
     public SkillApi(App app) {
         this.app = app;
         this.weatherApi = new WeatherAPI(app);
         this.powerControl = new PowerApi(app);
         this.modemApi = new ModemApi(app);
+        this.statusApi = new StatusAPI(app);
     }
 }

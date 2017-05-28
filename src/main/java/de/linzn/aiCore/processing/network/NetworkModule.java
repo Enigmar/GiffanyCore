@@ -25,7 +25,7 @@ public class NetworkModule {
     }
 
     private void registerEvents() {
-        this.eSockserver.registerEventListener(new ConnectEvent(this.app));
+        this.eSockserver.registerEventListener(new AuthenticateEvent(this.app));
         this.eSockserver.registerEventListener(new DisconnectEvent(this.app));
         this.eSockserver.registerEventListener(new DefaultStream(this.app));
         this.eSockserver.registerEventListener(new TextInsertStream(this.app));
