@@ -38,6 +38,11 @@ public class StatusAPI {
 
     }
 
+
+
+
+    /* Temperatures of the alice system*/
+
     private boolean checkValideValues() {
         boolean tempOk = true;
         for (int i = 0; i < 5; i++) {
