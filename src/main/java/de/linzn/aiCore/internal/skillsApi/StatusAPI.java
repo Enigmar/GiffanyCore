@@ -41,7 +41,7 @@ public class StatusAPI {
 
 
 
-    /* Temperatures of the alice system*/
+    /* Temperatures of the VIKI system*/
 
     private boolean checkValideValues() {
         boolean tempOk = true;
