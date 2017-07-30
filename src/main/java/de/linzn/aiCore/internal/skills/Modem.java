@@ -39,7 +39,7 @@ public class Modem implements IObjectClass {
 
 
     public void restart() {
-        if (App.appInstance.skillApi.modemApi.restartCBNModem()) {
+        if (App.appInstance.skillApi.networkDevicesApi.cbnModemRestart()) {
             this.resultTask();
         }
     }

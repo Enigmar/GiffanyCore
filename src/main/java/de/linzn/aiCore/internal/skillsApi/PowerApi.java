@@ -10,6 +10,12 @@ public class PowerApi {
 
     public PowerApi(App app) {
         this.app = app;
+        initialDefaults();
+    }
+
+
+    private void initialDefaults(){
+        // Nothing at this moment
     }
 
     public boolean wakeOnLan(String device_id) {

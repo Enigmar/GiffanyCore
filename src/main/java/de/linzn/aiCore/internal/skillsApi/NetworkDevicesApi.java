@@ -3,17 +3,20 @@ package de.linzn.aiCore.internal.skillsApi;
 import de.linzn.aiCore.App;
 import de.linzn.cbn.api.ch7466ce.CBNApi;
 
-public class ModemApi {
+public class NetworkDevicesApi {
     public App app;
 
-    public ModemApi(App app) {
+    public NetworkDevicesApi(App app) {
         this.app = app;
-        Runnable runTask = () -> restartCBNModem();
-        App.appInstance.heartbeat.runDailyTimedTaskAsynchronous(runTask, 3, 30);
+        initialDefaults();
+    }
+
+    private void initialDefaults(){
+        App.appInstance.heartbeat.runDailyTimedTaskAsynchronous( () -> cbnModemRestart(), 3, 30);
     }
 
 
-    public boolean restartCBNModem() {
+    public boolean cbnModemRestart() {
         String cbnHost = (String) this.app.mysqlData.dbsetting.getSetting("cbn_ip");
         String cbnUsername = (String) this.app.mysqlData.dbsetting.getSetting("cbn_username");
         String cbnPassword = (String) this.app.mysqlData.dbsetting.getSetting("cbn_password");
@@ -27,5 +30,20 @@ public class ModemApi {
         }
     }
 
+    public boolean tplinkN750Restart(){
+        return false;
+    }
+
+    public boolean tplinkWA901NDRestart(){
+        return false;
+    }
+
+    public boolean tplinkSG105ERestart(){
+        return false;
+    }
+
+    public boolean tplinkSG108ERestart(){
+        return false;
+    }
 
 }

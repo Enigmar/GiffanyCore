@@ -18,13 +18,16 @@ public class WeatherAPI {
 
     public WeatherAPI(App app) {
         this.app = app;
+        initialDefaults();
+
+    }
+
+    private void initialDefaults(){
         owm = new OpenWeatherMap((String) this.app.mysqlData.dbsetting.getSetting("weather_apiKey"));
         owm.setUnits(OpenWeatherMap.Units.METRIC);
         owm.setLang(OpenWeatherMap.Language.GERMAN);
         Runnable runTask = () -> parseWeather();
         App.appInstance.heartbeat.runRepeatTaskAsynchronous(runTask, 2000, 1000 * 120);
-
-
     }
 
     private void parseWeather() {

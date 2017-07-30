@@ -16,11 +16,14 @@ public class StatusAPI {
 
     public StatusAPI(App app) {
         this.app = app;
+        initialDefaults();
+    }
+
+
+    private void initialDefaults(){
         this.coreTemp = new float[5];
         Runnable runTask = () -> parseStatus();
         App.appInstance.heartbeat.runRepeatTaskAsynchronous(runTask, 2000, 1000 * 30);
-
-
     }
 
     private void parseStatus() {

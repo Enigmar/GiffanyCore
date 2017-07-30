@@ -1,7 +1,7 @@
 package de.linzn.aiCore;
 
 import de.linzn.aiCore.database.DatabaseModule;
-import de.linzn.aiCore.internal.skillsApi.SkillApi;
+import de.linzn.aiCore.internal.skillsApi.SkillManageApi;
 import de.linzn.aiCore.processing.MainProcessingModule;
 import de.linzn.aiCore.processing.network.NetworkModule;
 import de.linzn.aiCore.processing.terminal.TerminalModule;
@@ -25,7 +25,7 @@ public class App {
     public NetworkModule networkProc;
     public TerminalModule terminalProc;
     public DatabaseModule mysqlData;
-    public SkillApi skillApi;
+    public SkillManageApi skillApi;
     public Heartbeat heartbeat;
     // The alive value for the heartbeat thread
     public AtomicBoolean isAlive;
@@ -120,7 +120,7 @@ public class App {
         Runnable skill = new Runnable() {
             @Override
             public void run() {
-                skillApi = new SkillApi(appInstance);
+                skillApi = new SkillManageApi(appInstance);
             }
 
         };

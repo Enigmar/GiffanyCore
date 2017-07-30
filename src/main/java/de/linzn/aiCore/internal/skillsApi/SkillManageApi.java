@@ -3,18 +3,18 @@ package de.linzn.aiCore.internal.skillsApi;
 
 import de.linzn.aiCore.App;
 
-public class SkillApi {
+public class SkillManageApi {
     public App app;
     public WeatherAPI weatherApi;
     public PowerApi powerControl;
-    public ModemApi modemApi;
+    public NetworkDevicesApi networkDevicesApi;
     public StatusAPI statusApi;
 
-    public SkillApi(App app) {
+    public SkillManageApi(App app) {
         this.app = app;
         this.weatherApi = new WeatherAPI(app);
         this.powerControl = new PowerApi(app);
-        this.modemApi = new ModemApi(app);
+        this.networkDevicesApi = new NetworkDevicesApi(app);
         this.statusApi = new StatusAPI(app);
     }
 }
