@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `aicore_setting` (
 
 INSERT INTO `aicore_setting` (`key`, `value`) VALUES
 ('aicore_created', '1494057391'),
-('aicore_name', 'giffany');
+('aicore_name', 'viki');
 
 --
 -- Indizes der exportierten Tabellen
