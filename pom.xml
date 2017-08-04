@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.linzn</groupId>
     <packaging>jar</packaging>
-    <name>AiCore</name>
+    <name>Viki</name>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -51,8 +51,8 @@
             </plugin>
         </plugins>
     </build>
-    <version>0.1.1</version>
-    <artifactId>aiCore</artifactId>
+    <version>0.1.2</version>
+    <artifactId>viki</artifactId>
     <dependencies>
         <dependency>
             <groupId>de.linzn</groupId>

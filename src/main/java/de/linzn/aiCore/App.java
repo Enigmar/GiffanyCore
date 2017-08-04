@@ -59,7 +59,7 @@ public class App {
     }
 
     private static void logSetup() {
-        fileLogger = Logger.getLogger("aicore");
+        fileLogger = Logger.getLogger("viki");
         fileLogger.setUseParentHandlers(false);
         FileHandler fh;
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
