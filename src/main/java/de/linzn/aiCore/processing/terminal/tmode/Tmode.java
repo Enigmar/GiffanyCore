@@ -1,20 +1,17 @@
-package de.linzn.aiCore.processing.terminal.readIn;
+package de.linzn.aiCore.processing.terminal.tmode;
 
 import de.linzn.aiCore.App;
-import de.linzn.aiCore.processing.terminal.execudes.TermExit;
-import de.linzn.aiCore.processing.terminal.execudes.TermTest;
-import de.linzn.aiCore.processing.terminal.template.TerminalExecutes;
 
 import java.util.TreeMap;
 
-public class TerminalCommands {
+public class Tmode {
     private App app;
 
-    private TreeMap<String, TerminalExecutes> terminalExecutes;
+    private TreeMap<String, Itmode> terminalExecutes;
 
-    public TerminalCommands(App app) {
+    public Tmode(App app) {
         this.app = app;
-        this.terminalExecutes = new TreeMap<String, TerminalExecutes>();
+        this.terminalExecutes = new TreeMap<String, Itmode>();
         this.initialTerminalExecudes();
     }
 
