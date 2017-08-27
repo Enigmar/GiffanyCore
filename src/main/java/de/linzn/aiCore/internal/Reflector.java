@@ -8,7 +8,7 @@ import java.lang.reflect.InvocationTargetException;
 
 public class Reflector {
 
-    public void functionRunner(IObjectClass classObject, String function) {
+    public void functionRunner(IExecutedSkill classObject, String function) {
         java.lang.reflect.Method method;
         try {
             method = classObject.getClass().getMethod(function);
@@ -34,13 +34,13 @@ public class Reflector {
 
     @SuppressWarnings("unchecked")
     public void classRunner(ClientContainer clientCon, ObjectContainer objectCon, KeywordContainer keywordCon) {
-        Class<IObjectClass> act;
+        Class<IExecutedSkill> act;
         try {
-            act = (Class<IObjectClass>) Class.forName("de.linzn.aiCore.internal.skills."
+            act = (Class<IExecutedSkill>) Class.forName("de.linzn.aiCore.internal.skills."
                     + Character.toUpperCase(objectCon.classname.charAt(0)) + objectCon.classname.substring(1));
-            IObjectClass objectclass = act.newInstance();
+            IExecutedSkill objectclass = act.newInstance();
             objectclass.initial(clientCon, objectCon, keywordCon);
-            objectclass.runTask(keywordCon.function);
+            objectclass.executeSkill(keywordCon.function);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }

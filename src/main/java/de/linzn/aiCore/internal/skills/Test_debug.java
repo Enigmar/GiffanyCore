@@ -1,14 +1,14 @@
 package de.linzn.aiCore.internal.skills;
 
 import de.linzn.aiCore.App;
-import de.linzn.aiCore.internal.IObjectClass;
+import de.linzn.aiCore.internal.IExecutedSkill;
 import de.linzn.aiCore.internal.Reflector;
 import de.linzn.aiCore.internal.container.ClientContainer;
 import de.linzn.aiCore.internal.container.KeywordContainer;
 import de.linzn.aiCore.internal.container.ObjectContainer;
 import de.linzn.aiCore.internal.container.ResultContainer;
 
-public class Test_debug implements IObjectClass {
+public class Test_debug implements IExecutedSkill {
 
     private ClientContainer clientContainer;
     private ObjectContainer objectcontainer;
@@ -22,12 +22,12 @@ public class Test_debug implements IObjectClass {
     }
 
     @Override
-    public void runTask(String function) {
+    public void executeSkill(String function) {
         new Reflector().functionRunner(this, function);
     }
 
     @Override
-    public void resultTask() {
+    public void executeResult() {
         ResultContainer resultCon = App.appInstance.mysqlData.dbresult.getResultByObjects(objectcontainer, keywordContainer);
         if (resultCon == null) {
             App.logger("No ResultContainer found");

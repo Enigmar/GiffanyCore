@@ -14,7 +14,7 @@ public class FileSettings {
     public String sqlUserName;
     public String sqlPassword;
     private App app;
-    private String fileName = "aiCore.properties";
+    private String fileName = "viki.properties";
 
     public FileSettings(App app) {
         App.logger("Loading FileSettings module.");
@@ -46,8 +46,8 @@ public class FileSettings {
 
             prop.setProperty("sqlHostname", "127.0.0.1");
             prop.setProperty("sqlPort", "3306");
-            prop.setProperty("sqlDatabaseName", "aicore_db");
-            prop.setProperty("sqlUserName", "aicore");
+            prop.setProperty("sqlDatabaseName", "viki_db");
+            prop.setProperty("sqlUserName", "viki");
             prop.setProperty("sqlPassword", "123asdfaas");
 
             // save properties to project root folder
