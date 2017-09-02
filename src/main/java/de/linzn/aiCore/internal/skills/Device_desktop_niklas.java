@@ -4,9 +4,6 @@ import de.linzn.aiCore.App;
 import de.linzn.aiCore.internal.IExecutedSkill;
 import de.linzn.aiCore.internal.Reflector;
 import de.linzn.aiCore.internal.container.ClientContainer;
-import de.linzn.aiCore.internal.container.KeywordContainer;
-import de.linzn.aiCore.internal.container.ObjectContainer;
-import de.linzn.aiCore.internal.container.ResultContainer;
 import de.linzn.aiCore.processing.network.writeBack.SendNotification;
 
 public class Device_desktop_niklas implements IExecutedSkill {

@@ -2,7 +2,6 @@ package de.linzn.aiCore.database;
 
 import de.linzn.aiCore.App;
 import de.linzn.aiCore.database.access.*;
-import de.linzn.aiCore.database.insert.DBInsert;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,11 +9,6 @@ import java.sql.SQLException;
 
 public class DatabaseModule {
     public DBSettings dbsetting;
-    public DBKeyword dbkeyword;
-    public DBObject dbobject;
-    public DBResult dbresult;
-    public DBSentence dbsentence;
-    public DBInsert dbinsert;
     // Define variables
     private App app;
     private String url;
@@ -30,11 +24,6 @@ public class DatabaseModule {
         this.username = this.app.aiSettings.sqlUserName;
         this.password = this.app.aiSettings.sqlPassword;
         this.dbsetting = new DBSettings(this);
-        this.dbkeyword = new DBKeyword(this);
-        this.dbobject = new DBObject(this);
-        this.dbresult = new DBResult(this);
-        this.dbsentence = new DBSentence(this);
-        this.dbinsert = new DBInsert(this);
         this.releaseConnection(getConnection());
     }
 
