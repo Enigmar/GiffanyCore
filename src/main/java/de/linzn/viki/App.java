@@ -5,6 +5,7 @@ import de.linzn.viki.database.DatabaseModule;
 import de.linzn.viki.network.NetworkModule;
 import de.linzn.viki.terminal.TerminalModule;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -61,7 +62,10 @@ public class App {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
 
         try {
-
+            File logsDir = new File("logs");
+            if (!logsDir.exists()) {
+                logsDir.mkdir();
+            }
             // This block configure the fileLogger with handler and formatter
             fh = new FileHandler("logs/" + dateFormat.format(new Date().getTime()) + ".log");
             fileLogger.addHandler(fh);

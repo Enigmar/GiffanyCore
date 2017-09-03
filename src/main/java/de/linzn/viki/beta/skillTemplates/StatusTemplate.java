@@ -15,4 +15,5 @@ public class StatusTemplate implements ISkillTemplate {
         this.parentSkill = parentSkill;
     }
 
+
 }

@@ -1,6 +1,7 @@
 package de.linzn.viki.beta.data;
 
 import de.linzn.viki.App;
+import de.linzn.viki.beta.ifaces.CodecUtils;
 import de.linzn.viki.beta.ifaces.ParentSkill;
 import de.linzn.viki.database.DatabaseModule;
 
@@ -8,6 +9,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Map;
 
 public class GetParentSkill {
     private DatabaseModule mysqldb;
@@ -39,7 +41,9 @@ public class GetParentSkill {
                         String java_class = rs.getString("java_class");
                         String java_function = rs.getString("java_method");
                         String serial_data = rs.getString("serial_data");
-                        return new ParentSkill(parentskill_id, standalone, trigger, this.input, java_class, java_function, serial_data);
+
+                        Map serial_map = CodecUtils.stringToMap(serial_data);
+                        return new ParentSkill(parentskill_id, standalone, trigger, this.input, java_class, java_function, serial_map);
                     }
                 }
             }

@@ -51,7 +51,7 @@ public class SkillProcessor {
                 '·', '¸', 'º', '»', '¼', '½', '¾', '¿', 'À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì',
                 'Í', 'Î', 'Ï', 'Ð', 'Ñ', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', '×', 'Ø', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'Þ', 'ß', 'à', 'á',
                 'â', 'ã', 'ä', 'å', 'æ', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ð', 'ñ', 'ò', 'ó', 'ô', 'õ', 'ö',
-                '÷', 'ø', 'ù', 'ú', 'û', 'ü', 'ý', 'þ', 'ÿ'};
+                '÷', 'ø', 'ù', 'ú', 'û', 'ü', 'ý', 'þ', 'ÿ', '^'};
 
         // First clean up the string
         for (char c : symbols) {
@@ -81,8 +81,7 @@ public class SkillProcessor {
                 if (this.subSkill != null) {
                     // Code for full support with sub and parent skill
                     System.out.println("Found subSkill");
-                    this.executeJavaClassFunction();
-                    return true;
+                    return this.executeJavaClassFunction();
                 } else {
                     // Exit, because no subskill for this exist.
                     System.out.println("No subSkill found");
@@ -91,8 +90,7 @@ public class SkillProcessor {
             } else {
                 System.out.println("Run parentSkill standalone");
                 // Start, if parent skill ist standalone
-                this.executeJavaClassFunction();
-                return true;
+                return this.executeJavaClassFunction();
             }
         } else {
             // If no parent skill exist!
@@ -110,6 +108,11 @@ public class SkillProcessor {
         } else {
             class_name = this.subSkill.java_class;
             method_name = this.subSkill.java_method;
+        }
+
+        if (class_name == null || method_name == null) {
+            System.out.println("class_name or method_name is null");
+            return false;
         }
 
         try {

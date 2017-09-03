@@ -13,8 +13,6 @@ public class VikiConfiguration {
     public String sqlDatabaseName;
     public String sqlUserName;
     public String sqlPassword;
-    public String weatherKey;
-    public String location;
     private App app;
     private String fileName = "viki.properties";
 
@@ -51,8 +49,6 @@ public class VikiConfiguration {
             prop.setProperty("sqlDatabaseName", "viki_db");
             prop.setProperty("sqlUserName", "viki");
             prop.setProperty("sqlPassword", "123asdfaas");
-            prop.setProperty("weatherKey", "1234567890");
-            prop.setProperty("location", "Blieskastel");
 
             // save properties to project root folder
             prop.store(output, null);
@@ -80,8 +76,6 @@ public class VikiConfiguration {
             this.sqlDatabaseName = prop.getProperty("sqlDatabaseName");
             this.sqlUserName = prop.getProperty("sqlUserName");
             this.sqlPassword = prop.getProperty("sqlPassword");
-            this.weatherKey = prop.getProperty("weatherKey");
-            this.location = prop.getProperty("location");
         } catch (IOException ex) {
             ex.printStackTrace();
         }

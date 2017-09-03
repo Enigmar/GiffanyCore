@@ -24,10 +24,10 @@ public class WeatherTemplate implements ISkillTemplate {
 
     public void getWeather() {
         try {
-            OpenWeatherMap owm = new OpenWeatherMap((String) App.appInstance.vikiConfiguration.weatherKey);
+            OpenWeatherMap owm = new OpenWeatherMap((String) this.subSkill.serial_data.get("weatherKey"));
             owm.setUnits(OpenWeatherMap.Units.METRIC);
             owm.setLang(OpenWeatherMap.Language.GERMAN);
-            String location = (String) App.appInstance.vikiConfiguration.location;
+            String location = (String) this.subSkill.serial_data.get("location");
             App.logger("Get new weather data for location " + location);
             App.logger("Get new weather for current time");
             CurrentWeather weatherCurrent = owm.currentWeatherByCityName(location);
