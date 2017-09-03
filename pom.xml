@@ -18,8 +18,8 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>de.linzn.aiCore.App</mainClass>
-                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>de.linzn.viki.App</mainClass>
+                            <classpathPrefix>libraries/</classpathPrefix>
                         </manifest>
                     </archive>
                 </configuration>
