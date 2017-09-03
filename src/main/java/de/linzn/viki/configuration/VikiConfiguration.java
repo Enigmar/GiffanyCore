@@ -18,6 +18,7 @@ public class VikiConfiguration {
 
     public VikiConfiguration(App app) {
         App.logger("Loading VikiConfiguration module.");
+
         this.app = app;
         this.init();
 

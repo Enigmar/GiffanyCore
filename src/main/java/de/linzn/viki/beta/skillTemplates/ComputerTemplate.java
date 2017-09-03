@@ -8,6 +8,7 @@ import de.linzn.viki.beta.ifaces.SubSkill;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.concurrent.TimeUnit;
 
 public class ComputerTemplate implements ISkillTemplate {
     private ParentSkill parentSkill;
@@ -19,12 +20,13 @@ public class ComputerTemplate implements ISkillTemplate {
         this.parentSkill = parentSkill;
     }
 
-    /*
-        public boolean startComputer(String device_id) {
+
+    public boolean startComputer() {
             // Need "apt-get install etherwake" packet installed
             try {
-                String mac = (String) App.appInstance.mysqlData.dbsetting.getSetting(device_id + "_mac");
-                App.logger("Send wakeonlan packet to " + mac);
+                String pcName = (String) this.subSkill.serial_data.get("systemName");
+                String mac = (String) this.subSkill.serial_data.get("macAddress");
+                App.logger("Send wakeonlan packet to " + pcName + " with mac " + mac);
                 Runtime.getRuntime().exec("etherwake " + mac).waitFor(1000, TimeUnit.MILLISECONDS);
                 return true;
             } catch (IOException | InterruptedException e) {
@@ -34,14 +36,16 @@ public class ComputerTemplate implements ISkillTemplate {
             }
         }
 
-        public boolean restartUnix(String device_id) {
-            // Need deposit ssh key first
-            String ip = (String) App.appInstance.mysqlData.dbsetting.getSetting(device_id + "_host");
-            int port = Integer.parseInt((String) App.appInstance.mysqlData.dbsetting.getSetting(device_id + "_port"));
-            String user = (String) App.appInstance.mysqlData.dbsetting.getSetting(device_id + "_user");
+    public boolean restartUnix() {
+        // Need sshpass installed
+        String systemName = (String) this.subSkill.serial_data.get("systemName");
+        String ip = (String) (String) this.subSkill.serial_data.get("hostName");
+        int port = Integer.parseInt((String) this.subSkill.serial_data.get("portNumber"));
+        String user = (String) this.subSkill.serial_data.get("systemUser");
+        String password = (String) this.subSkill.serial_data.get("systemPassword");
             try {
-                App.logger("Send restart signal to " + ip);
-                Runtime.getRuntime().exec("ssh " + user + "@" + ip + " -p " + port + " 'reboot'").waitFor(1000, TimeUnit.MILLISECONDS);
+                App.logger("Send restart signal to " + systemName + " with hostName " + ip);
+                Runtime.getRuntime().exec("sshpass -p '" + password + "' ssh " + user + "@" + ip + " -p " + port + " 'reboot'").waitFor(1000, TimeUnit.MILLISECONDS);
                 return true;
             } catch (IOException | InterruptedException e) {
                 // TODO Auto-generated catch block
@@ -50,14 +54,16 @@ public class ComputerTemplate implements ISkillTemplate {
             }
         }
 
-        public boolean shutdownUnix(String device_id) {
-            // Need deposit ssh key first
-            String ip = (String) App.appInstance.mysqlData.dbsetting.getSetting(device_id + "_host");
-            int port = Integer.parseInt((String) App.appInstance.mysqlData.dbsetting.getSetting(device_id + "_port"));
-            String user = (String) App.appInstance.mysqlData.dbsetting.getSetting(device_id + "_user");
+    public boolean shutdownUnix() {
+        // Need sshpass installed
+        String systemName = (String) this.subSkill.serial_data.get("systemName");
+        String ip = (String) (String) this.subSkill.serial_data.get("hostName");
+        int port = Integer.parseInt((String) this.subSkill.serial_data.get("portNumber"));
+        String user = (String) this.subSkill.serial_data.get("systemUser");
+        String password = (String) this.subSkill.serial_data.get("systemPassword");
             try {
-                App.logger("Send shutdown signal to " + ip);
-                Runtime.getRuntime().exec("ssh " + user + "@" + ip + " -p " + port + " 'shutdown -h now'").waitFor(1000, TimeUnit.MILLISECONDS);
+                App.logger("Send shutdown signal to " + systemName + " with hostName " + ip);
+                Runtime.getRuntime().exec("sshpass -p '" + password + "' ssh " + user + "@" + ip + " -p " + port + " 'shutdown -h now'").waitFor(1000, TimeUnit.MILLISECONDS);
                 return true;
             } catch (IOException | InterruptedException e) {
                 // TODO Auto-generated catch block
@@ -66,7 +72,7 @@ public class ComputerTemplate implements ISkillTemplate {
             }
         }
 
-    */
+
     public void getSystemTemperature() {
         try {
             App.logger("Getting core temperatures");
