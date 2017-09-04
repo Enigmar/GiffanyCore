@@ -11,6 +11,7 @@ import java.io.IOException;
 
 
 public class WeatherTemplate implements ISkillTemplate {
+    public App app;
     private ParentSkill parentSkill;
     private SubSkill subSkill;
 
@@ -19,8 +20,6 @@ public class WeatherTemplate implements ISkillTemplate {
         this.subSkill = subSkill;
         this.parentSkill = parentSkill;
     }
-
-    public App app;
 
     public void getWeather() {
         try {

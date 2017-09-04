@@ -22,19 +22,19 @@ public class ComputerTemplate implements ISkillTemplate {
 
 
     public boolean startComputer() {
-            // Need "apt-get install etherwake" packet installed
-            try {
-                String pcName = (String) this.subSkill.serial_data.get("systemName");
-                String mac = (String) this.subSkill.serial_data.get("macAddress");
-                App.logger("Send wakeonlan packet to " + pcName + " with mac " + mac);
-                Runtime.getRuntime().exec("etherwake " + mac).waitFor(1000, TimeUnit.MILLISECONDS);
-                return true;
-            } catch (IOException | InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-                return false;
-            }
+        // Need "apt-get install etherwake" packet installed
+        try {
+            String pcName = (String) this.subSkill.serial_data.get("systemName");
+            String mac = (String) this.subSkill.serial_data.get("macAddress");
+            App.logger("Send wakeonlan packet to " + pcName + " with mac " + mac);
+            Runtime.getRuntime().exec("etherwake " + mac).waitFor(1000, TimeUnit.MILLISECONDS);
+            return true;
+        } catch (IOException | InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return false;
         }
+    }
 
     public boolean restartUnix() {
         // Need sshpass installed
@@ -43,16 +43,16 @@ public class ComputerTemplate implements ISkillTemplate {
         int port = Integer.parseInt((String) this.subSkill.serial_data.get("portNumber"));
         String user = (String) this.subSkill.serial_data.get("systemUser");
         String password = (String) this.subSkill.serial_data.get("systemPassword");
-            try {
-                App.logger("Send restart signal to " + systemName + " with hostName " + ip);
-                Runtime.getRuntime().exec("sshpass -p '" + password + "' ssh " + user + "@" + ip + " -p " + port + " 'reboot'").waitFor(1000, TimeUnit.MILLISECONDS);
-                return true;
-            } catch (IOException | InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-                return false;
-            }
+        try {
+            App.logger("Send restart signal to " + systemName + " with hostName " + ip);
+            Runtime.getRuntime().exec("sshpass -p '" + password + "' ssh " + user + "@" + ip + " -p " + port + " 'reboot'").waitFor(1000, TimeUnit.MILLISECONDS);
+            return true;
+        } catch (IOException | InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return false;
         }
+    }
 
     public boolean shutdownUnix() {
         // Need sshpass installed
@@ -61,16 +61,16 @@ public class ComputerTemplate implements ISkillTemplate {
         int port = Integer.parseInt((String) this.subSkill.serial_data.get("portNumber"));
         String user = (String) this.subSkill.serial_data.get("systemUser");
         String password = (String) this.subSkill.serial_data.get("systemPassword");
-            try {
-                App.logger("Send shutdown signal to " + systemName + " with hostName " + ip);
-                Runtime.getRuntime().exec("sshpass -p '" + password + "' ssh " + user + "@" + ip + " -p " + port + " 'shutdown -h now'").waitFor(1000, TimeUnit.MILLISECONDS);
-                return true;
-            } catch (IOException | InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-                return false;
-            }
+        try {
+            App.logger("Send shutdown signal to " + systemName + " with hostName " + ip);
+            Runtime.getRuntime().exec("sshpass -p '" + password + "' ssh " + user + "@" + ip + " -p " + port + " 'shutdown -h now'").waitFor(1000, TimeUnit.MILLISECONDS);
+            return true;
+        } catch (IOException | InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return false;
         }
+    }
 
 
     public void getSystemTemperature() {
