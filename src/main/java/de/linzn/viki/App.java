@@ -35,6 +35,7 @@ public class App {
         appInstance = this;
         this.heartbeat = new Heartbeat(appInstance);
         Thread heart = new Thread(this.heartbeat);
+        heart.setName("heartbeat");
         heart.start();
         loadModules();
         finishStartup();

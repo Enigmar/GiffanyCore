@@ -1,141 +1,100 @@
--- phpMyAdmin SQL Dump
--- version 4.2.12deb2+deb8u2
--- http://www.phpmyadmin.net
---
--- Host: localhost
--- Erstellungszeit: 06. Mai 2017 um 17:41
--- Server Version: 5.5.54-0+deb8u1
--- PHP-Version: 5.6.30-0+deb8u1
+/*
+Navicat MySQL Data Transfer
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
+Source Server         : viki
+Source Server Version : 50719
+Source Host           : viki.lan:3306
+Source Database       : viki_db
 
+Target Server Type    : MYSQL
+Target Server Version : 50719
+File Encoding         : 65001
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+Date: 2017-09-04 15:02:30
+*/
 
---
--- Datenbank: `aicore_db`
---
+SET FOREIGN_KEY_CHECKS=0;
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `aicore_keyword`
---
-
-CREATE TABLE IF NOT EXISTS `aicore_keyword` (
-`id` int(11) NOT NULL,
-  `objectId` int(11) NOT NULL,
-  `keyword` varchar(255) NOT NULL,
-  `function` varchar(255) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
-
---
--- Daten für Tabelle `aicore_keyword`
---
-
-INSERT INTO `aicore_keyword` (`id`, `objectId`, `keyword`, `function`) VALUES
-(1, 1, 'testen', 'test123'),
-(3, 1, 'teste', 'test123');
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `aicore_object`
---
-
-CREATE TABLE IF NOT EXISTS `aicore_object` (
-`id` int(11) NOT NULL,
-  `objectname` varchar(255) NOT NULL,
-  `class` varchar(255) NOT NULL
+-- ----------------------------
+-- Table structure for `parentskills`
+-- ----------------------------
+DROP TABLE IF EXISTS `parentskills`;
+CREATE TABLE `parentskills` (
+  `parentskill_id` int(11) NOT NULL AUTO_INCREMENT,
+  `standalone` tinyint(1) NOT NULL DEFAULT '1',
+  `java_class` varchar(255) DEFAULT NULL,
+  `java_method` varchar(255) DEFAULT NULL,
+  `serial_data` varchar(3000) DEFAULT NULL,
+  PRIMARY KEY (`parentskill_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
---
--- Daten für Tabelle `aicore_object`
---
+-- ----------------------------
+-- Records of parentskills
+-- ----------------------------
+INSERT INTO `parentskills` VALUES ('1', '0', null, null, null);
 
-INSERT INTO `aicore_object` (`id`, `objectname`, `class`) VALUES
-(1, 'Testobject', 'TestObject');
+-- ----------------------------
+-- Table structure for `parentskills_assignment`
+-- ----------------------------
+DROP TABLE IF EXISTS `parentskills_assignment`;
+CREATE TABLE `parentskills_assignment` (
+  `parentskill_named_id` int(11) NOT NULL AUTO_INCREMENT,
+  `content_id` int(11) NOT NULL,
+  `parentskill_id` int(11) NOT NULL,
+  PRIMARY KEY (`parentskill_named_id`,`content_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
+-- ----------------------------
+-- Records of parentskills_assignment
+-- ----------------------------
+INSERT INTO `parentskills_assignment` VALUES ('1', '1', '1');
 
---
--- Tabellenstruktur für Tabelle `aicore_result`
---
+-- ----------------------------
+-- Table structure for `speech_content`
+-- ----------------------------
+DROP TABLE IF EXISTS `speech_content`;
+CREATE TABLE `speech_content` (
+  `content_id` int(11) NOT NULL AUTO_INCREMENT,
+  `content` varchar(255) NOT NULL,
+  PRIMARY KEY (`content_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
-CREATE TABLE IF NOT EXISTS `aicore_result` (
-  `objectid` int(11) NOT NULL,
-  `keywordid` int(255) NOT NULL,
-  `result` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+-- ----------------------------
+-- Records of speech_content
+-- ----------------------------
+INSERT INTO `speech_content` VALUES ('1', 'wetter');
+INSERT INTO `speech_content` VALUES ('2', 'aktuell');
 
---
--- Daten für Tabelle `aicore_result`
---
+-- ----------------------------
+-- Table structure for `subskills`
+-- ----------------------------
+DROP TABLE IF EXISTS `subskills`;
+CREATE TABLE `subskills` (
+  `subskill_id` int(11) NOT NULL AUTO_INCREMENT,
+  `java_class` varchar(255) DEFAULT NULL,
+  `java_method` varchar(255) DEFAULT NULL,
+  `serial_data` varchar(3000) DEFAULT NULL,
+  PRIMARY KEY (`subskill_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
-INSERT INTO `aicore_result` (`objectid`, `keywordid`, `result`) VALUES
-(1, 1, 'Der Test wurde ausgefuehrt'),
-(1, 3, 'Es wurde getestet'),
-(1, 0, 'Ich weis nicht was ich damit machen soll');
+-- ----------------------------
+-- Records of subskills
+-- ----------------------------
+INSERT INTO `subskills` VALUES ('1', 'WeatherTemplate', 'getWeather', 'weatherKey=0b33ae42ba7acd32ab5ca39535b7568f#location=blieskastel');
 
--- --------------------------------------------------------
+-- ----------------------------
+-- Table structure for `subskills_assignment`
+-- ----------------------------
+DROP TABLE IF EXISTS `subskills_assignment`;
+CREATE TABLE `subskills_assignment` (
+  `subskill_named_id` int(11) NOT NULL AUTO_INCREMENT,
+  `content_id` int(11) NOT NULL,
+  `subskill_id` int(11) NOT NULL,
+  `parentskill_id` int(11) NOT NULL,
+  PRIMARY KEY (`subskill_named_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
---
--- Tabellenstruktur für Tabelle `aicore_setting`
---
-
-CREATE TABLE IF NOT EXISTS `aicore_setting` (
-  `key` varchar(255) NOT NULL,
-  `value` varchar(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Daten für Tabelle `aicore_setting`
---
-
-INSERT INTO `aicore_setting` (`key`, `value`) VALUES
-('aicore_created', '1494057391'),
-('aicore_name', 'viki');
-
---
--- Indizes der exportierten Tabellen
---
-
---
--- Indizes für die Tabelle `aicore_keyword`
---
-ALTER TABLE `aicore_keyword`
- ADD PRIMARY KEY (`id`);
-
---
--- Indizes für die Tabelle `aicore_object`
---
-ALTER TABLE `aicore_object`
- ADD PRIMARY KEY (`id`);
-
---
--- Indizes für die Tabelle `aicore_setting`
---
-ALTER TABLE `aicore_setting`
- ADD PRIMARY KEY (`key`), ADD UNIQUE KEY `key` (`key`);
-
---
--- AUTO_INCREMENT für exportierte Tabellen
---
-
---
--- AUTO_INCREMENT für Tabelle `aicore_keyword`
---
-ALTER TABLE `aicore_keyword`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT für Tabelle `aicore_object`
---
-ALTER TABLE `aicore_object`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+-- ----------------------------
+-- Records of subskills_assignment
+-- ----------------------------
+INSERT INTO `subskills_assignment` VALUES ('1', '2', '1', '1');
