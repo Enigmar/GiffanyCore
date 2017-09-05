@@ -1,5 +1,6 @@
 package de.linzn.viki.beta.processor;
 
+import de.linzn.viki.App;
 import de.linzn.viki.beta.data.GetParentSkill;
 import de.linzn.viki.beta.data.GetSubSkill;
 import de.linzn.viki.beta.ifaces.ISkillTemplate;
@@ -15,9 +16,11 @@ public class SkillProcessor {
     private String[] formattedInput = null;
     private ParentSkill parentSkill = null;
     private SubSkill subSkill = null;
+    private String prefix = this.getClass().getSimpleName() + "# ";
 
     public SkillProcessor(String rawInput) {
         this.rawInput = rawInput;
+        App.logger("Building# " + this.getClass().getSimpleName());
     }
 
     public boolean processing() {
@@ -54,20 +57,25 @@ public class SkillProcessor {
                 '÷', 'ø', 'ù', 'ú', 'û', 'ü', 'ý', 'þ', 'ÿ', '^'};
 
         // First clean up the string
+        App.logger(prefix + "Execute# " + "symbols");
         for (char c : symbols) {
             this.rawInput = this.rawInput.replace(String.valueOf(c), "");
         }
+        App.logger(prefix + "Execute# " + "spacer 1");
         // For special case
         if (this.rawInput.toCharArray()[0] == ' ') {
             this.rawInput = this.rawInput.replaceFirst(" ", "");
         }
 
+        App.logger(prefix + "Execute# " + "spacer 2");
         // Replace in case than more than one spacer
         this.rawInput = this.rawInput.replaceAll("[ ]{2,}", " ");
         this.rawInput = this.rawInput.toLowerCase();
 
+        App.logger(prefix + "Execute# " + "split");
         // Split the string in substrings
         this.formattedInput = this.rawInput.split(" ");
+        App.logger(prefix + "Success# " + "formatting");
 
     }
 
@@ -75,26 +83,26 @@ public class SkillProcessor {
     private boolean buildSkill() {
         this.parentSkill = new GetParentSkill(this.formattedInput).getSkill();
         if (this.parentSkill != null) {
-            System.out.println("Found parentSkill");
+            App.logger(prefix + "Success# " + "parentSkill");
             if (!this.parentSkill.standalone) {
                 this.subSkill = new GetSubSkill(this.parentSkill).getSkill();
                 if (this.subSkill != null) {
                     // Code for full support with sub and parent skill
-                    System.out.println("Found subSkill");
+                    App.logger(prefix + "Success# " + "subSkill");
                     return this.executeJavaClassFunction();
                 } else {
                     // Exit, because no subskill for this exist.
-                    System.out.println("No subSkill found");
+                    App.logger(prefix + "Failed# " + "subSkill");
                     return false;
                 }
             } else {
-                System.out.println("Run parentSkill standalone");
+                App.logger(prefix + "Success# " + "parentSkill standalone");
                 // Start, if parent skill ist standalone
                 return this.executeJavaClassFunction();
             }
         } else {
             // If no parent skill exist!
-            System.out.println("No parentSkill found");
+            App.logger(prefix + "Failed# " + "parentSkill");
             return false;
         }
     }
@@ -111,9 +119,10 @@ public class SkillProcessor {
         }
 
         if (class_name == null || method_name == null) {
-            System.out.println("class_name or method_name is null");
+            App.logger(prefix + "Failed# " + class_name + " ->" + method_name);
             return false;
         }
+        App.logger(prefix + "Execute# " + class_name + " ->" + method_name);
 
         try {
             Class<ISkillTemplate> act = (Class<ISkillTemplate>) Class.forName("de.linzn.viki.beta.skillTemplates."

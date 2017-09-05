@@ -15,7 +15,7 @@ public class DatabaseModule {
 
     // the class
     public DatabaseModule(App app) {
-        App.logger("Loading DatabaseModule ");
+        App.logger("Processing# " + this.getClass().getSimpleName());
         this.app = app;
         this.url = "jdbc:mysql://" + this.app.vikiConfiguration.sqlHostName + ":" + this.app.vikiConfiguration.sqlPort + "/"
                 + this.app.vikiConfiguration.sqlDatabaseName;

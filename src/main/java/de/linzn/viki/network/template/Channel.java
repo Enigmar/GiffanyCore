@@ -7,6 +7,5 @@ public class Channel {
 
     // Channels
     public static String defaultChannel = "defaultTransfer";
-    public static String notificationTransfer = "notificationTransfer";
 
 }

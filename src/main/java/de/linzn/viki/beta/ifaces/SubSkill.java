@@ -1,5 +1,6 @@
 package de.linzn.viki.beta.ifaces;
 
+import de.linzn.viki.App;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.Map;
@@ -15,6 +16,7 @@ public class SubSkill {
     public Map serial_data;
 
     public SubSkill(int subskill_id, String trigger, String[] inputArray, ParentSkill parentskill, String java_class, String java_method, Map serial_data) {
+        App.logger("Building# " + this.getClass().getSimpleName());
         this.subskill_id = subskill_id;
         this.trigger = trigger;
         this.inputArray = ArrayUtils.removeElement(inputArray, trigger);

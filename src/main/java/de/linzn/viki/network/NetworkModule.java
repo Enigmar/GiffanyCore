@@ -13,7 +13,7 @@ public class NetworkModule {
     private App app;
 
     public NetworkModule(App app) {
-        App.logger("Loading NetworkModule");
+        App.logger("Processing# " + this.getClass().getSimpleName());
         this.app = app;
         this.eSocktemplate = new SocketTemplate();
         this.eSockserver = new EnigmarSockserver();

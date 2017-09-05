@@ -45,7 +45,7 @@ public class App {
     // Main for init this framework
     public static void main(String[] args) {
         logSetup();
-        App.logger("Creating new App instance.");
+        App.logger("Processing# " + App.class.getSimpleName());
         new App(args);
     }
 
@@ -122,7 +122,7 @@ public class App {
         Runnable finish = new Runnable() {
             @Override
             public void run() {
-                logger("Startup finished in " + (int) ((System.nanoTime() - start_time) / 1e6) + " ms.");
+                logger("Viki startup finished in " + (int) ((System.nanoTime() - start_time) / 1e6) + " ms.");
             }
 
         };

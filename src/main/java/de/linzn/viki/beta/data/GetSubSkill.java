@@ -31,13 +31,13 @@ public class GetSubSkill {
             Statement st = con.createStatement();
 
             for (String inputSplit : this.input) {
-                String sqlquerry = ("SELECT `content_id`, `content` FROM `speech_content` WHERE `content` = '" + inputSplit + "'");
+                String sqlquerry = ("SELECT `content_group_id`, `content` FROM `speech_content` WHERE `content` = '" + inputSplit + "'");
                 ResultSet rs = st.executeQuery(sqlquerry);
                 if (rs.next()) {
-                    int content_id = rs.getInt("content_id");
+                    int content_group_id = rs.getInt("content_group_id");
                     String trigger = rs.getString("content");
                     // Do some thing
-                    sqlquerry = ("SELECT `subskill_id` FROM `subskills_assignment` WHERE `content_id` = '" + content_id + "' AND `parentskill_id` = '" + this.parentskill.parentskill_id + "'");
+                    sqlquerry = ("SELECT `subskill_id` FROM `subskills_assignment` WHERE `content_group_id` = '" + content_group_id + "' AND `parentskill_id` = '" + this.parentskill.parentskill_id + "'");
                     rs = st.executeQuery(sqlquerry);
                     if (rs.next()) {
                         int subskillID = rs.getInt("subskill_id");

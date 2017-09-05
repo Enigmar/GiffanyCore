@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 public class ComputerTemplate implements ISkillTemplate {
     private ParentSkill parentSkill;
     private SubSkill subSkill;
+    private String prefix = this.getClass().getSimpleName() + "# ";
 
     @Override
     public void setEnv(ParentSkill parentSkill, SubSkill subSkill) {
@@ -26,7 +27,7 @@ public class ComputerTemplate implements ISkillTemplate {
         try {
             String pcName = (String) this.subSkill.serial_data.get("systemName");
             String mac = (String) this.subSkill.serial_data.get("macAddress");
-            App.logger("Send wakeonlan packet to " + pcName + " with mac " + mac);
+            App.logger(prefix + "Wake# systemName " + pcName + " mac " + mac);
             Runtime.getRuntime().exec("etherwake " + mac).waitFor(1000, TimeUnit.MILLISECONDS);
             return true;
         } catch (IOException | InterruptedException e) {
@@ -44,7 +45,7 @@ public class ComputerTemplate implements ISkillTemplate {
         String user = (String) this.subSkill.serial_data.get("systemUser");
         String password = (String) this.subSkill.serial_data.get("systemPassword");
         try {
-            App.logger("Send restart signal to " + systemName + " with hostName " + ip);
+            App.logger(prefix + "Restart#  systemName " + systemName + " hostName " + ip);
             Runtime.getRuntime().exec("sshpass -p '" + password + "' ssh " + user + "@" + ip + " -p " + port + " 'reboot'").waitFor(1000, TimeUnit.MILLISECONDS);
             return true;
         } catch (IOException | InterruptedException e) {
@@ -62,7 +63,7 @@ public class ComputerTemplate implements ISkillTemplate {
         String user = (String) this.subSkill.serial_data.get("systemUser");
         String password = (String) this.subSkill.serial_data.get("systemPassword");
         try {
-            App.logger("Send shutdown signal to " + systemName + " with hostName " + ip);
+            App.logger(prefix + "Shutdown#  systemName " + systemName + " hostName " + ip);
             Runtime.getRuntime().exec("sshpass -p '" + password + "' ssh " + user + "@" + ip + " -p " + port + " 'shutdown -h now'").waitFor(1000, TimeUnit.MILLISECONDS);
             return true;
         } catch (IOException | InterruptedException e) {
@@ -75,13 +76,13 @@ public class ComputerTemplate implements ISkillTemplate {
 
     public void getSystemTemperature() {
         try {
-            App.logger("Getting core temperatures");
             Float[] coreTemp = {};
             String[] cmd = {
                     "/bin/sh",
                     "-c",
                     "sensors | grep -A 0 'id' | cut -c18-22 && sensors | grep -A 0 'Core' | cut -c18-22"
             };
+            App.logger(prefix + "Temperature#  systemName " + null + " hostName " + null);
             Process p = Runtime.getRuntime().exec(cmd);
             p.waitFor();
             BufferedReader b = new BufferedReader(new InputStreamReader(p.getInputStream()));

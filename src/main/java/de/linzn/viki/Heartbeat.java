@@ -16,7 +16,7 @@ public class Heartbeat implements Runnable, Executor {
     private LinkedList<Runnable> taskList;
 
     public Heartbeat(App app) {
-        App.logger("Creating new Heartbeat instance ");
+        App.logger("Processing# " + this.getClass().getSimpleName());
         this.heartbeat = this;
         this.taskList = new LinkedList<>();
         this.app = app;

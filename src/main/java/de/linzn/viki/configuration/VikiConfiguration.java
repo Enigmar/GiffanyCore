@@ -17,8 +17,7 @@ public class VikiConfiguration {
     private String fileName = "viki.properties";
 
     public VikiConfiguration(App app) {
-        App.logger("Loading VikiConfiguration module.");
-
+        App.logger("Processing# " + this.getClass().getSimpleName());
         this.app = app;
         this.init();
 

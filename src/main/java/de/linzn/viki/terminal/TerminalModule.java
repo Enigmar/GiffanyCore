@@ -14,7 +14,7 @@ public class TerminalModule implements Runnable {
     private Tmode termCommands;
 
     public TerminalModule(App app) {
-        App.logger("Loading TerminalModule");
+        App.logger("Processing# " + this.getClass().getSimpleName());
         this.app = app;
         this.clientUUID = UUID.randomUUID();
         this.app.heartbeat.runTaskAsynchronous(this);
