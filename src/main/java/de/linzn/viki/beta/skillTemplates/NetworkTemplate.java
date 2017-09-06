@@ -9,7 +9,7 @@ import de.linzn.viki.beta.ifaces.SubSkill;
 public class NetworkTemplate implements ISkillTemplate {
     private ParentSkill parentSkill;
     private SubSkill subSkill;
-    private String prefix = this.getClass().getSimpleName() + "# ";
+    private String prefix = this.getClass().getSimpleName() + "->";
 
     @Override
     public void setEnv(ParentSkill parentSkill, SubSkill subSkill) {
@@ -21,7 +21,7 @@ public class NetworkTemplate implements ISkillTemplate {
         String cbnHost = (String) this.subSkill.serial_data.get("hostName");
         String cbnUsername = (String) this.subSkill.serial_data.get("systemUser");
         String cbnPassword = (String) this.subSkill.serial_data.get("systemPassword");
-        App.logger(prefix + "RestartCBN# hostName " + cbnHost);
+        App.logger(prefix + "cbnModemRestart-->hostName " + cbnHost);
         CBNApi api = new CBNApi(cbnHost, cbnUsername, cbnPassword);
         try {
             api.restartCBN();

@@ -45,7 +45,8 @@ public class App {
     // Main for init this framework
     public static void main(String[] args) {
         logSetup();
-        App.logger("Processing# " + App.class.getSimpleName());
+
+        App.logger(App.class.getSimpleName() + "->" + "creating Instance ");
         new App(args);
     }
 

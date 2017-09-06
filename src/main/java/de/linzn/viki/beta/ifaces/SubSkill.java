@@ -16,7 +16,7 @@ public class SubSkill {
     public Map serial_data;
 
     public SubSkill(int subskill_id, String trigger, String[] inputArray, ParentSkill parentskill, String java_class, String java_method, Map serial_data) {
-        App.logger("Building# " + this.getClass().getSimpleName());
+        App.logger(this.getClass().getSimpleName() + "->" + "creating Instance ");
         this.subskill_id = subskill_id;
         this.trigger = trigger;
         this.inputArray = ArrayUtils.removeElement(inputArray, trigger);

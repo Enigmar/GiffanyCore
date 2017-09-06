@@ -16,11 +16,11 @@ public class SkillProcessor {
     private String[] formattedInput = null;
     private ParentSkill parentSkill = null;
     private SubSkill subSkill = null;
-    private String prefix = this.getClass().getSimpleName() + "# ";
+    private String prefix = this.getClass().getSimpleName() + "->";
 
     public SkillProcessor(String rawInput) {
+        App.logger(prefix + "creating Instance ");
         this.rawInput = rawInput;
-        App.logger("Building# " + this.getClass().getSimpleName());
     }
 
     public boolean processing() {
@@ -57,25 +57,25 @@ public class SkillProcessor {
                 '÷', 'ø', 'ù', 'ú', 'û', 'ü', 'ý', 'þ', 'ÿ', '^'};
 
         // First clean up the string
-        App.logger(prefix + "Execute# " + "symbols");
+        App.logger(prefix + "formattingInput-->" + "cleanup symbols");
         for (char c : symbols) {
             this.rawInput = this.rawInput.replace(String.valueOf(c), "");
         }
-        App.logger(prefix + "Execute# " + "spacer 1");
+        App.logger(prefix + "formattingInput-->" + "cleanup single spacer");
         // For special case
         if (this.rawInput.toCharArray()[0] == ' ') {
             this.rawInput = this.rawInput.replaceFirst(" ", "");
         }
 
-        App.logger(prefix + "Execute# " + "spacer 2");
+        App.logger(prefix + "formattingInput-->" + "cleanup double spacer");
         // Replace in case than more than one spacer
         this.rawInput = this.rawInput.replaceAll("[ ]{2,}", " ");
         this.rawInput = this.rawInput.toLowerCase();
 
-        App.logger(prefix + "Execute# " + "split");
+        App.logger(prefix + "formattingInput-->" + "split to array");
         // Split the string in substrings
         this.formattedInput = this.rawInput.split(" ");
-        App.logger(prefix + "Success# " + "formatting");
+        App.logger(prefix + "formattingInput-->" + "end of method");
 
     }
 
@@ -83,26 +83,26 @@ public class SkillProcessor {
     private boolean buildSkill() {
         this.parentSkill = new GetParentSkill(this.formattedInput).getSkill();
         if (this.parentSkill != null) {
-            App.logger(prefix + "Success# " + "parentSkill");
+            App.logger(prefix + "buildSkill-->" + "Success search parentSkill");
             if (!this.parentSkill.standalone) {
                 this.subSkill = new GetSubSkill(this.parentSkill).getSkill();
                 if (this.subSkill != null) {
                     // Code for full support with sub and parent skill
-                    App.logger(prefix + "Success# " + "subSkill");
+                    App.logger(prefix + "buildSkill-->" + "Success search subSkill");
                     return this.executeJavaClassFunction();
                 } else {
                     // Exit, because no subskill for this exist.
-                    App.logger(prefix + "Failed# " + "subSkill");
+                    App.logger(prefix + "buildSkill-->" + "Failed search subSkill");
                     return false;
                 }
             } else {
-                App.logger(prefix + "Success# " + "parentSkill standalone");
+                App.logger(prefix + "buildSkill-->" + "parentSkill standalone");
                 // Start, if parent skill ist standalone
                 return this.executeJavaClassFunction();
             }
         } else {
             // If no parent skill exist!
-            App.logger(prefix + "Failed# " + "parentSkill");
+            App.logger(prefix + "buildSkill-->" + "Failed search parentSkill");
             return false;
         }
     }
@@ -119,10 +119,10 @@ public class SkillProcessor {
         }
 
         if (class_name == null || method_name == null) {
-            App.logger(prefix + "Failed# " + class_name + " ->" + method_name);
+            App.logger(prefix + "executeJavaClassFunction-->" + "Failed " + class_name + " <->" + method_name);
             return false;
         }
-        App.logger(prefix + "Execute# " + class_name + " ->" + method_name);
+        App.logger(prefix + "executeJavaClassFunction-->" + "Success " + class_name + " <->" + method_name);
 
         try {
             Class<ISkillTemplate> act = (Class<ISkillTemplate>) Class.forName("de.linzn.viki.beta.skillTemplates."

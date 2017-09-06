@@ -17,7 +17,7 @@ public class VikiConfiguration {
     private String fileName = "viki.properties";
 
     public VikiConfiguration(App app) {
-        App.logger("Processing# " + this.getClass().getSimpleName());
+        App.logger(this.getClass().getSimpleName() + "->" + "creating Instance ");
         this.app = app;
         this.init();
 

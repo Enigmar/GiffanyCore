@@ -14,6 +14,7 @@ public class WeatherTemplate implements ISkillTemplate {
     public App app;
     private ParentSkill parentSkill;
     private SubSkill subSkill;
+    private String prefix = this.getClass().getSimpleName() + "->";
 
     @Override
     public void setEnv(ParentSkill parentSkill, SubSkill subSkill) {
@@ -27,8 +28,7 @@ public class WeatherTemplate implements ISkillTemplate {
             owm.setUnits(OpenWeatherMap.Units.METRIC);
             owm.setLang(OpenWeatherMap.Language.GERMAN);
             String location = (String) this.subSkill.serial_data.get("location");
-            App.logger("Get new weather data for location " + location);
-            App.logger("Get new weather for current time");
+            App.logger(prefix + "getWeather-->" + "location " + location);
             CurrentWeather weatherCurrent = owm.currentWeatherByCityName(location);
             System.out.println("Wetter aktuell: " + weatherCurrent.getMainInstance().getTemperature());
         } catch (IOException e) {

@@ -16,7 +16,7 @@ public class ParentSkill {
     public Map serial_data;
 
     public ParentSkill(int parentskill_id, boolean standalone, String trigger, String[] inputArray, String java_class, String java_method, Map serial_data) {
-        App.logger("Building# " + this.getClass().getSimpleName());
+        App.logger(this.getClass().getSimpleName() + "->" + "creating Instance ");
         this.parentskill_id = parentskill_id;
         this.standalone = standalone;
         this.trigger = trigger;

@@ -14,9 +14,10 @@ public class Heartbeat implements Runnable, Executor {
     private App app;
     /* The list with the pending tasks*/
     private LinkedList<Runnable> taskList;
+    private String prefix = this.getClass().getSimpleName() + "->";
 
     public Heartbeat(App app) {
-        App.logger("Processing# " + this.getClass().getSimpleName());
+        App.logger(prefix + "creating Instance ");
         this.heartbeat = this;
         this.taskList = new LinkedList<>();
         this.app = app;
@@ -65,28 +66,28 @@ public class Heartbeat implements Runnable, Executor {
     public void runRepeatTaskAsynchronous(Runnable run, int delay, int period) {
         Runnable runnable = () -> Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(run, delay, period, TimeUnit.MILLISECONDS);
         this.taskList.add(runnable);
-        App.logger("Add new RepeatTaskAsynchronous Thread");
+        App.logger(prefix + "runRepeatTaskAsynchronous-->" + "Add new RepeatTaskAsynchronous Thread");
     }
 
     /* Run timed Task in a new Thread */
     public void runTimedTaskAsynchronous(Runnable run, int hours, int minutes) {
         Runnable runnable = () -> Executors.newSingleThreadScheduledExecutor().schedule(run, getTimerTime(hours, minutes), TimeUnit.MILLISECONDS);
         this.taskList.add(runnable);
-        App.logger("Add new TimedTaskAsynchronous Thread");
+        App.logger(prefix + "runTimedTaskAsynchronous-->" + "Add new TimedTaskAsynchronous Thread");
     }
 
     /* Run daily timed Task in a new Thread */
     public void runDailyTimedTaskAsynchronous(Runnable run, int hours, int minutes) {
         Runnable runnable = () -> Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(run, getTimerTime(hours, minutes), 1000 * 60 * 60 * 24, TimeUnit.MILLISECONDS);
         this.taskList.add(runnable);
-        App.logger("Add new DailyTimedTaskAsynchronous Thread");
+        App.logger(prefix + "runDailyTimedTaskAsynchronous-->" + "Add new DailyTimedTaskAsynchronous Thread");
     }
 
     /* Run repeat Task in a new Thread */
     public void runDelayedTaskAsynchronous(Runnable run, int delay) {
         Runnable runnable = () -> Executors.newSingleThreadScheduledExecutor().schedule(run, delay, TimeUnit.MILLISECONDS);
         this.taskList.add(runnable);
-        App.logger("Add new DelayedTaskAsynchronous Thread");
+        App.logger(prefix + "runDelayedTaskAsynchronous-->" + "Add new DelayedTaskAsynchronous Thread");
     }
 
 
@@ -94,7 +95,7 @@ public class Heartbeat implements Runnable, Executor {
     public void runTaskAsynchronous(Runnable async) {
         Runnable runnable = () -> Executors.newSingleThreadExecutor().submit(async);
         this.taskList.add(runnable);
-        App.logger("Add new TaskAsynchronous Thread");
+        App.logger(prefix + "runTaskAsynchronous-->" + "Add new TaskAsynchronous Thread");
     }
 
 
