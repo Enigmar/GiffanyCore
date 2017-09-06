@@ -3,7 +3,8 @@ package de.linzn.viki.network.readIn;
 import de.linzn.javaSocket.server.events.SocketDataEvent;
 import de.linzn.javaSocket.server.interfaces.IDataListener;
 import de.linzn.viki.App;
-import de.linzn.viki.beta.processor.SkillProcessor;
+import de.linzn.viki.internal.ifaces.RequestOwner;
+import de.linzn.viki.internal.processor.SkillProcessor;
 import de.linzn.viki.network.template.Channel;
 
 import java.io.DataInputStream;
@@ -34,7 +35,8 @@ public class DefaultStream implements IDataListener {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        SkillProcessor skillProcessor = new SkillProcessor(values);
+        RequestOwner requestOwner = new RequestOwner(event.getMessenger().clientUUID);
+        SkillProcessor skillProcessor = new SkillProcessor(requestOwner, values);
         skillProcessor.processing();
 
     }

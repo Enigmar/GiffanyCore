@@ -1,4 +1,4 @@
-package de.linzn.viki.beta.ifaces;
+package de.linzn.viki.internal.ifaces;
 
 import java.util.HashMap;
 import java.util.Map;

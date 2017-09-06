@@ -1,7 +1,8 @@
 package de.linzn.viki.terminal;
 
 import de.linzn.viki.App;
-import de.linzn.viki.beta.processor.SkillProcessor;
+import de.linzn.viki.internal.ifaces.RequestOwner;
+import de.linzn.viki.internal.processor.SkillProcessor;
 import de.linzn.viki.terminal.tmode.Tmode;
 
 import java.util.Arrays;
@@ -52,7 +53,8 @@ public class TerminalModule implements Runnable {
                         App.logger("No tmode input.");
                     }
                 } else {
-                    SkillProcessor skillProcessor = new SkillProcessor(input);
+                    RequestOwner requestOwner = new RequestOwner();
+                    SkillProcessor skillProcessor = new SkillProcessor(requestOwner, input);
                     skillProcessor.processing();
                 }
             }

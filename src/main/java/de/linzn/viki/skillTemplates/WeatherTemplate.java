@@ -1,9 +1,10 @@
-package de.linzn.viki.beta.skillTemplates;
+package de.linzn.viki.skillTemplates;
 
 import de.linzn.viki.App;
-import de.linzn.viki.beta.ifaces.ISkillTemplate;
-import de.linzn.viki.beta.ifaces.ParentSkill;
-import de.linzn.viki.beta.ifaces.SubSkill;
+import de.linzn.viki.internal.ifaces.ISkillTemplate;
+import de.linzn.viki.internal.ifaces.ParentSkill;
+import de.linzn.viki.internal.ifaces.RequestOwner;
+import de.linzn.viki.internal.ifaces.SubSkill;
 import net.aksingh.owmjapis.CurrentWeather;
 import net.aksingh.owmjapis.OpenWeatherMap;
 
@@ -12,12 +13,14 @@ import java.io.IOException;
 
 public class WeatherTemplate implements ISkillTemplate {
     public App app;
+    private RequestOwner requestOwner;
     private ParentSkill parentSkill;
     private SubSkill subSkill;
     private String prefix = this.getClass().getSimpleName() + "->";
 
     @Override
-    public void setEnv(ParentSkill parentSkill, SubSkill subSkill) {
+    public void setEnv(RequestOwner requestOwner, ParentSkill parentSkill, SubSkill subSkill) {
+        this.requestOwner = requestOwner;
         this.subSkill = subSkill;
         this.parentSkill = parentSkill;
     }

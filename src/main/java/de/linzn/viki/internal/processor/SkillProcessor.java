@@ -1,11 +1,12 @@
-package de.linzn.viki.beta.processor;
+package de.linzn.viki.internal.processor;
 
 import de.linzn.viki.App;
-import de.linzn.viki.beta.data.GetParentSkill;
-import de.linzn.viki.beta.data.GetSubSkill;
-import de.linzn.viki.beta.ifaces.ISkillTemplate;
-import de.linzn.viki.beta.ifaces.ParentSkill;
-import de.linzn.viki.beta.ifaces.SubSkill;
+import de.linzn.viki.internal.data.GetParentSkill;
+import de.linzn.viki.internal.data.GetSubSkill;
+import de.linzn.viki.internal.ifaces.ISkillTemplate;
+import de.linzn.viki.internal.ifaces.ParentSkill;
+import de.linzn.viki.internal.ifaces.RequestOwner;
+import de.linzn.viki.internal.ifaces.SubSkill;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -16,10 +17,12 @@ public class SkillProcessor {
     private String[] formattedInput = null;
     private ParentSkill parentSkill = null;
     private SubSkill subSkill = null;
+    private RequestOwner requestOwner = null;
     private String prefix = this.getClass().getSimpleName() + "->";
 
-    public SkillProcessor(String rawInput) {
+    public SkillProcessor(RequestOwner requestOwner, String rawInput) {
         App.logger(prefix + "creating Instance ");
+        this.requestOwner = requestOwner;
         this.rawInput = rawInput;
     }
 
@@ -119,16 +122,16 @@ public class SkillProcessor {
         }
 
         if (class_name == null || method_name == null) {
-            App.logger(prefix + "executeJavaClassFunction-->" + "Failed " + class_name + " <->" + method_name);
+            App.logger(prefix + "executeJavaClassFunction-->" + "Failed " + class_name + "<->" + method_name);
             return false;
         }
-        App.logger(prefix + "executeJavaClassFunction-->" + "Success " + class_name + " <->" + method_name);
+        App.logger(prefix + "executeJavaClassFunction-->" + "Success " + class_name + "<->" + method_name);
 
         try {
-            Class<ISkillTemplate> act = (Class<ISkillTemplate>) Class.forName("de.linzn.viki.beta.skillTemplates."
+            Class<ISkillTemplate> act = (Class<ISkillTemplate>) Class.forName("de.linzn.viki.skillTemplates."
                     + Character.toUpperCase(class_name.charAt(0)) + class_name.substring(1));
             ISkillTemplate selectedSkillTemplate = act.newInstance();
-            selectedSkillTemplate.setEnv(this.parentSkill, this.subSkill);
+            selectedSkillTemplate.setEnv(this.requestOwner, this.parentSkill, this.subSkill);
 
             try {
                 //Search method in this class

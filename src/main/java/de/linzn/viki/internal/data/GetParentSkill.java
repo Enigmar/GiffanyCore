@@ -1,9 +1,9 @@
-package de.linzn.viki.beta.data;
+package de.linzn.viki.internal.data;
 
 import de.linzn.viki.App;
-import de.linzn.viki.beta.ifaces.CodecUtils;
-import de.linzn.viki.beta.ifaces.ParentSkill;
 import de.linzn.viki.database.DatabaseModule;
+import de.linzn.viki.internal.ifaces.CodecUtils;
+import de.linzn.viki.internal.ifaces.ParentSkill;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
