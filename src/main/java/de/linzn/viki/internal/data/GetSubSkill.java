@@ -14,16 +14,19 @@ import java.util.Map;
 
 
 public class GetSubSkill {
+    /* Variables */
     private DatabaseModule mysqldb;
     private String[] input;
     private ParentSkill parentskill;
 
+    /* Create class instance */
     public GetSubSkill(ParentSkill parentskill) {
         this.input = parentskill.inputArray;
         this.mysqldb = App.appInstance.mysqlData;
         this.parentskill = parentskill;
     }
 
+    /* Select the data from the mysql database for the subSkill objectclass*/
     public SubSkill getSkill() {
         SubSkill subSkill = null;
         try {
@@ -36,7 +39,6 @@ public class GetSubSkill {
                 if (rs.next()) {
                     int content_group_id = rs.getInt("content_group_id");
                     String trigger = rs.getString("content");
-                    // Do some thing
                     sqlquerry = ("SELECT `subskill_id` FROM `subskills_assignment` WHERE `content_group_id` = '" + content_group_id + "' AND `parentskill_id` = '" + this.parentskill.parentskill_id + "'");
                     rs = st.executeQuery(sqlquerry);
                     if (rs.next()) {

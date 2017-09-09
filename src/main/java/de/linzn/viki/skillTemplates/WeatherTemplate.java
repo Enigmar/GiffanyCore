@@ -25,12 +25,20 @@ public class WeatherTemplate implements ISkillTemplate {
         this.parentSkill = parentSkill;
     }
 
-    public void getWeather() {
+    public void getWeatherCurrent() {
+        String location;
+        String key;
+        if (this.parentSkill != null) {
+            location = (String) this.parentSkill.serial_data.get("location");
+            key = (String) this.parentSkill.serial_data.get("weatherKey");
+        } else {
+            location = (String) this.subSkill.serial_data.get("location");
+            key = (String) this.subSkill.serial_data.get("weatherKey");
+        }
         try {
-            OpenWeatherMap owm = new OpenWeatherMap((String) this.subSkill.serial_data.get("weatherKey"));
+            OpenWeatherMap owm = new OpenWeatherMap(key);
             owm.setUnits(OpenWeatherMap.Units.METRIC);
             owm.setLang(OpenWeatherMap.Language.GERMAN);
-            String location = (String) this.subSkill.serial_data.get("location");
             App.logger(prefix + "getWeather-->" + "location " + location);
             CurrentWeather weatherCurrent = owm.currentWeatherByCityName(location);
             System.out.println("Wetter aktuell: " + weatherCurrent.getMainInstance().getTemperature());
@@ -39,4 +47,5 @@ public class WeatherTemplate implements ISkillTemplate {
         }
 
     }
+
 }

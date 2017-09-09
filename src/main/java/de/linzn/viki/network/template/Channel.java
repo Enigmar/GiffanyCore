@@ -6,6 +6,7 @@ package de.linzn.viki.network.template;
 public class Channel {
 
     // Channels
+    public static String voiceChannel = "voiceChannel";
     public static String defaultChannel = "defaultTransfer";
 
 }

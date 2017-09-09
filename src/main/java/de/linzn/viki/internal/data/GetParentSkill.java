@@ -12,14 +12,17 @@ import java.sql.Statement;
 import java.util.Map;
 
 public class GetParentSkill {
+    /* Variables */
     private DatabaseModule mysqldb;
     private String[] input;
 
+    /* Create class instance */
     public GetParentSkill(String[] input) {
         this.input = input;
         this.mysqldb = App.appInstance.mysqlData;
     }
 
+    /* Select the data from the mysql database for the parentSkill objectclass*/
     public ParentSkill getSkill() {
         ParentSkill parentSkill = null;
         try {
@@ -32,7 +35,6 @@ public class GetParentSkill {
                 if (rs.next()) {
                     int content_id = rs.getInt("content_group_id");
                     String trigger = rs.getString("content");
-                    // Do some thing
                     sqlquerry = ("SELECT `parentskill_id` FROM `parentskills_assignment` WHERE `content_group_id` = '" + content_id + "'");
                     rs = st.executeQuery(sqlquerry);
                     if (rs.next()) {

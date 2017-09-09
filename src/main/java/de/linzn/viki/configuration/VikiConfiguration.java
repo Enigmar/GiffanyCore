@@ -6,6 +6,7 @@ import java.io.*;
 import java.util.Properties;
 
 public class VikiConfiguration {
+    /* Variables */
     public String socketHost;
     public int socketPort;
     public String sqlHostName;
@@ -16,6 +17,7 @@ public class VikiConfiguration {
     private App app;
     private String fileName = "viki.properties";
 
+    /* Create class instance */
     public VikiConfiguration(App app) {
         App.logger(this.getClass().getSimpleName() + "->" + "creating Instance ");
         this.app = app;
@@ -23,6 +25,7 @@ public class VikiConfiguration {
 
     }
 
+    /* Create folders and files*/
     public void init() {
         File file = new File(this.fileName);
         if (!file.exists()) {
@@ -32,6 +35,7 @@ public class VikiConfiguration {
 
     }
 
+    /* Setup properies file with values */
     public void create() {
 
         Properties prop = new Properties();
@@ -58,6 +62,7 @@ public class VikiConfiguration {
         }
     }
 
+    /* Load the file in the memory */
     public void load() {
 
         Properties prop = new Properties();

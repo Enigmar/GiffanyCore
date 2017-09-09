@@ -13,7 +13,7 @@ public class DatabaseModule {
     private String username;
     private String password;
 
-    // the class
+    /* Create class instance */
     public DatabaseModule(App app) {
         App.logger(this.getClass().getSimpleName() + "->" + "creating Instance ");
         this.app = app;
@@ -25,6 +25,7 @@ public class DatabaseModule {
     }
 
 
+    /* Return a new mysql connection */
     public Connection getConnection() {
         try {
             return DriverManager.getConnection(this.url, this.username, this.password);
@@ -34,6 +35,7 @@ public class DatabaseModule {
         return null;
     }
 
+    /* Clear an mysql connection*/
     public void releaseConnection(Connection connection) {
         try {
             connection.close();
