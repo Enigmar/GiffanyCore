@@ -22,8 +22,8 @@ public class DisconnectEvent implements ITypeListener {
     @Override
     public void onTypeEvent(SocketTypeEvent event) {
         // TODO Auto-generated method stub
-        if (event.getMessenger().isAuthenticated.get()) {
-            App.logger("Authenticated remoteClient closed connection : " + event.getMessenger().clientUUID);
+        if (event.getRemoteClient().isAuthenticated.get()) {
+            App.logger("Authenticated remoteClient closed connection : " + event.getRemoteClient().clientUUID);
         }
     }
 

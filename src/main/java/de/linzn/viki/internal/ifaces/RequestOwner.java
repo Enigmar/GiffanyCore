@@ -24,7 +24,7 @@ public class RequestOwner {
 
     public void sendNotification(String notification) {
         if (this.isNetworkclient) {
-            RemoteClient rClient = App.appInstance.networkProc.eSockserver.getClient(this.clientUUID);
+            RemoteClient rClient = App.appInstance.networkProc.sockServer.getClient(this.clientUUID);
             VoiceManagement voice = new VoiceManagement(this, notification);
             voice.createVoice();
             voice.sendVoice();

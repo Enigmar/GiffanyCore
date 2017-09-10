@@ -32,7 +32,7 @@ public class VoiceManagement {
             InputStream unbufferedIn = synthesiser.getMP3Data(textVoice);
             App.logger(prefix + "createVoice-->" + "get voice stream");
             this.bytes = CodecUtils.inputstreamToBytes(unbufferedIn);
-            App.logger(prefix + "createVoice-->" + "Bytes: " + this.bytes);
+            App.logger(prefix + "createVoice-->" + "Bytes: " + this.bytes.length);
         } catch (Exception e) {
             System.out.println("Error");
             e.printStackTrace();
@@ -42,20 +42,22 @@ public class VoiceManagement {
 
     public void sendVoice() {
         App.logger(prefix + "sendVoice-->" + "build stream");
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
         DataOutputStream out = null;
         try {
-            out = App.appInstance.networkProc.eSockserver.initialChannel(bytes, Channel.voiceChannel);
+            out = App.appInstance.networkProc.sockServer.initialChannel(byteOut, Channel.voiceChannel);
         } catch (IOException e) {
             e.printStackTrace();
         }
         try {
-            App.logger(prefix + "sendVoice-->" + "put bytearray: " + this.bytes);
-            out.write(this.bytes);
+            App.logger(prefix + "sendVoice-->" + "put bytearray: " + this.bytes.length);
+            for (byte byt : this.bytes) {
+                out.writeByte(byt);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
         App.logger(prefix + "sendVoice-->" + "send to client");
-        App.appInstance.networkProc.eSockserver.getClient(this.requestOwner.clientUUID).writeRemote(bytes);
+        App.appInstance.networkProc.sockServer.getClient(this.requestOwner.clientUUID).writeRemote(byteOut);
     }
 }

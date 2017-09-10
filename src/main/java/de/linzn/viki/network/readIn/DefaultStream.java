@@ -27,7 +27,7 @@ public class DefaultStream implements IDataListener {
     @Override
     public void onDataRecieve(SocketDataEvent event) {
         // TODO Auto-generated method stub
-        DataInputStream in = this.app.networkProc.eSockserver.readByteArray(event.getStreamBytes());
+        DataInputStream in = this.app.networkProc.sockServer.readByteArray(event.getStreamBytes());
         String values = null;
         try {
             values = in.readUTF();
@@ -35,7 +35,7 @@ public class DefaultStream implements IDataListener {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        RequestOwner requestOwner = new RequestOwner(event.getMessenger().clientUUID);
+        RequestOwner requestOwner = new RequestOwner(event.getRemoteClient().clientUUID);
         SkillProcessor skillProcessor = new SkillProcessor(requestOwner, values);
         skillProcessor.processing();
 

@@ -8,36 +8,36 @@ import de.linzn.viki.network.readIn.DisconnectEvent;
 import de.linzn.viki.network.template.SocketTemplate;
 
 public class NetworkModule {
-    public EnigmarSockserver eSockserver;
-    public SocketTemplate eSocktemplate;
+    public EnigmarSockserver sockServer;
+    public SocketTemplate sockTemplate;
     private App app;
 
     public NetworkModule(App app) {
         App.logger(this.getClass().getSimpleName() + "->" + "creating Instance ");
         this.app = app;
-        this.eSocktemplate = new SocketTemplate();
-        this.eSockserver = new EnigmarSockserver();
-        this.eSockserver.setCoreMask(this.eSocktemplate);
-        this.eSockserver.setPort(this.app.vikiConfiguration.socketPort);
-        this.eSockserver.setHostname(this.app.vikiConfiguration.socketHost);
-        this.eSockserver.setLogLevel(2);
-        this.eSockserver.setup();
+        this.sockTemplate = new SocketTemplate();
+        this.sockServer = new EnigmarSockserver();
+        this.sockServer.setCoreMask(this.sockTemplate);
+        this.sockServer.setPort(this.app.vikiConfiguration.socketPort);
+        this.sockServer.setHostname(this.app.vikiConfiguration.socketHost);
+        this.sockServer.setLogLevel(2);
+        this.sockServer.setup();
         this.registerEvents();
         this.createNetwork();
     }
 
     private void registerEvents() {
-        this.eSockserver.registerEventListener(new AuthenticateEvent(this.app));
-        this.eSockserver.registerEventListener(new DisconnectEvent(this.app));
-        this.eSockserver.registerEventListener(new DefaultStream(this.app));
+        this.sockServer.registerEventListener(new AuthenticateEvent(this.app));
+        this.sockServer.registerEventListener(new DisconnectEvent(this.app));
+        this.sockServer.registerEventListener(new DefaultStream(this.app));
     }
 
     public void createNetwork() {
-        this.eSockserver.start();
+        this.sockServer.start();
     }
 
     public void deleteNetwork() {
-        this.eSockserver.stop();
+        this.sockServer.stop();
     }
 
 }
