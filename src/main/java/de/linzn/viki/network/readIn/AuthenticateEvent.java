@@ -28,7 +28,7 @@ public class AuthenticateEvent implements ITypeListener {
         Runnable run = new Runnable() {
             @Override
             public void run() {
-                requestOwner.sendNotification("Hey Mister Natzi komm auf meine Party wir haben Bier und Koks!");
+                requestOwner.sendNotification("Hallo. Du bist nun verbunden!");
             }
         };
         this.app.heartbeat.runDelayedTaskAsynchronous(run, 5000);
