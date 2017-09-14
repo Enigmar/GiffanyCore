@@ -19,7 +19,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <mainClass>de.linzn.viki.App</mainClass>
-                            <classpathPrefix>libraries/</classpathPrefix>
+                            <classpathPrefix>dependency/</classpathPrefix>
                         </manifest>
                     </archive>
                 </configuration>
@@ -57,7 +57,7 @@
         <dependency>
             <groupId>de.linzn</groupId>
             <artifactId>enigmarSocketServer</artifactId>
-            <version>0.2.6</version>
+            <version>0.2.8</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -80,9 +80,9 @@
             <version>2.5.0.3</version>
         </dependency>
         <dependency>
-            <groupId>com.darkprograms.speech</groupId>
-            <artifactId>java-speech-api</artifactId>
-            <version>1.13.0-SNAPSHOT</version>
+            <groupId>de.linzn</groupId>
+            <artifactId>vikiSpeechApi</artifactId>
+            <version>0.0.1</version>
         </dependency>
     </dependencies>
 </project>

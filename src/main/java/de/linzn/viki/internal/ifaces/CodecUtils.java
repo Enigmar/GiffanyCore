@@ -1,6 +1,5 @@
 package de.linzn.viki.internal.ifaces;
 
-import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,22 +31,6 @@ public class CodecUtils {
             return map;
         }
         return null;
-    }
-
-
-    public static InputStream byteToInputstream(byte[] bytes) {
-        return new BufferedInputStream(new ByteArrayInputStream(bytes));
-
-    }
-
-    public static byte[] inputstreamToBytes(InputStream input) throws IOException {
-        byte[] buffer = new byte[8192];
-        int bytesRead;
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        while ((bytesRead = input.read(buffer)) != -1) {
-            output.write(buffer, 0, bytesRead);
-        }
-        return output.toByteArray();
     }
 
 }
