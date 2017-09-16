@@ -57,7 +57,7 @@
         <dependency>
             <groupId>de.linzn</groupId>
             <artifactId>enigmarSocketServer</artifactId>
-            <version>0.2.8</version>
+            <version>0.3.1</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>

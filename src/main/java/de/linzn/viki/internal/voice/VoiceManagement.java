@@ -30,15 +30,14 @@ public class VoiceManagement {
     public void sendVoice() {
         App.logger(prefix + "sendVoice-->" + "build stream");
         ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
-        DataOutputStream out = null;
+        DataOutputStream out = new DataOutputStream(byteOut);
         try {
-            out = App.appInstance.networkProc.sockServer.initialChannel(byteOut);
             App.logger(prefix + "sendVoice-->" + "put bytearray: " + this.bytes.length);
             out.write(this.bytes);
         } catch (IOException e) {
             e.printStackTrace();
         }
         App.logger(prefix + "sendVoice-->" + "send to client");
-        App.appInstance.networkProc.sockServer.getClient(this.requestOwner.clientUUID).writeRemote(Channel.voiceChannel, byteOut, true);
+        App.appInstance.networkProc.sockServer.getClient(this.requestOwner.clientUUID).writeOut(Channel.voiceChannel, byteOut, true);
     }
 }

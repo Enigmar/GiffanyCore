@@ -1,11 +1,11 @@
 package de.linzn.viki.network.readIn;
 
-import de.linzn.javaSocket.server.events.SocketTypeEvent;
-import de.linzn.javaSocket.server.interfaces.EventTypes;
-import de.linzn.javaSocket.server.interfaces.ITypeListener;
+import de.linzn.javaSocket.core.events.SocketTypeEvent;
+import de.linzn.javaSocket.core.interfaces.EventTypes;
+import de.linzn.javaSocket.core.interfaces.SocketTypeListener;
 import de.linzn.viki.App;
 
-public class DisconnectEvent implements ITypeListener {
+public class DisconnectEvent implements SocketTypeListener {
 
     private App app;
 
@@ -20,10 +20,10 @@ public class DisconnectEvent implements ITypeListener {
     }
 
     @Override
-    public void onTypeEvent(SocketTypeEvent event) {
+    public void onTypeEvent(SocketTypeEvent socketTypeEvent) {
         // TODO Auto-generated method stub
-        if (event.getRemoteClient().isAuthenticated.get()) {
-            App.logger("Authenticated remoteClient closed connection : " + event.getRemoteClient().clientUUID);
+        if (socketTypeEvent.getSocketClient().isAuthenticated()) {
+            App.logger("SocketClient closed connection : " + socketTypeEvent.getSocketClient().getUUID());
         }
     }
 

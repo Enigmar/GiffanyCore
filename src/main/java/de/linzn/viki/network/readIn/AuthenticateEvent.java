@@ -1,12 +1,12 @@
 package de.linzn.viki.network.readIn;
 
-import de.linzn.javaSocket.server.events.SocketTypeEvent;
-import de.linzn.javaSocket.server.interfaces.EventTypes;
-import de.linzn.javaSocket.server.interfaces.ITypeListener;
+import de.linzn.javaSocket.core.events.SocketTypeEvent;
+import de.linzn.javaSocket.core.interfaces.EventTypes;
+import de.linzn.javaSocket.core.interfaces.SocketTypeListener;
 import de.linzn.viki.App;
 import de.linzn.viki.internal.ifaces.RequestOwner;
 
-public class AuthenticateEvent implements ITypeListener {
+public class AuthenticateEvent implements SocketTypeListener {
 
     private App app;
 
@@ -17,21 +17,21 @@ public class AuthenticateEvent implements ITypeListener {
     @Override
     public EventTypes getType() {
         // TODO Auto-generated method stub
-        return EventTypes.AUTHENTICATESUCCESS;
+        return EventTypes.AUTHENTICATE;
     }
 
     @Override
     public void onTypeEvent(SocketTypeEvent event) {
-        App.logger("New authenticated remoteClient: " + event.getRemoteClient().clientUUID);
-        RequestOwner requestOwner = new RequestOwner(event.getRemoteClient().clientUUID);
+        App.logger("New authenticated remoteClient: " + event.getSocketClient().getUUID());
+        RequestOwner requestOwner = new RequestOwner(event.getSocketClient().getUUID());
 
         Runnable run = new Runnable() {
             @Override
             public void run() {
-                requestOwner.sendNotification("Hallo. Du bist nun verbunden!");
+                requestOwner.sendNotification("Hallo. Du hast dich Authentifiziert");
             }
         };
-        this.app.heartbeat.runDelayedTaskAsynchronous(run, 5000);
+        this.app.heartbeat.runTaskAsynchronous(run);
     }
 
 }
