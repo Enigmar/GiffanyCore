@@ -5,6 +5,7 @@ import de.linzn.viki.App;
 import de.linzn.viki.network.readIn.AuthenticateEvent;
 import de.linzn.viki.network.readIn.DefaultStream;
 import de.linzn.viki.network.readIn.DisconnectEvent;
+import de.linzn.viki.network.readIn.TerminalStream;
 import de.linzn.viki.network.template.SocketTemplate;
 
 public class NetworkModule {
@@ -30,6 +31,7 @@ public class NetworkModule {
         this.sockServer.registerEventListener(new AuthenticateEvent(this.app));
         this.sockServer.registerEventListener(new DisconnectEvent(this.app));
         this.sockServer.registerEventListener(new DefaultStream(this.app));
+        this.sockServer.registerEventListener(new TerminalStream(this.app));
     }
 
     public void createNetwork() {

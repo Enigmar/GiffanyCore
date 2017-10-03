@@ -8,5 +8,6 @@ public class Channel {
     // Channels
     public static String voiceChannel = "voiceChannel";
     public static String defaultChannel = "defaultTransfer";
+    public static String terminalChannel = "terminalChannel";
 
 }
