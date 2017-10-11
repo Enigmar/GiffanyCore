@@ -38,6 +38,7 @@ public class VoiceManagement {
             e.printStackTrace();
         }
         App.logger(prefix + "sendVoice-->" + "send to client");
-        App.appInstance.networkProc.sockServer.getClient(this.requestOwner.clientUUID).writeOut(Channel.voiceChannel, byteOut, true);
+
+        App.appInstance.networkProc.jServer.getClient(this.requestOwner.clientUUID).writeOutput(Channel.voiceChannel, byteOut.toByteArray());
     }
 }
