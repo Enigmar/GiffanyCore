@@ -8,8 +8,12 @@ import de.linzn.viki.internal.ifaces.ParentSkill;
 import de.linzn.viki.internal.ifaces.RequestOwner;
 import de.linzn.viki.internal.ifaces.SubSkill;
 
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
 
 public class SkillProcessor {
 
@@ -128,8 +132,12 @@ public class SkillProcessor {
         App.logger(prefix + "executeJavaClassFunction-->" + "Success " + class_name + "<->" + method_name);
 
         try {
-            Class<ISkillTemplate> act = (Class<ISkillTemplate>) Class.forName("de.linzn.viki.skillTemplates."
-                    + Character.toUpperCase(class_name.charAt(0)) + class_name.substring(1));
+            ClassLoader cl = new URLClassLoader(new URL[]{new File("").toURI().toURL()});
+
+            Class<ISkillTemplate>  act = (Class<ISkillTemplate>) cl.loadClass("skills." + Character.toUpperCase(class_name.charAt(0)) + class_name.substring(1));
+
+            //Class<ISkillTemplate> act = (Class<ISkillTemplate>) Class.forName("de.linzn.viki.skillTemplates."
+            //        + Character.toUpperCase(class_name.charAt(0)) + class_name.substring(1));
             ISkillTemplate selectedSkillTemplate = act.newInstance();
             selectedSkillTemplate.setEnv(this.requestOwner, this.parentSkill, this.subSkill);
 
@@ -156,6 +164,8 @@ public class SkillProcessor {
             e.printStackTrace();
             return false;
             // No class found
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
         }
         return true;
     }

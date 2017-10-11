@@ -27,6 +27,11 @@ public class VikiConfiguration {
 
     /* Create folders and files*/
     public void init() {
+        File skillDir = new File("skills");
+        if (!skillDir.exists()){
+            skillDir.mkdir();
+        }
+
         File file = new File(this.fileName);
         if (!file.exists()) {
             create();
