@@ -58,6 +58,7 @@
             </plugin>
         </plugins>
     </build>
+
     <dependencies>
         <dependency>
             <groupId>de.linzn</groupId>
@@ -89,5 +90,6 @@
             <artifactId>vikiSpeechApi</artifactId>
             <version>0.0.1</version>
         </dependency>
+
     </dependencies>
 </project>
