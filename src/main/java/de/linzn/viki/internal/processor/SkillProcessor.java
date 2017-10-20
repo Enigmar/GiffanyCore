@@ -14,8 +14,12 @@ import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.UUID;
 
 public class SkillProcessor {
+    public static HashMap<UUID, ISkillTemplate> responseList = new HashMap<>();
 
     private String rawInput = null;
     private String[] formattedInput = null;
@@ -32,7 +36,11 @@ public class SkillProcessor {
 
     public boolean processing() {
         this.formattingInput();
-        this.buildSkill();
+        if (responseList.containsKey(this.requestOwner.clientUUID)){
+            responseList.get(this.requestOwner.clientUUID).addResponseParameter(this.formattedInput);
+        } else {
+            this.buildSkill();
+        }
         return true;
     }
 
@@ -136,8 +144,6 @@ public class SkillProcessor {
 
             Class<ISkillTemplate>  act = (Class<ISkillTemplate>) cl.loadClass("skills." + Character.toUpperCase(class_name.charAt(0)) + class_name.substring(1));
 
-            //Class<ISkillTemplate> act = (Class<ISkillTemplate>) Class.forName("de.linzn.viki.skillTemplates."
-            //        + Character.toUpperCase(class_name.charAt(0)) + class_name.substring(1));
             ISkillTemplate selectedSkillTemplate = act.newInstance();
             selectedSkillTemplate.setEnv(this.requestOwner, this.parentSkill, this.subSkill);
 
