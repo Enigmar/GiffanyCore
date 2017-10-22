@@ -73,17 +73,19 @@ public class SkillProcessor {
         for (char c : symbols) {
             this.rawInput = this.rawInput.replace(String.valueOf(c), "");
         }
-        App.logger(prefix + "formattingInput-->" + "cleanup single spacer");
-        // For special case
-        if (this.rawInput.toCharArray()[0] == ' ') {
-            this.rawInput = this.rawInput.replaceFirst(" ", "");
+        if (this.rawInput.length() > 0) {
+            App.logger(prefix + "formattingInput-->" + "cleanup single spacer");
+            // For special case
+            if (this.rawInput.toCharArray()[0] == ' ') {
+                this.rawInput = this.rawInput.replaceFirst(" ", "");
+            }
+
+            App.logger(prefix + "formattingInput-->" + "cleanup double spacer");
+            // Replace in case than more than one spacer
+            this.rawInput = this.rawInput.replaceAll("[ ]{2,}", " ");
+            this.rawInput = this.rawInput.toLowerCase();
+
         }
-
-        App.logger(prefix + "formattingInput-->" + "cleanup double spacer");
-        // Replace in case than more than one spacer
-        this.rawInput = this.rawInput.replaceAll("[ ]{2,}", " ");
-        this.rawInput = this.rawInput.toLowerCase();
-
         App.logger(prefix + "formattingInput-->" + "split to array");
         // Split the string in substrings
         this.formattedInput = this.rawInput.split(" ");
