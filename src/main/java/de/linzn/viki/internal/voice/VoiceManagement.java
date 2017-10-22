@@ -1,7 +1,7 @@
 package de.linzn.viki.internal.voice;
 
 import de.linzn.viki.App;
-import de.linzn.viki.internal.ifaces.RequestOwner;
+import de.linzn.viki.internal.ifaces.SkillClient;
 import de.linzn.viki.network.template.Channel;
 import de.linzn.vikiSpeechApi.VikiSpeechAPI;
 
@@ -13,12 +13,12 @@ public class VoiceManagement {
     private String prefix = this.getClass().getSimpleName() + "->";
     private String textVoice;
     private byte[] bytes;
-    private RequestOwner requestOwner;
+    private SkillClient skillClient;
 
-    public VoiceManagement(RequestOwner requestOwner, String textVoice) {
+    public VoiceManagement(SkillClient skillClient, String textVoice) {
         App.logger(prefix + "creating Instance ");
         this.textVoice = textVoice;
-        this.requestOwner = requestOwner;
+        this.skillClient = skillClient;
     }
 
     public void createVoice() {
@@ -39,6 +39,6 @@ public class VoiceManagement {
         }
         App.logger(prefix + "sendVoice-->" + "send to client");
 
-        App.appInstance.networkProc.jServer.getClient(this.requestOwner.clientUUID).writeOutput(Channel.voiceChannel, byteOut.toByteArray());
+        App.appInstance.networkProc.jServer.getClient(this.skillClient.clientUUID).writeOutput(Channel.voiceChannel, byteOut.toByteArray());
     }
 }

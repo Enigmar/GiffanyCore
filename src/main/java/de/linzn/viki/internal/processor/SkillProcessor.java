@@ -5,7 +5,7 @@ import de.linzn.viki.internal.data.GetParentSkill;
 import de.linzn.viki.internal.data.GetSubSkill;
 import de.linzn.viki.internal.ifaces.ISkillTemplate;
 import de.linzn.viki.internal.ifaces.ParentSkill;
-import de.linzn.viki.internal.ifaces.RequestOwner;
+import de.linzn.viki.internal.ifaces.SkillClient;
 import de.linzn.viki.internal.ifaces.SubSkill;
 
 import java.io.File;
@@ -14,30 +14,27 @@ import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.UUID;
 
 public class SkillProcessor {
-    public static HashMap<UUID, ISkillTemplate> responseList = new HashMap<>();
 
     private String rawInput = null;
     private String[] formattedInput = null;
     private ParentSkill parentSkill = null;
     private SubSkill subSkill = null;
-    private RequestOwner requestOwner = null;
+    private SkillClient skillClient = null;
     private String prefix = this.getClass().getSimpleName() + "->";
 
-    public SkillProcessor(RequestOwner requestOwner, String rawInput) {
+    public SkillProcessor(SkillClient skillClient, String rawInput) {
         App.logger(prefix + "creating Instance ");
-        this.requestOwner = requestOwner;
+        this.skillClient = skillClient;
         this.rawInput = rawInput;
     }
 
     public boolean processing() {
         this.formattingInput();
-        if (responseList.containsKey(this.requestOwner.clientUUID)){
-            responseList.get(this.requestOwner.clientUUID).addResponseParameter(this.formattedInput);
+        if (this.skillClient.isResponseWaiting()) {
+            //Some code
+            this.skillClient.getResponseSkill().newClientResponse(this.formattedInput);
         } else {
             this.buildSkill();
         }
@@ -142,10 +139,10 @@ public class SkillProcessor {
         try {
             ClassLoader cl = new URLClassLoader(new URL[]{new File("").toURI().toURL()});
 
-            Class<ISkillTemplate>  act = (Class<ISkillTemplate>) cl.loadClass("skills." + Character.toUpperCase(class_name.charAt(0)) + class_name.substring(1));
+            Class<ISkillTemplate> act = (Class<ISkillTemplate>) cl.loadClass("skills." + Character.toUpperCase(class_name.charAt(0)) + class_name.substring(1));
 
             ISkillTemplate selectedSkillTemplate = act.newInstance();
-            selectedSkillTemplate.setEnv(this.requestOwner, this.parentSkill, this.subSkill);
+            selectedSkillTemplate.setEnv(this.skillClient, this.parentSkill, this.subSkill);
 
             try {
                 //Search method in this class

@@ -2,9 +2,9 @@ package de.linzn.viki.internal.ifaces;
 
 public interface ISkillTemplate {
 
-    public void setEnv(RequestOwner requestOwner, ParentSkill parentSkill, SubSkill subSkill);
+    public void setEnv(SkillClient skillClient, ParentSkill parentSkill, SubSkill subSkill);
 
-    public void addResponseParameter(String[] newParameter);
+    public void newClientResponse(String[] newParameter);
 
 
 }

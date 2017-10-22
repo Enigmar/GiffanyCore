@@ -1,31 +1,25 @@
 package skills;
 
-import de.linzn.viki.App;
 import de.linzn.viki.internal.ifaces.ISkillTemplate;
 import de.linzn.viki.internal.ifaces.ParentSkill;
-import de.linzn.viki.internal.ifaces.RequestOwner;
+import de.linzn.viki.internal.ifaces.SkillClient;
 import de.linzn.viki.internal.ifaces.SubSkill;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.concurrent.TimeUnit;
-
 public class DefaultTemplate implements ISkillTemplate {
-    private RequestOwner requestOwner;
+    private SkillClient skillClient;
     private ParentSkill parentSkill;
     private SubSkill subSkill;
     private String prefix = this.getClass().getSimpleName() + "->";
 
     @Override
-    public void setEnv(RequestOwner requestOwner, ParentSkill parentSkill, SubSkill subSkill) {
-        this.requestOwner = requestOwner;
+    public void setEnv(SkillClient skillClient, ParentSkill parentSkill, SubSkill subSkill) {
+        this.skillClient = skillClient;
         this.subSkill = subSkill;
         this.parentSkill = parentSkill;
     }
 
     @Override
-    public void addResponseParameter(String[] newParameter) {
+    public void newClientResponse(String[] newParameter) {
 
     }
 

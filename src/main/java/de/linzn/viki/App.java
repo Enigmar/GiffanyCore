@@ -2,6 +2,7 @@ package de.linzn.viki;
 
 import de.linzn.viki.configuration.VikiConfiguration;
 import de.linzn.viki.database.DatabaseModule;
+import de.linzn.viki.internal.ifaces.SkillClient;
 import de.linzn.viki.network.NetworkModule;
 import de.linzn.viki.terminal.TerminalModule;
 
@@ -9,6 +10,8 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
@@ -24,6 +27,7 @@ public class App {
     public TerminalModule terminalProc;
     public DatabaseModule mysqlData;
     public Heartbeat heartbeat;
+    public HashMap<UUID, SkillClient> skillClientList;
     // The alive value for the heartbeat thread
     public AtomicBoolean isAlive;
     private long start_time;
@@ -31,8 +35,9 @@ public class App {
     // The instance
     public App(String[] args) {
         this.start_time = System.nanoTime();
-        this.isAlive = new AtomicBoolean();
         appInstance = this;
+        this.isAlive = new AtomicBoolean();
+        this.skillClientList = new HashMap<>();
         this.heartbeat = new Heartbeat(appInstance);
         Thread heart = new Thread(this.heartbeat);
         heart.setName("heartbeat");

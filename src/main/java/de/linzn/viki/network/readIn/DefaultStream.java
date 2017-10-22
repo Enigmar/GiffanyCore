@@ -2,7 +2,7 @@ package de.linzn.viki.network.readIn;
 
 import de.linzn.jSocket.core.IncomingDataListener;
 import de.linzn.viki.App;
-import de.linzn.viki.internal.ifaces.RequestOwner;
+import de.linzn.viki.internal.ifaces.SkillClient;
 import de.linzn.viki.internal.processor.SkillProcessor;
 
 import java.io.ByteArrayInputStream;
@@ -29,8 +29,8 @@ public class DefaultStream implements IncomingDataListener {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        RequestOwner requestOwner = new RequestOwner(uuid);
-        SkillProcessor skillProcessor = new SkillProcessor(requestOwner, values);
+        SkillClient skillClient = this.app.skillClientList.get(uuid);
+        SkillProcessor skillProcessor = new SkillProcessor(skillClient, values);
         skillProcessor.processing();
 
     }

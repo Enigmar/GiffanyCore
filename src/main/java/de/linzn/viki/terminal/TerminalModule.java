@@ -1,7 +1,7 @@
 package de.linzn.viki.terminal;
 
 import de.linzn.viki.App;
-import de.linzn.viki.internal.ifaces.RequestOwner;
+import de.linzn.viki.internal.ifaces.SkillClient;
 import de.linzn.viki.internal.processor.SkillProcessor;
 import de.linzn.viki.terminal.tmode.Tmode;
 
@@ -20,6 +20,8 @@ public class TerminalModule implements Runnable {
         this.clientUUID = UUID.randomUUID();
         this.app.heartbeat.runTaskAsynchronous(this);
         this.termCommands = new Tmode(this.app);
+        SkillClient skillClient = new SkillClient();
+        this.app.skillClientList.put(skillClient.clientUUID, skillClient);
     }
 
     @Override
@@ -53,8 +55,8 @@ public class TerminalModule implements Runnable {
                         App.logger("No tmode input.");
                     }
                 } else {
-                    RequestOwner requestOwner = new RequestOwner();
-                    SkillProcessor skillProcessor = new SkillProcessor(requestOwner, input);
+                    SkillClient skillClient = this.app.skillClientList.get(new UUID(0, 0));
+                    SkillProcessor skillProcessor = new SkillProcessor(skillClient, input);
                     skillProcessor.processing();
                 }
             }
