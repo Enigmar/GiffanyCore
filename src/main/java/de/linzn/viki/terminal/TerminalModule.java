@@ -55,9 +55,12 @@ public class TerminalModule implements Runnable {
                         App.logger("No tmode input.");
                     }
                 } else {
-                    SkillClient skillClient = this.app.skillClientList.get(new UUID(0, 0));
-                    SkillProcessor skillProcessor = new SkillProcessor(skillClient, input);
-                    skillProcessor.processing();
+                    Runnable runnable = () -> {
+                        SkillClient skillClient = this.app.skillClientList.get(new UUID(0, 0));
+                        SkillProcessor skillProcessor = new SkillProcessor(skillClient, input);
+                        skillProcessor.processing();
+                    };
+                    this.app.heartbeat.runTaskAsynchronous(runnable);
                 }
             }
         }

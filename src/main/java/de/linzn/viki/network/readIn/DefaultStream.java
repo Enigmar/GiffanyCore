@@ -29,9 +29,14 @@ public class DefaultStream implements IncomingDataListener {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        SkillClient skillClient = this.app.skillClientList.get(uuid);
-        SkillProcessor skillProcessor = new SkillProcessor(skillClient, values);
-        skillProcessor.processing();
+        final String finalValues = values;
+        Runnable runnable = () -> {
+            SkillClient skillClient = app.skillClientList.get(uuid);
+            SkillProcessor skillProcessor = new SkillProcessor(skillClient, finalValues);
+            skillProcessor.processing();
+        };
+        this.app.heartbeat.runTaskAsynchronous(runnable);
+
 
     }
 

@@ -9,22 +9,19 @@ import java.util.UUID;
 public class SkillClient {
     public UUID clientUUID;
     public boolean isNetworkclient;
-    private boolean waitingForInput;
-    private ISkillTemplate waitingIn;
+    private boolean waitingForResponse = false;
+    private ISkillTemplate waitInSkill = null;
+    private String[] responseInput;
 
     public SkillClient(UUID clientUUID) {
         this.clientUUID = clientUUID;
         this.isNetworkclient = true;
-        this.waitingForInput = false;
-        this.waitingIn = null;
         App.logger(this.getClass().getSimpleName() + "->" + "creating Instance ");
     }
 
     public SkillClient() {
         this.clientUUID = new UUID(0, 0);
         this.isNetworkclient = false;
-        this.waitingForInput = false;
-        this.waitingIn = null;
         App.logger(this.getClass().getSimpleName() + "->" + "creating Instance ");
     }
 
@@ -43,19 +40,33 @@ public class SkillClient {
         }
     }
 
-    public void setResponseWait(boolean waiting) {
-        this.waitingForInput = waiting;
+    public void newClientResponse(String[] input) {
+        this.responseInput = input;
+        this.waitingForResponse = false;
     }
 
-    public boolean isResponseWaiting() {
-        return this.waitingForInput;
+    public boolean isWaitingForResponse() {
+        return this.waitingForResponse;
     }
 
-    public ISkillTemplate getResponseSkill() {
-        return waitingIn;
-    }
-
-    public void setResponseSkill(ISkillTemplate iSkillTemplate) {
-        this.waitingIn = iSkillTemplate;
+    public String[] waitingSkillForResponse(ISkillTemplate iSkillTemplate, int timeInSec) {
+        this.waitingForResponse = true;
+        this.waitInSkill = iSkillTemplate;
+        String[] response = null;
+        for (int i = 0; i < timeInSec * 10; i++) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if (!this.waitingForResponse) {
+                response = this.responseInput;
+                break;
+            }
+        }
+        this.responseInput = null;
+        this.waitInSkill = null;
+        this.waitingForResponse = false;
+        return response;
     }
 }

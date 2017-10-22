@@ -18,10 +18,4 @@ public class DefaultTemplate implements ISkillTemplate {
         this.parentSkill = parentSkill;
     }
 
-    @Override
-    public void newClientResponse(String[] newParameter) {
-
-    }
-
-
 }

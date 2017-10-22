@@ -32,9 +32,9 @@ public class SkillProcessor {
 
     public boolean processing() {
         this.formattingInput();
-        if (this.skillClient.isResponseWaiting()) {
+        if (this.skillClient.isWaitingForResponse()) {
             //Some code
-            this.skillClient.getResponseSkill().newClientResponse(this.formattedInput);
+            this.skillClient.newClientResponse(this.formattedInput);
         } else {
             this.buildSkill();
         }
