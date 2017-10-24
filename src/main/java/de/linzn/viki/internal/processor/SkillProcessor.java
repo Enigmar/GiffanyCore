@@ -7,6 +7,7 @@ import de.linzn.viki.internal.ifaces.ISkillTemplate;
 import de.linzn.viki.internal.ifaces.ParentSkill;
 import de.linzn.viki.internal.ifaces.SkillClient;
 import de.linzn.viki.internal.ifaces.SubSkill;
+import skills.DefaultTemplate;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
@@ -135,8 +136,9 @@ public class SkillProcessor {
         if (class_name == null || method_name == null) {
             App.logger(prefix + "executeJavaClassFunction-->" + "Failed " + class_name + "<->" + method_name);
             return false;
+        } else {
+            App.logger(prefix + "executeJavaClassFunction-->" + "Success " + class_name + "<->" + method_name);
         }
-        App.logger(prefix + "executeJavaClassFunction-->" + "Success " + class_name + "<->" + method_name);
 
         try {
             ClassLoader cl = new URLClassLoader(new URL[]{new File("").toURI().toURL()});
@@ -146,31 +148,16 @@ public class SkillProcessor {
             ISkillTemplate selectedSkillTemplate = act.newInstance();
             selectedSkillTemplate.setEnv(this.skillClient, this.parentSkill, this.subSkill);
 
-            try {
-                //Search method in this class
-                Method method = selectedSkillTemplate.getClass().getMethod(method_name);
+            //Search method in this class
+            Method method = selectedSkillTemplate.getClass().getMethod(method_name);
+            //Run method in this class
+            method.invoke(selectedSkillTemplate);
 
-                try {
-                    //Run method in this class
-                    method.invoke(selectedSkillTemplate);
-                } catch (IllegalAccessException | InvocationTargetException | IllegalArgumentException e) {
-                    e.printStackTrace();
-                    // Error un method run
-                    return false;
-                }
-
-            } catch (NoSuchMethodException | SecurityException e) {
-                e.printStackTrace();
-                // Error on method search
-                return false;
-            }
-
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
+        } catch (ClassNotFoundException | InstantiationException | NoSuchMethodException | SecurityException | IllegalAccessException | InvocationTargetException | IllegalArgumentException | MalformedURLException e) {
+            System.out.println(e.getMessage());
+            ISkillTemplate defaultTemp = new DefaultTemplate();
+            defaultTemp.setEnv(this.skillClient, null, null);
             return false;
-            // No class found
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
         }
         return true;
     }

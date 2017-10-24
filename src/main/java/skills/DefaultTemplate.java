@@ -18,4 +18,8 @@ public class DefaultTemplate implements ISkillTemplate {
         this.parentSkill = parentSkill;
     }
 
+    public void defaultSkill() {
+        this.skillClient.sendResponseToClient(true, "Some thing went wrong. Default skill should never use!");
+    }
+
 }
