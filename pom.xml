@@ -25,7 +25,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>de.linzn.leegianOS.App</mainClass>
+                            <mainClass>de.linzn.leegianOS.LeegianOSApp</mainClass>
                             <classpathPrefix>dependency/</classpathPrefix>
                         </manifest>
                     </archive>

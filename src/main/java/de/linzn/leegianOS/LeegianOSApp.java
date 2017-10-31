@@ -17,9 +17,9 @@ import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
-public class App {
+public class LeegianOSApp {
     // The main instance
-    public static App appInstance;
+    public static LeegianOSApp leegianOSAppInstance;
     public static Logger fileLogger;
     // Define new variables for later
     public LeegianOSConfiguration leegianOSConfiguration;
@@ -33,12 +33,12 @@ public class App {
     private long start_time;
 
     // The instance
-    public App(String[] args) {
+    public LeegianOSApp(String[] args) {
         this.start_time = System.nanoTime();
-        appInstance = this;
+        leegianOSAppInstance = this;
         this.isAlive = new AtomicBoolean();
         this.skillClientList = new HashMap<>();
-        this.heartbeat = new Heartbeat(appInstance);
+        this.heartbeat = new Heartbeat(leegianOSAppInstance);
         Thread heart = new Thread(this.heartbeat);
         heart.setName("heartbeat");
         heart.start();
@@ -50,8 +50,8 @@ public class App {
     // Main for init this framework
     public static void main(String[] args) {
         logSetup();
-        App.logger(App.class.getSimpleName() + "->" + "creating Instance ");
-        new App(args);
+        LeegianOSApp.logger(LeegianOSApp.class.getSimpleName() + "->" + "creating Instance ");
+        new LeegianOSApp(args);
 
 
     }
@@ -89,10 +89,10 @@ public class App {
     // Load the modules for the framework
     private void loadModules() {
 
-        Runnable settings = () -> leegianOSConfiguration = new LeegianOSConfiguration(appInstance);
-        Runnable mysql = () -> mysqlData = new DatabaseModule(appInstance);
-        Runnable network = () -> networkProc = new NetworkModule(appInstance);
-        Runnable terminal = () -> terminalProc = new TerminalModule(appInstance);
+        Runnable settings = () -> leegianOSConfiguration = new LeegianOSConfiguration(leegianOSAppInstance);
+        Runnable mysql = () -> mysqlData = new DatabaseModule(leegianOSAppInstance);
+        Runnable network = () -> networkProc = new NetworkModule(leegianOSAppInstance);
+        Runnable terminal = () -> terminalProc = new TerminalModule(leegianOSAppInstance);
 
 
         this.heartbeat.runTaskSynchronous(settings);

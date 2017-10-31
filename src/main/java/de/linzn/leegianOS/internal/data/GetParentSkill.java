@@ -1,6 +1,6 @@
 package de.linzn.leegianOS.internal.data;
 
-import de.linzn.leegianOS.App;
+import de.linzn.leegianOS.LeegianOSApp;
 import de.linzn.leegianOS.database.DatabaseModule;
 import de.linzn.leegianOS.internal.ifaces.CodecUtils;
 import de.linzn.leegianOS.internal.ifaces.ParentSkill;
@@ -19,7 +19,7 @@ public class GetParentSkill {
     /* Create class instance */
     public GetParentSkill(String[] input) {
         this.input = input;
-        this.mysqldb = App.appInstance.mysqlData;
+        this.mysqldb = LeegianOSApp.leegianOSAppInstance.mysqlData;
     }
 
     /* Select the data from the mysql database for the parentSkill objectclass*/

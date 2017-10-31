@@ -1,16 +1,16 @@
 package de.linzn.leegianOS.terminal.tmode;
 
-import de.linzn.leegianOS.App;
+import de.linzn.leegianOS.LeegianOSApp;
 
 import java.util.TreeMap;
 
 public class Tmode {
-    private App app;
+    private LeegianOSApp leegianOSApp;
 
     private TreeMap<String, Itmode> terminalExecutes;
 
-    public Tmode(App app) {
-        this.app = app;
+    public Tmode(LeegianOSApp leegianOSApp) {
+        this.leegianOSApp = leegianOSApp;
         this.terminalExecutes = new TreeMap<String, Itmode>();
         this.initialTerminalExecudes();
     }

@@ -1,6 +1,6 @@
 package de.linzn.leegianOS.internal.processor;
 
-import de.linzn.leegianOS.App;
+import de.linzn.leegianOS.LeegianOSApp;
 import de.linzn.leegianOS.internal.data.GetParentSkill;
 import de.linzn.leegianOS.internal.data.GetSubSkill;
 import de.linzn.leegianOS.internal.ifaces.ISkillTemplate;
@@ -26,7 +26,7 @@ public class SkillProcessor {
     private String prefix = this.getClass().getSimpleName() + "->";
 
     public SkillProcessor(SkillClient skillClient, String rawInput) {
-        App.logger(prefix + "creating Instance ");
+        LeegianOSApp.logger(prefix + "creating Instance ");
         this.skillClient = skillClient;
         this.rawInput = rawInput;
     }
@@ -70,27 +70,27 @@ public class SkillProcessor {
                 '÷', 'ø', 'ù', 'ú', 'û', 'ü', 'ý', 'þ', 'ÿ', '^'};
 
         // First clean up the string
-        App.logger(prefix + "formattingInput-->" + "cleanup symbols");
+        LeegianOSApp.logger(prefix + "formattingInput-->" + "cleanup symbols");
         for (char c : symbols) {
             this.rawInput = this.rawInput.replace(String.valueOf(c), "");
         }
         if (this.rawInput.length() > 0) {
-            App.logger(prefix + "formattingInput-->" + "cleanup single spacer");
+            LeegianOSApp.logger(prefix + "formattingInput-->" + "cleanup single spacer");
             // For special case
             if (this.rawInput.toCharArray()[0] == ' ') {
                 this.rawInput = this.rawInput.replaceFirst(" ", "");
             }
 
-            App.logger(prefix + "formattingInput-->" + "cleanup double spacer");
+            LeegianOSApp.logger(prefix + "formattingInput-->" + "cleanup double spacer");
             // Replace in case than more than one spacer
             this.rawInput = this.rawInput.replaceAll("[ ]{2,}", " ");
             this.rawInput = this.rawInput.toLowerCase();
 
         }
-        App.logger(prefix + "formattingInput-->" + "split to array");
+        LeegianOSApp.logger(prefix + "formattingInput-->" + "split to array");
         // Split the string in substrings
         this.formattedInput = this.rawInput.split(" ");
-        App.logger(prefix + "formattingInput-->" + "end of method");
+        LeegianOSApp.logger(prefix + "formattingInput-->" + "end of method");
 
     }
 
@@ -98,26 +98,26 @@ public class SkillProcessor {
     private boolean buildSkill() {
         this.parentSkill = new GetParentSkill(this.formattedInput).getSkill();
         if (this.parentSkill != null) {
-            App.logger(prefix + "buildSkill-->" + "Success search parentSkill");
+            LeegianOSApp.logger(prefix + "buildSkill-->" + "Success search parentSkill");
             if (!this.parentSkill.standalone) {
                 this.subSkill = new GetSubSkill(this.parentSkill).getSkill();
                 if (this.subSkill != null) {
                     // Code for full support with sub and parent skill
-                    App.logger(prefix + "buildSkill-->" + "Success search subSkill");
+                    LeegianOSApp.logger(prefix + "buildSkill-->" + "Success search subSkill");
                     return this.executeJavaClassFunction();
                 } else {
                     // Exit, because no subskill for this exist.
-                    App.logger(prefix + "buildSkill-->" + "Failed search subSkill");
+                    LeegianOSApp.logger(prefix + "buildSkill-->" + "Failed search subSkill");
                     return false;
                 }
             } else {
-                App.logger(prefix + "buildSkill-->" + "parentSkill standalone");
+                LeegianOSApp.logger(prefix + "buildSkill-->" + "parentSkill standalone");
                 // Start, if parent skill ist standalone
                 return this.executeJavaClassFunction();
             }
         } else {
             // If no parent skill exist!
-            App.logger(prefix + "buildSkill-->" + "Failed search parentSkill");
+            LeegianOSApp.logger(prefix + "buildSkill-->" + "Failed search parentSkill");
             return false;
         }
     }
@@ -134,10 +134,10 @@ public class SkillProcessor {
         }
 
         if (class_name == null || method_name == null) {
-            App.logger(prefix + "executeJavaClassFunction-->" + "Failed " + class_name + "<->" + method_name);
+            LeegianOSApp.logger(prefix + "executeJavaClassFunction-->" + "Failed " + class_name + "<->" + method_name);
             return false;
         } else {
-            App.logger(prefix + "executeJavaClassFunction-->" + "Success " + class_name + "<->" + method_name);
+            LeegianOSApp.logger(prefix + "executeJavaClassFunction-->" + "Success " + class_name + "<->" + method_name);
         }
 
         try {

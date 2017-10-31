@@ -1,7 +1,7 @@
 package de.linzn.leegianOS.network.readIn;
 
 import de.linzn.jSocket.core.IncomingDataListener;
-import de.linzn.leegianOS.App;
+import de.linzn.leegianOS.LeegianOSApp;
 import de.linzn.leegianOS.internal.ifaces.SkillClient;
 import de.linzn.leegianOS.internal.processor.SkillProcessor;
 
@@ -12,10 +12,10 @@ import java.util.UUID;
 
 public class TerminalStream implements IncomingDataListener {
 
-    private App app;
+    private LeegianOSApp leegianOSApp;
 
-    public TerminalStream(App app) {
-        this.app = app;
+    public TerminalStream(LeegianOSApp leegianOSApp) {
+        this.leegianOSApp = leegianOSApp;
     }
 
     @Override
@@ -31,11 +31,11 @@ public class TerminalStream implements IncomingDataListener {
         }
         final String finalValues = values;
         Runnable runnable = () -> {
-            SkillClient skillClient = app.skillClientList.get(uuid);
+            SkillClient skillClient = leegianOSApp.skillClientList.get(uuid);
             SkillProcessor skillProcessor = new SkillProcessor(skillClient, finalValues);
             skillProcessor.processing();
         };
-        this.app.heartbeat.runTaskAsynchronous(runnable);
+        this.leegianOSApp.heartbeat.runTaskAsynchronous(runnable);
 
 
     }

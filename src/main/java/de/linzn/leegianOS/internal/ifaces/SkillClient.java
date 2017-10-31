@@ -1,7 +1,7 @@
 package de.linzn.leegianOS.internal.ifaces;
 
 
-import de.linzn.leegianOS.App;
+import de.linzn.leegianOS.LeegianOSApp;
 import de.linzn.leegianOS.internal.voice.VoiceManagement;
 
 import java.util.UUID;
@@ -16,13 +16,13 @@ public class SkillClient {
     public SkillClient(UUID clientUUID) {
         this.clientUUID = clientUUID;
         this.isNetworkclient = true;
-        App.logger(this.getClass().getSimpleName() + "->" + "creating Instance ");
+        LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "creating Instance ");
     }
 
     public SkillClient() {
         this.clientUUID = new UUID(0, 0);
         this.isNetworkclient = false;
-        App.logger(this.getClass().getSimpleName() + "->" + "creating Instance ");
+        LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "creating Instance ");
     }
 
     public void sendResponseToClient(boolean useVoice, String notification) {

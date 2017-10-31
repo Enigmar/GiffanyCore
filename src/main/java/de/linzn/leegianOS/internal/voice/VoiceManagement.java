@@ -1,6 +1,6 @@
 package de.linzn.leegianOS.internal.voice;
 
-import de.linzn.leegianOS.App;
+import de.linzn.leegianOS.LeegianOSApp;
 import de.linzn.leegianOS.internal.ifaces.SkillClient;
 import de.linzn.leegianOS.network.template.Channel;
 import de.linzn.vikiSpeechApi.VikiSpeechAPI;
@@ -16,29 +16,29 @@ public class VoiceManagement {
     private SkillClient skillClient;
 
     public VoiceManagement(SkillClient skillClient, String textVoice) {
-        App.logger(prefix + "creating Instance ");
+        LeegianOSApp.logger(prefix + "creating Instance ");
         this.textVoice = textVoice;
         this.skillClient = skillClient;
     }
 
     public void createVoice() {
-        App.logger(prefix + "createVoice-->" + "get voice stream");
+        LeegianOSApp.logger(prefix + "createVoice-->" + "get voice stream");
         this.bytes = new VikiSpeechAPI().requestVoiceStream(this.textVoice);
     }
 
 
     public void sendVoice() {
-        App.logger(prefix + "sendVoice-->" + "build stream");
+        LeegianOSApp.logger(prefix + "sendVoice-->" + "build stream");
         ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
         DataOutputStream out = new DataOutputStream(byteOut);
         try {
-            App.logger(prefix + "sendVoice-->" + "put bytearray: " + this.bytes.length);
+            LeegianOSApp.logger(prefix + "sendVoice-->" + "put bytearray: " + this.bytes.length);
             out.write(this.bytes);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        App.logger(prefix + "sendVoice-->" + "send to client");
+        LeegianOSApp.logger(prefix + "sendVoice-->" + "send to client");
 
-        App.appInstance.networkProc.jServer.getClient(this.skillClient.clientUUID).writeOutput(Channel.voiceChannel, byteOut.toByteArray());
+        LeegianOSApp.leegianOSAppInstance.networkProc.jServer.getClient(this.skillClient.clientUUID).writeOutput(Channel.voiceChannel, byteOut.toByteArray());
     }
 }

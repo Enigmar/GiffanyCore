@@ -1,6 +1,6 @@
 package de.linzn.leegianOS.configuration;
 
-import de.linzn.leegianOS.App;
+import de.linzn.leegianOS.LeegianOSApp;
 
 import java.io.*;
 import java.util.Properties;
@@ -14,13 +14,13 @@ public class LeegianOSConfiguration {
     public String sqlDatabaseName;
     public String sqlUserName;
     public String sqlPassword;
-    private App app;
+    private LeegianOSApp leegianOSApp;
     private String fileName = "leegianOS.properties";
 
     /* Create class instance */
-    public LeegianOSConfiguration(App app) {
-        App.logger(this.getClass().getSimpleName() + "->" + "creating Instance ");
-        this.app = app;
+    public LeegianOSConfiguration(LeegianOSApp leegianOSApp) {
+        LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "creating Instance ");
+        this.leegianOSApp = leegianOSApp;
         this.init();
 
     }
