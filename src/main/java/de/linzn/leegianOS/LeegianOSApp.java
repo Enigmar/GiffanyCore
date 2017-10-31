@@ -8,9 +8,11 @@ import de.linzn.leegianOS.terminal.TerminalModule;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Properties;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.FileHandler;
@@ -105,5 +107,26 @@ public class LeegianOSApp {
         Runnable finish = () -> logger("LeegianOS startup finished in " + (int) ((System.nanoTime() - start_time) / 1e6) + " ms.");
         this.heartbeat.runTaskSynchronous(finish);
     }
+
+
+    public String getVersion() {
+        String version;
+        String res = "META-INF/maven/de.linzn/leegianOS/pom.properties";
+        URL url = Thread.currentThread().getContextClassLoader().getResource(res);
+        if (url == null) {
+            version = "SS";
+        } else {
+            Properties props = new Properties();
+            try {
+                props.load(Thread.currentThread().getContextClassLoader().getResourceAsStream(res));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            version = props.getProperty("version");
+        }
+
+        return version;
+    }
+
 
 }

@@ -20,6 +20,7 @@ public class ConnectionStream implements ConnectionListener {
         LeegianOSApp.logger("Register new communication device: " + uuid);
         SkillClient skillClient = new SkillClient(uuid);
         this.leegianOSApp.skillClientList.put(skillClient.clientUUID, skillClient);
+        skillClient.sendOSData();
     }
 
     @Override

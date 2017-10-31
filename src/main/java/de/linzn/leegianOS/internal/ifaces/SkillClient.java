@@ -3,7 +3,11 @@ package de.linzn.leegianOS.internal.ifaces;
 
 import de.linzn.leegianOS.LeegianOSApp;
 import de.linzn.leegianOS.internal.voice.VoiceManagement;
+import de.linzn.leegianOS.network.template.Channel;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.UUID;
 
 public class SkillClient {
@@ -38,6 +42,18 @@ public class SkillClient {
         } else {
             System.out.println("Response: " + notification);
         }
+    }
+
+    public void sendOSData() {
+        ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
+        DataOutputStream out = new DataOutputStream(byteOut);
+        try {
+            out.writeUTF(LeegianOSApp.leegianOSAppInstance.getVersion());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        LeegianOSApp.leegianOSAppInstance.networkProc.jServer.getClient(this.clientUUID).writeOutput(Channel.leegianOSData, byteOut.toByteArray());
     }
 
     public void newClientResponse(String[] input) {
