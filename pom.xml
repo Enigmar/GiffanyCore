@@ -3,9 +3,9 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.linzn</groupId>
     <packaging>jar</packaging>
-    <name>Viki</name>
-    <version>0.9.2</version>
-    <artifactId>viki</artifactId>
+    <name>leegianOS</name>
+    <version>1.0.1</version>
+    <artifactId>leegianOS</artifactId>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -25,7 +25,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>de.linzn.viki.App</mainClass>
+                            <mainClass>de.linzn.leegianOS.App</mainClass>
                             <classpathPrefix>dependency/</classpathPrefix>
                         </manifest>
                     </archive>

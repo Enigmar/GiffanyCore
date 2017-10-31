@@ -1,0 +1,46 @@
+package de.linzn.leegianOS.database;
+
+import de.linzn.leegianOS.App;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class DatabaseModule {
+    // Define variables
+    private App app;
+    private String url;
+    private String username;
+    private String password;
+
+    /* Create class instance */
+    public DatabaseModule(App app) {
+        App.logger(this.getClass().getSimpleName() + "->" + "creating Instance ");
+        this.app = app;
+        this.url = "jdbc:mysql://" + this.app.leegianOSConfiguration.sqlHostName + ":" + this.app.leegianOSConfiguration.sqlPort + "/"
+                + this.app.leegianOSConfiguration.sqlDatabaseName;
+        this.username = this.app.leegianOSConfiguration.sqlUserName;
+        this.password = this.app.leegianOSConfiguration.sqlPassword;
+        this.releaseConnection(getConnection());
+    }
+
+
+    /* Return a new mysql connection */
+    public Connection getConnection() {
+        try {
+            return DriverManager.getConnection(this.url, this.username, this.password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /* Clear an mysql connection*/
+    public void releaseConnection(Connection connection) {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
