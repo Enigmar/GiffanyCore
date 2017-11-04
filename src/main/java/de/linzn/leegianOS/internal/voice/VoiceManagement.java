@@ -14,11 +14,13 @@ public class VoiceManagement {
     private String textVoice;
     private byte[] bytes;
     private SkillClient skillClient;
+    private boolean needResponse;
 
-    public VoiceManagement(SkillClient skillClient, String textVoice) {
+    public VoiceManagement(SkillClient skillClient, String textVoice, boolean needResponse) {
         LeegianOSApp.logger(prefix + "creating Instance ");
         this.textVoice = textVoice;
         this.skillClient = skillClient;
+        this.needResponse = needResponse;
     }
 
     public void createVoice() {
@@ -33,6 +35,8 @@ public class VoiceManagement {
         DataOutputStream out = new DataOutputStream(byteOut);
         try {
             LeegianOSApp.logger(prefix + "sendVoice-->" + "put bytearray: " + this.bytes.length);
+            out.writeBoolean(needResponse);
+            out.writeUTF(textVoice);
             out.write(this.bytes);
         } catch (IOException e) {
             e.printStackTrace();

@@ -29,10 +29,10 @@ public class SkillClient {
         LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "creating Instance ");
     }
 
-    public void sendResponseToClient(boolean useVoice, String notification) {
+    public void sendResponseToClient(boolean useVoice, String notification, boolean needResponse) {
         if (this.isNetworkclient) {
             if (useVoice) {
-                VoiceManagement voice = new VoiceManagement(this, notification);
+                VoiceManagement voice = new VoiceManagement(this, notification, needResponse);
                 voice.createVoice();
                 voice.sendVoice();
             } else {
