@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : leegianOS
+Source Server         : viki
 Source Server Version : 50719
 Source Host           : viki.lan:3306
-Source Database       : leegianOS_db
+Source Database       : viki_db
 
 Target Server Type    : MYSQL
 Target Server Version : 50719
 File Encoding         : 65001
 
-Date: 2017-09-04 15:02:30
+Date: 2017-11-05 19:27:05
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -26,44 +26,38 @@ CREATE TABLE `parentskills` (
   `java_method` varchar(255) DEFAULT NULL,
   `serial_data` varchar(3000) DEFAULT NULL,
   PRIMARY KEY (`parentskill_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Records of parentskills
--- ----------------------------
-INSERT INTO `parentskills` VALUES ('1', '0', null, null, null);
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for `parentskills_assignment`
 -- ----------------------------
 DROP TABLE IF EXISTS `parentskills_assignment`;
 CREATE TABLE `parentskills_assignment` (
-  `parentskill_named_id` int(11) NOT NULL AUTO_INCREMENT,
-  `content_id` int(11) NOT NULL,
+  `word_group_id` int(11) NOT NULL,
   `parentskill_id` int(11) NOT NULL,
-  PRIMARY KEY (`parentskill_named_id`,`content_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`word_group_id`,`parentskill_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
--- Records of parentskills_assignment
+-- Table structure for `speech_synonyms`
 -- ----------------------------
-INSERT INTO `parentskills_assignment` VALUES ('1', '1', '1');
+DROP TABLE IF EXISTS `speech_synonyms`;
+CREATE TABLE `speech_synonyms` (
+  `synonym_id` int(11) NOT NULL AUTO_INCREMENT,
+  `word_group_id` int(11) NOT NULL,
+  `synonym` varchar(255) NOT NULL,
+  PRIMARY KEY (`synonym_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
--- Table structure for `speech_content`
+-- Table structure for `speech_word_group`
 -- ----------------------------
-DROP TABLE IF EXISTS `speech_content`;
-CREATE TABLE `speech_content` (
-  `content_id` int(11) NOT NULL AUTO_INCREMENT,
-  `content` varchar(255) NOT NULL,
-  PRIMARY KEY (`content_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Records of speech_content
--- ----------------------------
-INSERT INTO `speech_content` VALUES ('1', 'wetter');
-INSERT INTO `speech_content` VALUES ('2', 'aktuell');
+DROP TABLE IF EXISTS `speech_word_group`;
+CREATE TABLE `speech_word_group` (
+  `word_group_id` int(11) NOT NULL AUTO_INCREMENT,
+  `word_example` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`word_group_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for `subskills`
@@ -75,26 +69,16 @@ CREATE TABLE `subskills` (
   `java_method` varchar(255) DEFAULT NULL,
   `serial_data` varchar(3000) DEFAULT NULL,
   PRIMARY KEY (`subskill_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Records of subskills
--- ----------------------------
-INSERT INTO `subskills` VALUES ('1', 'WeatherTemplate', 'getWeather', 'weatherKey=0b33ae42ba7acd32ab5ca39535b7568f#location=blieskastel');
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for `subskills_assignment`
 -- ----------------------------
 DROP TABLE IF EXISTS `subskills_assignment`;
 CREATE TABLE `subskills_assignment` (
-  `subskill_named_id` int(11) NOT NULL AUTO_INCREMENT,
-  `content_id` int(11) NOT NULL,
+  `word_group_id` int(11) NOT NULL,
   `subskill_id` int(11) NOT NULL,
   `parentskill_id` int(11) NOT NULL,
-  PRIMARY KEY (`subskill_named_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`word_group_id`,`subskill_id`,`parentskill_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- ----------------------------
--- Records of subskills_assignment
--- ----------------------------
-INSERT INTO `subskills_assignment` VALUES ('1', '2', '1', '1');
