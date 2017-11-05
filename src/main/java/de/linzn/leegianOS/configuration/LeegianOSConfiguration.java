@@ -6,6 +6,7 @@ import java.io.*;
 import java.util.Properties;
 
 public class LeegianOSConfiguration {
+
     /* Variables */
     public String socketHost;
     public int socketPort;
