@@ -1,28 +1,40 @@
+/*
+ * Copyright (C) 2017. Niklas Linz - All Rights Reserved
+ * You may use, distribute and modify this code under the
+ * terms of the LGPLv3 license, which unfortunately won't be
+ * written for another century.
+ *
+ * You should have received a copy of the LGPLv3 license with
+ * this file. If not, please write to: niklas.linz@enigmar.de
+ *
+ */
+
 package de.linzn.leegianOS.internal.ifaces;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class CodecUtils {
 
     /* Convert a HashMap to a string for saving in a mysql file */
     public static String mapToString(Map<String, String> map) {
-        String codecString = "";
+        StringBuilder codecString = new StringBuilder();
 
         for (String mapTest : map.keySet()) {
             String item = mapTest + "=" + map.get(mapTest);
-            if (codecString == "") {
-                codecString = item;
+            if (Objects.equals(codecString.toString(), "")) {
+                codecString = new StringBuilder(item);
             } else {
-                codecString += "#" + item;
+                codecString.append("#").append(item);
             }
         }
-        return codecString;
+        return codecString.toString();
     }
 
     /* Convert a String back to a HashMap from a mysql database */
     public static Map<String, String> stringToMap(String codecString) {
-        if (codecString != null && codecString != "") {
+        if (codecString != null && !Objects.equals(codecString, "")) {
             Map<String, String> map = new HashMap<>();
             for (String itemStack : codecString.split("#")) {
                 String[] item = itemStack.split("=");

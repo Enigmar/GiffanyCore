@@ -1,3 +1,14 @@
+/*
+ * Copyright (C) 2017. Niklas Linz - All Rights Reserved
+ * You may use, distribute and modify this code under the
+ * terms of the LGPLv3 license, which unfortunately won't be
+ * written for another century.
+ *
+ * You should have received a copy of the LGPLv3 license with
+ * this file. If not, please write to: niklas.linz@enigmar.de
+ *
+ */
+
 package de.linzn.leegianOS.configuration;
 
 import de.linzn.leegianOS.LeegianOSApp;
@@ -45,7 +56,7 @@ public class LeegianOSConfiguration {
     public void create() {
 
         Properties prop = new Properties();
-        OutputStream output = null;
+        OutputStream output;
 
         try {
 
@@ -72,7 +83,7 @@ public class LeegianOSConfiguration {
     public void load() {
 
         Properties prop = new Properties();
-        InputStream input = null;
+        InputStream input;
 
         try {
             input = new FileInputStream(this.fileName);

@@ -1,3 +1,14 @@
+/*
+ * Copyright (C) 2017. Niklas Linz - All Rights Reserved
+ * You may use, distribute and modify this code under the
+ * terms of the LGPLv3 license, which unfortunately won't be
+ * written for another century.
+ *
+ * You should have received a copy of the LGPLv3 license with
+ * this file. If not, please write to: niklas.linz@enigmar.de
+ *
+ */
+
 package de.linzn.leegianOS;
 
 import de.linzn.leegianOS.configuration.LeegianOSConfiguration;
@@ -81,9 +92,7 @@ public class LeegianOSApp {
             fileLogger.addHandler(fh);
             SimpleFormatter formatter = new SimpleFormatter();
             fh.setFormatter(formatter);
-        } catch (SecurityException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (SecurityException | IOException e) {
             e.printStackTrace();
         }
     }
