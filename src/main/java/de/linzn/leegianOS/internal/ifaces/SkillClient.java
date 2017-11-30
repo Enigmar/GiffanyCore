@@ -13,8 +13,8 @@ package de.linzn.leegianOS.internal.ifaces;
 
 
 import de.linzn.leegianOS.LeegianOSApp;
-import de.linzn.leegianOS.internal.voice.VoiceManagement;
 import de.linzn.leegianOS.network.template.Channel;
+import de.linzn.vikiSpeechApi.VikiSpeechAPI;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -23,37 +23,41 @@ import java.util.UUID;
 
 public class SkillClient {
     public UUID clientUUID;
-    public boolean isNetworkclient;
+    private boolean isSocketClient;
     private boolean waitingForResponse = false;
     private ISkillTemplate waitInSkill = null;
     private String[] responseInput;
 
     public SkillClient(UUID clientUUID) {
         this.clientUUID = clientUUID;
-        this.isNetworkclient = true;
+        this.isSocketClient = true;
         LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "creating Instance ");
     }
 
     public SkillClient() {
         this.clientUUID = new UUID(0, 0);
-        this.isNetworkclient = false;
+        this.isSocketClient = false;
         LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "creating Instance ");
     }
 
-    public void sendResponseToClient(boolean useVoice, String notification, boolean needResponse) {
-        if (this.isNetworkclient) {
-            if (useVoice) {
-                VoiceManagement voice = new VoiceManagement(this, notification, needResponse);
-                voice.createVoice();
-                voice.sendVoice();
-            } else {
-
+    public void sendResponse(boolean needResponse, String notificationText) {
+        if (this.isSocketClient) {
+            byte[] voiceBytes = new VikiSpeechAPI().requestVoiceStream(notificationText);
+            ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
+            DataOutputStream out = new DataOutputStream(byteOut);
+            try {
+                out.writeBoolean(needResponse);
+                out.writeUTF(notificationText);
+                out.write(voiceBytes);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            // write some thing
+            LeegianOSApp.leegianOSAppInstance.networkProc.jServer.getClient(this.clientUUID).writeOutput(Channel.voiceChannel, byteOut.toByteArray());
         } else {
-            System.out.println("Response: " + notification);
+            System.out.println("Response: " + notificationText);
         }
     }
+
 
     public void sendOSData() {
         ByteArrayOutputStream byteOut = new ByteArrayOutputStream();

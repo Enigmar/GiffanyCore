@@ -30,7 +30,7 @@ public class DefaultTemplate implements ISkillTemplate {
     }
 
     public void defaultSkill() {
-        this.skillClient.sendResponseToClient(true, "Some thing went wrong. Default skill should never use!", false);
+        this.skillClient.sendResponse(false, "Some thing went wrong. Default skill should never use!");
     }
 
 }
