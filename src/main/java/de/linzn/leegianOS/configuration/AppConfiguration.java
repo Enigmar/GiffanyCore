@@ -44,6 +44,11 @@ public class AppConfiguration {
             skillDir.mkdir();
         }
 
+        skillDir = new File("schedulers");
+        if (!skillDir.exists()) {
+            skillDir.mkdir();
+        }
+
         File file = new File(this.fileName);
         if (!file.exists()) {
             create();

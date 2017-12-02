@@ -14,6 +14,7 @@ package de.linzn.leegianOS;
 import de.linzn.leegianOS.configuration.AppConfiguration;
 import de.linzn.leegianOS.database.DatabaseModule;
 import de.linzn.leegianOS.internal.lifeObjects.SkillClient;
+import de.linzn.leegianOS.internal.scheduler.SchedulerProcessor;
 import de.linzn.leegianOS.network.NetworkModule;
 import de.linzn.leegianOS.terminal.TerminalModule;
 
@@ -40,6 +41,7 @@ public class LeegianOSApp {
     public TerminalModule terminalProc;
     public DatabaseModule mysqlData;
     public Heartbeat heartbeat;
+    public SchedulerProcessor schedulerProcessor;
     public HashMap<UUID, SkillClient> skillClientList;
     // The alive value for the heartbeat thread
     public AtomicBoolean isAlive;
@@ -104,12 +106,13 @@ public class LeegianOSApp {
         Runnable mysql = () -> mysqlData = new DatabaseModule(leegianOSAppInstance);
         Runnable network = () -> networkProc = new NetworkModule(leegianOSAppInstance);
         Runnable terminal = () -> terminalProc = new TerminalModule(leegianOSAppInstance);
-
+        Runnable scheduler = () -> schedulerProcessor = new SchedulerProcessor(leegianOSAppInstance);
 
         this.heartbeat.runTaskSynchronous(settings);
         this.heartbeat.runTaskSynchronous(mysql);
         this.heartbeat.runTaskSynchronous(network);
         this.heartbeat.runTaskSynchronous(terminal);
+
     }
 
     private void finishStartup() {
