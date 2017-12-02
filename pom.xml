@@ -15,7 +15,7 @@
     <groupId>de.linzn</groupId>
     <packaging>jar</packaging>
     <name>leegianOS</name>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <artifactId>leegianOS</artifactId>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

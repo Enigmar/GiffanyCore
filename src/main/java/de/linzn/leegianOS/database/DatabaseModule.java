@@ -28,10 +28,10 @@ public class DatabaseModule {
     public DatabaseModule(LeegianOSApp leegianOSApp) {
         LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "creating Instance ");
         this.leegianOSApp = leegianOSApp;
-        this.url = "jdbc:mysql://" + this.leegianOSApp.leegianOSConfiguration.sqlHostName + ":" + this.leegianOSApp.leegianOSConfiguration.sqlPort + "/"
-                + this.leegianOSApp.leegianOSConfiguration.sqlDatabaseName;
-        this.username = this.leegianOSApp.leegianOSConfiguration.sqlUserName;
-        this.password = this.leegianOSApp.leegianOSConfiguration.sqlPassword;
+        this.url = "jdbc:mysql://" + this.leegianOSApp.appConfiguration.sqlHostName + ":" + this.leegianOSApp.appConfiguration.sqlPort + "/"
+                + this.leegianOSApp.appConfiguration.sqlDatabaseName;
+        this.username = this.leegianOSApp.appConfiguration.sqlUserName;
+        this.password = this.leegianOSApp.appConfiguration.sqlPassword;
         this.releaseConnection(getConnection());
     }
 

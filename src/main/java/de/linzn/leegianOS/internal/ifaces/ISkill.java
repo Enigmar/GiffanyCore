@@ -11,7 +11,11 @@
 
 package de.linzn.leegianOS.internal.ifaces;
 
-public interface ISkillTemplate {
+import de.linzn.leegianOS.internal.lifeObjects.ParentSkill;
+import de.linzn.leegianOS.internal.lifeObjects.SkillClient;
+import de.linzn.leegianOS.internal.lifeObjects.SubSkill;
+
+public interface ISkill {
 
     void setEnv(SkillClient skillClient, ParentSkill parentSkill, SubSkill subSkill);
 

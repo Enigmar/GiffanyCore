@@ -16,7 +16,7 @@ import de.linzn.leegianOS.LeegianOSApp;
 import java.io.*;
 import java.util.Properties;
 
-public class LeegianOSConfiguration {
+public class AppConfiguration {
 
     /* Variables */
     public String socketHost;
@@ -30,7 +30,7 @@ public class LeegianOSConfiguration {
     private String fileName = "leegianOS.properties";
 
     /* Create class instance */
-    public LeegianOSConfiguration(LeegianOSApp leegianOSApp) {
+    public AppConfiguration(LeegianOSApp leegianOSApp) {
         LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "creating Instance ");
         this.leegianOSApp = leegianOSApp;
         this.init();

@@ -9,13 +9,13 @@
  *
  */
 
-package de.linzn.leegianOS.internal.data;
+package de.linzn.leegianOS.internal.dataAccess;
 
 import de.linzn.leegianOS.LeegianOSApp;
 import de.linzn.leegianOS.database.DatabaseModule;
-import de.linzn.leegianOS.internal.ifaces.CodecUtils;
-import de.linzn.leegianOS.internal.ifaces.ParentSkill;
-import de.linzn.leegianOS.internal.ifaces.SubSkill;
+import de.linzn.leegianOS.internal.lifeObjects.ParentSkill;
+import de.linzn.leegianOS.internal.lifeObjects.SubSkill;
+import de.linzn.leegianOS.internal.utils.ConvertUtils;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -37,7 +37,7 @@ public class GetSubSkill {
         this.parentskill = parentskill;
     }
 
-    /* Select the data from the mysql database for the subSkill objectclass*/
+    /* Select the dataAccess from the mysql database for the subSkill objectclass*/
     public SubSkill getSkill() {
         SubSkill subSkill = null;
         try {
@@ -62,7 +62,7 @@ public class GetSubSkill {
                             String java_function = rs.getString("java_method");
                             String serial_data = rs.getString("serial_data");
 
-                            Map serial_map = CodecUtils.stringToMap(serial_data);
+                            Map serial_map = ConvertUtils.stringToMap(serial_data);
                             subSkill = new SubSkill(subskill_id, synonym, this.input, this.parentskill, java_class, java_function, serial_map);
                         }
                     }

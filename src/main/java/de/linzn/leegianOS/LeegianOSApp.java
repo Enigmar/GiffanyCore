@@ -11,9 +11,9 @@
 
 package de.linzn.leegianOS;
 
-import de.linzn.leegianOS.configuration.LeegianOSConfiguration;
+import de.linzn.leegianOS.configuration.AppConfiguration;
 import de.linzn.leegianOS.database.DatabaseModule;
-import de.linzn.leegianOS.internal.ifaces.SkillClient;
+import de.linzn.leegianOS.internal.lifeObjects.SkillClient;
 import de.linzn.leegianOS.network.NetworkModule;
 import de.linzn.leegianOS.terminal.TerminalModule;
 
@@ -35,7 +35,7 @@ public class LeegianOSApp {
     public static LeegianOSApp leegianOSAppInstance;
     public static Logger fileLogger;
     // Define new variables for later
-    public LeegianOSConfiguration leegianOSConfiguration;
+    public AppConfiguration appConfiguration;
     public NetworkModule networkProc;
     public TerminalModule terminalProc;
     public DatabaseModule mysqlData;
@@ -100,7 +100,7 @@ public class LeegianOSApp {
     // Load the modules for the framework
     private void loadModules() {
 
-        Runnable settings = () -> leegianOSConfiguration = new LeegianOSConfiguration(leegianOSAppInstance);
+        Runnable settings = () -> appConfiguration = new AppConfiguration(leegianOSAppInstance);
         Runnable mysql = () -> mysqlData = new DatabaseModule(leegianOSAppInstance);
         Runnable network = () -> networkProc = new NetworkModule(leegianOSAppInstance);
         Runnable terminal = () -> terminalProc = new TerminalModule(leegianOSAppInstance);

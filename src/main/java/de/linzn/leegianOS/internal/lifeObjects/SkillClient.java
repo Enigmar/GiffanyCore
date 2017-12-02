@@ -9,10 +9,11 @@
  *
  */
 
-package de.linzn.leegianOS.internal.ifaces;
+package de.linzn.leegianOS.internal.lifeObjects;
 
 
 import de.linzn.leegianOS.LeegianOSApp;
+import de.linzn.leegianOS.internal.ifaces.ISkill;
 import de.linzn.leegianOS.network.template.Channel;
 import de.linzn.vikiSpeechApi.VikiSpeechAPI;
 
@@ -25,7 +26,7 @@ public class SkillClient {
     public UUID clientUUID;
     private boolean isSocketClient;
     private boolean waitingForResponse = false;
-    private ISkillTemplate waitInSkill = null;
+    private ISkill waitInSkill = null;
     private String[] responseInput;
 
     public SkillClient(UUID clientUUID) {
@@ -80,9 +81,9 @@ public class SkillClient {
         return this.waitingForResponse;
     }
 
-    public String[] waitingSkillForResponse(ISkillTemplate iSkillTemplate, int timeInSec) {
+    public String[] waitingSkillForResponse(ISkill iSkill, int timeInSec) {
         this.waitingForResponse = true;
-        this.waitInSkill = iSkillTemplate;
+        this.waitInSkill = iSkill;
         String[] response = null;
         for (int i = 0; i < timeInSec * 10; i++) {
             try {

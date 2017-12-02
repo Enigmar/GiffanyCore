@@ -12,7 +12,7 @@
 package de.linzn.leegianOS.terminal;
 
 import de.linzn.leegianOS.LeegianOSApp;
-import de.linzn.leegianOS.internal.ifaces.SkillClient;
+import de.linzn.leegianOS.internal.lifeObjects.SkillClient;
 import de.linzn.leegianOS.internal.processor.SkillProcessor;
 import de.linzn.leegianOS.terminal.tmode.Tmode;
 

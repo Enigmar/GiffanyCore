@@ -9,12 +9,12 @@
  *
  */
 
-package de.linzn.leegianOS.internal.data;
+package de.linzn.leegianOS.internal.dataAccess;
 
 import de.linzn.leegianOS.LeegianOSApp;
 import de.linzn.leegianOS.database.DatabaseModule;
-import de.linzn.leegianOS.internal.ifaces.CodecUtils;
-import de.linzn.leegianOS.internal.ifaces.ParentSkill;
+import de.linzn.leegianOS.internal.lifeObjects.ParentSkill;
+import de.linzn.leegianOS.internal.utils.ConvertUtils;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -33,7 +33,7 @@ public class GetParentSkill {
         this.mysqldb = LeegianOSApp.leegianOSAppInstance.mysqlData;
     }
 
-    /* Select the data from the mysql database for the parentSkill objectclass*/
+    /* Select the dataAccess from the mysql database for the parentSkill objectclass*/
     public ParentSkill getSkill() {
         ParentSkill parentSkill = null;
         try {
@@ -59,7 +59,7 @@ public class GetParentSkill {
                             String java_function = rs.getString("java_method");
                             String serial_data = rs.getString("serial_data");
 
-                            Map serial_map = CodecUtils.stringToMap(serial_data);
+                            Map serial_map = ConvertUtils.stringToMap(serial_data);
                             parentSkill = new ParentSkill(parentskill_id, standalone, synonym, this.input, java_class, java_function, serial_map);
                         }
                     }

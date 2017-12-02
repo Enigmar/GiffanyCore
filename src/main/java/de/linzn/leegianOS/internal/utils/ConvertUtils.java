@@ -9,13 +9,13 @@
  *
  */
 
-package de.linzn.leegianOS.internal.ifaces;
+package de.linzn.leegianOS.internal.utils;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class CodecUtils {
+public class ConvertUtils {
 
     /* Convert a HashMap to a string for saving in a mysql file */
     public static String mapToString(Map<String, String> map) {

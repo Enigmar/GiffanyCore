@@ -12,13 +12,13 @@
 package de.linzn.leegianOS.internal.processor;
 
 import de.linzn.leegianOS.LeegianOSApp;
-import de.linzn.leegianOS.internal.data.GetParentSkill;
-import de.linzn.leegianOS.internal.data.GetSubSkill;
-import de.linzn.leegianOS.internal.ifaces.ISkillTemplate;
-import de.linzn.leegianOS.internal.ifaces.ParentSkill;
-import de.linzn.leegianOS.internal.ifaces.SkillClient;
-import de.linzn.leegianOS.internal.ifaces.SubSkill;
-import skills.DefaultTemplate;
+import de.linzn.leegianOS.internal.dataAccess.GetParentSkill;
+import de.linzn.leegianOS.internal.dataAccess.GetSubSkill;
+import de.linzn.leegianOS.internal.ifaces.ISkill;
+import de.linzn.leegianOS.internal.lifeObjects.ParentSkill;
+import de.linzn.leegianOS.internal.lifeObjects.SkillClient;
+import de.linzn.leegianOS.internal.lifeObjects.SubSkill;
+import skills.DefaultSkill;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
@@ -154,9 +154,9 @@ public class SkillProcessor {
         try {
             ClassLoader cl = new URLClassLoader(new URL[]{new File("").toURI().toURL()});
 
-            Class<ISkillTemplate> act = (Class<ISkillTemplate>) cl.loadClass("skills." + Character.toUpperCase(class_name.charAt(0)) + class_name.substring(1));
+            Class<ISkill> act = (Class<ISkill>) cl.loadClass("skills." + Character.toUpperCase(class_name.charAt(0)) + class_name.substring(1));
 
-            ISkillTemplate selectedSkillTemplate = act.newInstance();
+            ISkill selectedSkillTemplate = act.newInstance();
             selectedSkillTemplate.setEnv(this.skillClient, this.parentSkill, this.subSkill);
 
             //Search method in this class
@@ -166,7 +166,7 @@ public class SkillProcessor {
 
         } catch (ClassNotFoundException | InstantiationException | NoSuchMethodException | SecurityException | IllegalAccessException | InvocationTargetException | IllegalArgumentException | MalformedURLException e) {
             System.out.println(e.getMessage());
-            ISkillTemplate defaultTemp = new DefaultTemplate();
+            ISkill defaultTemp = new DefaultSkill();
             defaultTemp.setEnv(this.skillClient, null, null);
             return false;
         }
