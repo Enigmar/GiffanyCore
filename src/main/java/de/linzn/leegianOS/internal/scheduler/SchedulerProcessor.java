@@ -31,17 +31,23 @@ public class SchedulerProcessor {
         this.loadSchedulers();
     }
 
-    private void loadSchedulers() {
+    public void loadSchedulers() {
+        for (IScheduler iScheduler : loadedSchedulers.values()) {
+            iScheduler.terminateScheduler();
+        }
+        loadedSchedulers.clear();
         for (File classFiles : new File("schedulers").listFiles()) {
             if (classFiles.isFile()) {
+                String class_name = classFiles.getName().replace(".class", "");
                 try {
                     ClassLoader cl = new URLClassLoader(new URL[]{new File("").toURI().toURL()});
-                    Class<IScheduler> act = (Class<IScheduler>) cl.loadClass("schedulers." + classFiles.getName());
+                    Class<IScheduler> act = (Class<IScheduler>) cl.loadClass("schedulers." + Character.toUpperCase(class_name.charAt(0)) + class_name.substring(1));
+                    LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "loading " + act.getSimpleName());
                     IScheduler schedulerInstance = act.newInstance();
-                    schedulerInstance.loadScheduler();
                     this.loadedSchedulers.put(classFiles.getName().toLowerCase(), schedulerInstance);
+                    leegianOSApp.heartbeat.runTaskAsynchronous(schedulerInstance::loadScheduler);
                 } catch (ClassNotFoundException | InstantiationException | SecurityException | IllegalAccessException | IllegalArgumentException | MalformedURLException e) {
-                    System.out.println(e.getMessage());
+                    e.printStackTrace();
                 }
             }
         }

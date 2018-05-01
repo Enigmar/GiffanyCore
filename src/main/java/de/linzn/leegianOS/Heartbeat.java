@@ -74,8 +74,8 @@ public class Heartbeat implements Runnable, Executor {
     }
 
     /* Run repeat Task in a new Thread */
-    public void runRepeatTaskAsynchronous(Runnable run, int delay, int period) {
-        Runnable runnable = () -> Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(run, delay, period, TimeUnit.MILLISECONDS);
+    public void runRepeatTaskAsynchronous(Runnable run, int delay, int period, TimeUnit timeUnit) {
+        Runnable runnable = () -> Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(run, delay, period, timeUnit);
         this.taskList.add(runnable);
         LeegianOSApp.logger(prefix + "runRepeatTaskAsynchronous-->" + "Add new RepeatTaskAsynchronous Thread");
     }
@@ -95,8 +95,8 @@ public class Heartbeat implements Runnable, Executor {
     }
 
     /* Run repeat Task in a new Thread */
-    public void runDelayedTaskAsynchronous(Runnable run, int delay) {
-        Runnable runnable = () -> Executors.newSingleThreadScheduledExecutor().schedule(run, delay, TimeUnit.MILLISECONDS);
+    public void runDelayedTaskAsynchronous(Runnable run, int delay, TimeUnit timeUnit) {
+        Runnable runnable = () -> Executors.newSingleThreadScheduledExecutor().schedule(run, delay, timeUnit);
         this.taskList.add(runnable);
         LeegianOSApp.logger(prefix + "runDelayedTaskAsynchronous-->" + "Add new DelayedTaskAsynchronous Thread");
     }

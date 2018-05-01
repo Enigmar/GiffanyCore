@@ -17,4 +17,10 @@ public class DefaultScheduler implements IScheduler {
     public void loadScheduler() {
 
     }
+
+    @Override
+    public void terminateScheduler() {
+
+    }
+
 }

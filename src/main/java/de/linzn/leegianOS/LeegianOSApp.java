@@ -106,12 +106,13 @@ public class LeegianOSApp {
         Runnable mysql = () -> mysqlData = new DatabaseModule(leegianOSAppInstance);
         Runnable network = () -> networkProc = new NetworkModule(leegianOSAppInstance);
         Runnable terminal = () -> terminalProc = new TerminalModule(leegianOSAppInstance);
-        Runnable scheduler = () -> schedulerProcessor = new SchedulerProcessor(leegianOSAppInstance);
+        Runnable schedulers = () -> schedulerProcessor = new SchedulerProcessor(leegianOSAppInstance);
 
         this.heartbeat.runTaskSynchronous(settings);
         this.heartbeat.runTaskSynchronous(mysql);
         this.heartbeat.runTaskSynchronous(network);
         this.heartbeat.runTaskSynchronous(terminal);
+        this.heartbeat.runTaskSynchronous(schedulers);
 
     }
 

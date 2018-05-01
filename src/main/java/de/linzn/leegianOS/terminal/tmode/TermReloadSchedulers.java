@@ -11,11 +11,14 @@
 
 package de.linzn.leegianOS.terminal.tmode;
 
-public class TermTest implements Itmode {
+import de.linzn.leegianOS.LeegianOSApp;
+
+public class TermReloadSchedulers implements Itmode {
 
     @Override
     public boolean executeTerminal() {
-
+        System.out.println("Reload schedulers classes!");
+        LeegianOSApp.leegianOSAppInstance.schedulerProcessor.loadSchedulers();
         return true;
     }
 

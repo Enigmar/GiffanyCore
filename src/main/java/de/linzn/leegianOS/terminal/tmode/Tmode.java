@@ -37,7 +37,7 @@ public class Tmode {
 
     private void initialTerminalExecudes() {
         this.terminalExecutes.put("exit", new TermExit());
-        this.terminalExecutes.put("test", new TermTest());
+        this.terminalExecutes.put("sreload", new TermReloadSchedulers());
     }
 
 }
