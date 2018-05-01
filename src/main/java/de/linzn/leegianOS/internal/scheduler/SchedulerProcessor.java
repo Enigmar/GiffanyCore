@@ -12,30 +12,33 @@ package de.linzn.leegianOS.internal.scheduler;
 
 import de.linzn.leegianOS.LeegianOSApp;
 import de.linzn.leegianOS.internal.ifaces.IScheduler;
+import de.linzn.leegianOS.internal.lifeObjects.SchedulerSkillClient;
 
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.HashMap;
+import java.util.UUID;
 
 public class SchedulerProcessor {
     // Define variables
     private LeegianOSApp leegianOSApp;
-    private HashMap<String, IScheduler> loadedSchedulers;
+    public HashMap<UUID, IScheduler> schedulersList;
 
     public SchedulerProcessor(LeegianOSApp leegianOSApp) {
         LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "creating Instance ");
         this.leegianOSApp = leegianOSApp;
-        this.loadedSchedulers = new HashMap<>();
+        this.schedulersList = new HashMap<>();
         this.loadSchedulers();
     }
 
     public void loadSchedulers() {
-        for (IScheduler iScheduler : loadedSchedulers.values()) {
+        for (IScheduler iScheduler : schedulersList.values()) {
             iScheduler.terminateScheduler();
+            leegianOSApp.skillClientList.remove(iScheduler.schedulerUUID());
         }
-        loadedSchedulers.clear();
+        schedulersList.clear();
         for (File classFiles : new File("schedulers").listFiles()) {
             if (classFiles.isFile()) {
                 String class_name = classFiles.getName().replace(".class", "");
@@ -44,7 +47,8 @@ public class SchedulerProcessor {
                     Class<IScheduler> act = (Class<IScheduler>) cl.loadClass("schedulers." + Character.toUpperCase(class_name.charAt(0)) + class_name.substring(1));
                     LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "loading " + act.getSimpleName());
                     IScheduler schedulerInstance = act.newInstance();
-                    this.loadedSchedulers.put(classFiles.getName().toLowerCase(), schedulerInstance);
+                    this.schedulersList.put(schedulerInstance.schedulerUUID(), schedulerInstance);
+                    this.leegianOSApp.skillClientList.put(schedulerInstance.schedulerUUID(), new SchedulerSkillClient(schedulerInstance.schedulerUUID()));
                     leegianOSApp.heartbeat.runTaskAsynchronous(schedulerInstance::loadScheduler);
                 } catch (ClassNotFoundException | InstantiationException | SecurityException | IllegalAccessException | IllegalArgumentException | MalformedURLException e) {
                     e.printStackTrace();

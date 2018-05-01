@@ -15,6 +15,7 @@ import de.linzn.leegianOS.internal.ifaces.ISkill;
 import de.linzn.leegianOS.internal.lifeObjects.ParentSkill;
 import de.linzn.leegianOS.internal.lifeObjects.SkillClient;
 import de.linzn.leegianOS.internal.lifeObjects.SubSkill;
+import org.json.JSONObject;
 
 public class DefaultSkill implements ISkill {
     private SkillClient skillClient;
@@ -30,7 +31,17 @@ public class DefaultSkill implements ISkill {
     }
 
     public void defaultSkill() {
-        this.skillClient.sendResponse(false, "Some thing went wrong. Default skill should never use!");
+
+        JSONObject item1 = new JSONObject();
+        item1.put("needResponse", false);
+
+        JSONObject item2 = new JSONObject();
+        item2.put("notificationText", "Some thing went wrong. Default skill should never use!");
+
+        JSONObject main = new JSONObject();
+        main.put("needResponse", item1);
+        main.put("notificationText", item2);
+        this.skillClient.sendResponse(main);
     }
 
 }

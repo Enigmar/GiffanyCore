@@ -11,6 +11,10 @@
 package schedulers;
 
 import de.linzn.leegianOS.internal.ifaces.IScheduler;
+import org.json.JSONObject;
+
+import java.util.UUID;
+
 
 public class DefaultScheduler implements IScheduler {
     @Override
@@ -20,6 +24,16 @@ public class DefaultScheduler implements IScheduler {
 
     @Override
     public void terminateScheduler() {
+
+    }
+
+    @Override
+    public UUID schedulerUUID() {
+        return UUID.fromString("9add02a7-da9f-4e82-ad14-aeca93826916");
+    }
+
+    @Override
+    public void addAnswerData(JSONObject data) {
 
     }
 

@@ -16,6 +16,7 @@ import de.linzn.leegianOS.LeegianOSApp;
 import de.linzn.leegianOS.internal.ifaces.ISkill;
 import de.linzn.leegianOS.network.template.Channel;
 import de.linzn.vikiSpeechApi.VikiSpeechAPI;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -24,26 +25,30 @@ import java.util.UUID;
 
 public class SkillClient {
     public UUID clientUUID;
-    private boolean isSocketClient;
+
     private boolean waitingForResponse = false;
     private ISkill waitInSkill = null;
     private String[] responseInput;
 
     public SkillClient(UUID clientUUID) {
         this.clientUUID = clientUUID;
-        this.isSocketClient = true;
         LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "creating Instance ");
     }
 
-    public SkillClient() {
-        this.clientUUID = new UUID(0, 0);
-        this.isSocketClient = false;
-        LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "creating Instance ");
-    }
+    public void sendResponse(JSONObject object) {
 
-    public void sendResponse(boolean needResponse, String notificationText) {
-        if (this.isSocketClient) {
-            byte[] voiceBytes = new VikiSpeechAPI().requestVoiceStream(notificationText);
+
+        if (this instanceof SchedulerSkillClient) {
+            SchedulerSkillClient schedulerSkillClient = (SchedulerSkillClient) this;
+            schedulerSkillClient.scheduleOutput(object);
+        } else if (this instanceof TerminalSkillClient) {
+            TerminalSkillClient terminalSkillClient = (TerminalSkillClient) this;
+            terminalSkillClient.printOutput(object);
+        } else {
+            boolean needResponse = object.getJSONObject("dataValues").getBoolean("needResponse");
+            String notificationText = object.getJSONObject("textValues").getString("notificationText");
+
+            byte[] voiceBytes = VikiSpeechAPI.requestVoiceStream(notificationText);
             ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
             DataOutputStream out = new DataOutputStream(byteOut);
             try {
@@ -54,8 +59,6 @@ public class SkillClient {
                 e.printStackTrace();
             }
             LeegianOSApp.leegianOSAppInstance.networkProc.jServer.getClient(this.clientUUID).writeOutput(Channel.voiceChannel, byteOut.toByteArray());
-        } else {
-            System.out.println("Response: " + notificationText);
         }
     }
 
