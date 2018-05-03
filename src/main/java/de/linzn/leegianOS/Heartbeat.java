@@ -11,7 +11,7 @@
 package de.linzn.leegianOS;
 
 
-import de.linzn.leegianOS.internal.lifeObjects.TimeData;
+import de.linzn.leegianOS.internal.objectDatabase.TimeData;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;

@@ -8,13 +8,12 @@
  * this file. If not, please write to: niklas.linz@enigmar.de
  */
 
-package de.linzn.leegianOS.internal.dataAccess;
+package de.linzn.leegianOS.internal.databaseAccess;
 
 import de.linzn.leegianOS.LeegianOSApp;
 import de.linzn.leegianOS.database.DatabaseModule;
-import de.linzn.leegianOS.internal.lifeObjects.ParentSkill;
-import de.linzn.leegianOS.internal.lifeObjects.SubSkill;
-import de.linzn.leegianOS.internal.utils.ConvertUtils;
+import de.linzn.leegianOS.internal.objectDatabase.skillType.ParentSkill;
+import de.linzn.leegianOS.internal.utils.SerialUtils;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -22,23 +21,20 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Map;
 
-
-public class GetSubSkill {
+public class GetParentSkill {
     /* Variables */
     private DatabaseModule mysqldb;
     private String[] input;
-    private ParentSkill parentskill;
 
     /* Create class instance */
-    public GetSubSkill(ParentSkill parentskill) {
-        this.input = parentskill.inputArray;
+    public GetParentSkill(String[] input) {
+        this.input = input;
         this.mysqldb = LeegianOSApp.leegianOSAppInstance.mysqlData;
-        this.parentskill = parentskill;
     }
 
-    /* Select the dataAccess from the mysql database for the subSkill objectclass*/
-    public SubSkill getSkill() {
-        SubSkill subSkill = null;
+    /* Select the databaseAccess from the mysql database for the parentSkill objectclass*/
+    public ParentSkill getSkill() {
+        ParentSkill parentSkill = null;
         try {
             Connection con = this.mysqldb.getConnection();
             Statement st = con.createStatement();
@@ -49,20 +45,21 @@ public class GetSubSkill {
                 if (rs.next()) {
                     int word_group_id = rs.getInt("word_group_id");
                     String synonym = rs.getString("synonym");
-                    sqlquerry = ("SELECT `subskill_id` FROM `subskills_assignment` WHERE `word_group_id` = '" + word_group_id + "' AND `parentskill_id` = '" + this.parentskill.parentskill_id + "'");
+                    sqlquerry = ("SELECT `parentskill_id` FROM `parentskills_assignment` WHERE `word_group_id` = '" + word_group_id + "'");
                     rs = st.executeQuery(sqlquerry);
                     if (rs.next()) {
-                        int subskillID = rs.getInt("subskill_id");
-                        sqlquerry = ("SELECT * FROM `subskills` WHERE `subskill_id` = '" + subskillID + "'");
+                        int parentskillID = rs.getInt("parentskill_id");
+                        sqlquerry = ("SELECT * FROM `parentskills` WHERE `parentskill_id` = '" + parentskillID + "'");
                         rs = st.executeQuery(sqlquerry);
                         if (rs.next()) {
-                            int subskill_id = rs.getInt("subskill_id");
+                            int parentskill_id = rs.getInt("parentskill_id");
+                            boolean standalone = rs.getBoolean("standalone");
                             String java_class = rs.getString("java_class");
                             String java_function = rs.getString("java_method");
                             String serial_data = rs.getString("serial_data");
 
-                            Map serial_map = ConvertUtils.stringToMap(serial_data);
-                            subSkill = new SubSkill(subskill_id, synonym, this.input, this.parentskill, java_class, java_function, serial_map);
+                            Map serial_map = SerialUtils.stringToMap(serial_data);
+                            parentSkill = new ParentSkill(parentskill_id, standalone, synonym, this.input, java_class, java_function, serial_map);
                         }
                     }
                 }
@@ -72,7 +69,7 @@ public class GetSubSkill {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return subSkill;
+        return parentSkill;
     }
 
 }

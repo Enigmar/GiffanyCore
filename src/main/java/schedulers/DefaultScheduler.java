@@ -9,8 +9,8 @@
  */
 package schedulers;
 
-import de.linzn.leegianOS.internal.ifaces.IScheduler;
-import de.linzn.leegianOS.internal.lifeObjects.TimeData;
+import de.linzn.leegianOS.internal.interfaces.IScheduler;
+import de.linzn.leegianOS.internal.objectDatabase.TimeData;
 import org.json.JSONObject;
 
 import java.util.UUID;

@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class ConvertUtils {
+public class SerialUtils {
 
     /* Convert a HashMap to a string for saving in a mysql file */
     public static String mapToString(Map<String, String> map) {

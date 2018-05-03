@@ -8,7 +8,7 @@
  * this file. If not, please write to: niklas.linz@enigmar.de
  */
 
-package de.linzn.leegianOS.internal.lifeObjects;
+package de.linzn.leegianOS.internal.objectDatabase;
 
 import java.util.concurrent.TimeUnit;
 

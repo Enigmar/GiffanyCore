@@ -12,7 +12,7 @@ package de.linzn.leegianOS.network.readIn;
 
 import de.linzn.jSocket.core.ConnectionListener;
 import de.linzn.leegianOS.LeegianOSApp;
-import de.linzn.leegianOS.internal.lifeObjects.SkillClient;
+import de.linzn.leegianOS.internal.objectDatabase.clients.SkillClient;
 
 import java.util.UUID;
 

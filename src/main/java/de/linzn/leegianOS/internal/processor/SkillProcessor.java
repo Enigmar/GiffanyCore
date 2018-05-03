@@ -11,12 +11,12 @@
 package de.linzn.leegianOS.internal.processor;
 
 import de.linzn.leegianOS.LeegianOSApp;
-import de.linzn.leegianOS.internal.dataAccess.GetParentSkill;
-import de.linzn.leegianOS.internal.dataAccess.GetSubSkill;
-import de.linzn.leegianOS.internal.ifaces.ISkill;
-import de.linzn.leegianOS.internal.lifeObjects.ParentSkill;
-import de.linzn.leegianOS.internal.lifeObjects.SkillClient;
-import de.linzn.leegianOS.internal.lifeObjects.SubSkill;
+import de.linzn.leegianOS.internal.databaseAccess.GetParentSkill;
+import de.linzn.leegianOS.internal.databaseAccess.GetSubSkill;
+import de.linzn.leegianOS.internal.interfaces.ISkill;
+import de.linzn.leegianOS.internal.objectDatabase.clients.SkillClient;
+import de.linzn.leegianOS.internal.objectDatabase.skillType.ParentSkill;
+import de.linzn.leegianOS.internal.objectDatabase.skillType.SubSkill;
 import skills.DefaultSkill;
 
 import java.io.File;

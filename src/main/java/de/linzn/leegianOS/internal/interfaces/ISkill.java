@@ -8,11 +8,11 @@
  * this file. If not, please write to: niklas.linz@enigmar.de
  */
 
-package de.linzn.leegianOS.internal.ifaces;
+package de.linzn.leegianOS.internal.interfaces;
 
-import de.linzn.leegianOS.internal.lifeObjects.ParentSkill;
-import de.linzn.leegianOS.internal.lifeObjects.SkillClient;
-import de.linzn.leegianOS.internal.lifeObjects.SubSkill;
+import de.linzn.leegianOS.internal.objectDatabase.clients.SkillClient;
+import de.linzn.leegianOS.internal.objectDatabase.skillType.ParentSkill;
+import de.linzn.leegianOS.internal.objectDatabase.skillType.SubSkill;
 
 public interface ISkill {
 

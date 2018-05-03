@@ -10,8 +10,8 @@
 package de.linzn.leegianOS.internal.scheduler;
 
 import de.linzn.leegianOS.LeegianOSApp;
-import de.linzn.leegianOS.internal.ifaces.IScheduler;
-import de.linzn.leegianOS.internal.lifeObjects.SchedulerSkillClient;
+import de.linzn.leegianOS.internal.interfaces.IScheduler;
+import de.linzn.leegianOS.internal.objectDatabase.clients.SchedulerSkillClient;
 
 import java.io.File;
 import java.net.MalformedURLException;

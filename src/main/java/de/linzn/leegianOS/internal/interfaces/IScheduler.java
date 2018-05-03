@@ -8,10 +8,10 @@
  * this file. If not, please write to: niklas.linz@enigmar.de
  */
 
-package de.linzn.leegianOS.internal.ifaces;
+package de.linzn.leegianOS.internal.interfaces;
 
 
-import de.linzn.leegianOS.internal.lifeObjects.TimeData;
+import de.linzn.leegianOS.internal.objectDatabase.TimeData;
 import org.json.JSONObject;
 
 import java.util.UUID;

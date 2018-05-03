@@ -12,7 +12,7 @@ package de.linzn.leegianOS;
 
 import de.linzn.leegianOS.configuration.AppConfiguration;
 import de.linzn.leegianOS.database.DatabaseModule;
-import de.linzn.leegianOS.internal.lifeObjects.SkillClient;
+import de.linzn.leegianOS.internal.objectDatabase.clients.SkillClient;
 import de.linzn.leegianOS.internal.scheduler.SchedulerProcessor;
 import de.linzn.leegianOS.network.NetworkModule;
 import de.linzn.leegianOS.terminal.TerminalModule;

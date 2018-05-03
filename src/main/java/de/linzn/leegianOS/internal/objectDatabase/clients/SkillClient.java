@@ -8,11 +8,11 @@
  * this file. If not, please write to: niklas.linz@enigmar.de
  */
 
-package de.linzn.leegianOS.internal.lifeObjects;
+package de.linzn.leegianOS.internal.objectDatabase.clients;
 
 
 import de.linzn.leegianOS.LeegianOSApp;
-import de.linzn.leegianOS.internal.ifaces.ISkill;
+import de.linzn.leegianOS.internal.interfaces.ISkill;
 import de.linzn.leegianOS.network.template.Channel;
 import de.linzn.vikiSpeechApi.VikiSpeechAPI;
 import org.json.JSONObject;
