@@ -11,20 +11,27 @@
 package de.linzn.leegianOS.internal.ifaces;
 
 
+import de.linzn.leegianOS.internal.lifeObjects.TimeData;
 import org.json.JSONObject;
 
 import java.util.UUID;
 
 public interface IScheduler {
 
-    void loadScheduler();
-
-    void terminateScheduler();
+    void scheduler();
 
     UUID schedulerUUID();
 
     void addAnswerData(JSONObject data);
 
     void loopback();
+
+    TimeData scheduler_timer();
+
+    TimeData loopBack_timer();
+
+    boolean is_alive();
+
+    void set_alive(boolean set);
 
 }

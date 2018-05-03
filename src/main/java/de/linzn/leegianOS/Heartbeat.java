@@ -11,6 +11,8 @@
 package de.linzn.leegianOS;
 
 
+import de.linzn.leegianOS.internal.lifeObjects.TimeData;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
@@ -70,6 +72,12 @@ public class Heartbeat implements Runnable, Executor {
     /* Run Task directly in the heartbeat Thread */
     public void runTaskSynchronous(Runnable sync) {
         this.taskList.add(sync);
+    }
+
+
+    /* Run repeat Task in a new Thread */
+    public void runRepeatTaskAsynchronous(Runnable run, TimeData timeData) {
+        runRepeatTaskAsynchronous(run, timeData.delay, timeData.period, timeData.timeUnit);
     }
 
     /* Run repeat Task in a new Thread */

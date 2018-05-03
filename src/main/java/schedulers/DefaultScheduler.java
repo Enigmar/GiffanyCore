@@ -10,19 +10,19 @@
 package schedulers;
 
 import de.linzn.leegianOS.internal.ifaces.IScheduler;
+import de.linzn.leegianOS.internal.lifeObjects.TimeData;
 import org.json.JSONObject;
 
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 
 public class DefaultScheduler implements IScheduler {
-    @Override
-    public void loadScheduler() {
 
-    }
+    private boolean alive = false;
 
     @Override
-    public void terminateScheduler() {
+    public void scheduler() {
 
     }
 
@@ -39,6 +39,26 @@ public class DefaultScheduler implements IScheduler {
     @Override
     public void loopback() {
 
+    }
+
+    @Override
+    public TimeData scheduler_timer() {
+        return new TimeData(1, 10, TimeUnit.SECONDS);
+    }
+
+    @Override
+    public TimeData loopBack_timer() {
+        return new TimeData(1, 10, TimeUnit.SECONDS);
+    }
+
+    @Override
+    public boolean is_alive() {
+        return this.alive;
+    }
+
+    @Override
+    public void set_alive(boolean set) {
+        this.alive = set;
     }
 
 }
