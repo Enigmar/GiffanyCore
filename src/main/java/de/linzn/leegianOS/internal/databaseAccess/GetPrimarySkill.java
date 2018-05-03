@@ -12,7 +12,7 @@ package de.linzn.leegianOS.internal.databaseAccess;
 
 import de.linzn.leegianOS.LeegianOSApp;
 import de.linzn.leegianOS.database.DatabaseModule;
-import de.linzn.leegianOS.internal.objectDatabase.skillType.ParentSkill;
+import de.linzn.leegianOS.internal.objectDatabase.skillType.PrimarySkill;
 import de.linzn.leegianOS.internal.utils.SerialUtils;
 
 import java.sql.Connection;
@@ -21,20 +21,20 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Map;
 
-public class GetParentSkill {
+public class GetPrimarySkill {
     /* Variables */
     private DatabaseModule mysqldb;
     private String[] input;
 
     /* Create class instance */
-    public GetParentSkill(String[] input) {
+    public GetPrimarySkill(String[] input) {
         this.input = input;
         this.mysqldb = LeegianOSApp.leegianOSAppInstance.mysqlData;
     }
 
     /* Select the databaseAccess from the mysql database for the parentSkill objectclass*/
-    public ParentSkill getSkill() {
-        ParentSkill parentSkill = null;
+    public PrimarySkill getSkill() {
+        PrimarySkill primarySkill = null;
         try {
             Connection con = this.mysqldb.getConnection();
             Statement st = con.createStatement();
@@ -59,7 +59,7 @@ public class GetParentSkill {
                             String serial_data = rs.getString("serial_data");
 
                             Map serial_map = SerialUtils.stringToMap(serial_data);
-                            parentSkill = new ParentSkill(parentskill_id, standalone, synonym, this.input, java_class, java_function, serial_map);
+                            primarySkill = new PrimarySkill(parentskill_id, standalone, synonym, this.input, java_class, java_function, serial_map);
                         }
                     }
                 }
@@ -69,7 +69,7 @@ public class GetParentSkill {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return parentSkill;
+        return primarySkill;
     }
 
 }

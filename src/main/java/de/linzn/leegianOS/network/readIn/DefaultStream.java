@@ -13,7 +13,7 @@ package de.linzn.leegianOS.network.readIn;
 import de.linzn.jSocket.core.IncomingDataListener;
 import de.linzn.leegianOS.LeegianOSApp;
 import de.linzn.leegianOS.internal.objectDatabase.clients.SkillClient;
-import de.linzn.leegianOS.internal.processor.SkillProcessor;
+import de.linzn.leegianOS.internal.processor.MainProcessor;
 
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
@@ -42,8 +42,8 @@ public class DefaultStream implements IncomingDataListener {
         final String finalValues = values;
         Runnable runnable = () -> {
             SkillClient skillClient = leegianOSApp.skillClientList.get(uuid);
-            SkillProcessor skillProcessor = new SkillProcessor(skillClient, finalValues);
-            skillProcessor.processing();
+            MainProcessor mainProcessor = new MainProcessor(skillClient, finalValues);
+            mainProcessor.processing();
         };
         this.leegianOSApp.heartbeat.runTaskAsynchronous(runnable);
 

@@ -11,31 +11,27 @@
 package de.linzn.leegianOS.internal.processor;
 
 import de.linzn.leegianOS.LeegianOSApp;
-import de.linzn.leegianOS.internal.databaseAccess.GetParentSkill;
-import de.linzn.leegianOS.internal.databaseAccess.GetSubSkill;
+import de.linzn.leegianOS.internal.databaseAccess.GetPrimarySkill;
+import de.linzn.leegianOS.internal.databaseAccess.GetSecondarySkill;
 import de.linzn.leegianOS.internal.interfaces.ISkill;
 import de.linzn.leegianOS.internal.objectDatabase.clients.SkillClient;
-import de.linzn.leegianOS.internal.objectDatabase.skillType.ParentSkill;
-import de.linzn.leegianOS.internal.objectDatabase.skillType.SubSkill;
+import de.linzn.leegianOS.internal.objectDatabase.skillType.PrimarySkill;
+import de.linzn.leegianOS.internal.objectDatabase.skillType.SecondarySkill;
 import skills.DefaultSkill;
 
-import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
 
-public class SkillProcessor {
+public class MainProcessor {
 
     private String rawInput = null;
     private String[] formattedInput = null;
-    private ParentSkill parentSkill = null;
-    private SubSkill subSkill = null;
+    private PrimarySkill primarySkill = null;
+    private SecondarySkill secondarySkill = null;
     private SkillClient skillClient = null;
     private String prefix = this.getClass().getSimpleName() + "->";
 
-    public SkillProcessor(SkillClient skillClient, String rawInput) {
+    public MainProcessor(SkillClient skillClient, String rawInput) {
         LeegianOSApp.logger(prefix + "creating Instance ");
         this.skillClient = skillClient;
         this.rawInput = rawInput;
@@ -106,28 +102,28 @@ public class SkillProcessor {
 
 
     private boolean buildSkill() {
-        this.parentSkill = new GetParentSkill(this.formattedInput).getSkill();
-        if (this.parentSkill != null) {
-            LeegianOSApp.logger(prefix + "buildSkill-->" + "Success search parentSkill");
-            if (!this.parentSkill.standalone) {
-                this.subSkill = new GetSubSkill(this.parentSkill).getSkill();
-                if (this.subSkill != null) {
+        this.primarySkill = new GetPrimarySkill(this.formattedInput).getSkill();
+        if (this.primarySkill != null) {
+            LeegianOSApp.logger(prefix + "buildSkill-->" + "Success search primarySkill");
+            if (!this.primarySkill.standalone) {
+                this.secondarySkill = new GetSecondarySkill(this.primarySkill).getSkill();
+                if (this.secondarySkill != null) {
                     // Code for full support with sub and parent skill
-                    LeegianOSApp.logger(prefix + "buildSkill-->" + "Success search subSkill");
+                    LeegianOSApp.logger(prefix + "buildSkill-->" + "Success search secondarySkill");
                     return this.executeJavaClassFunction();
                 } else {
                     // Exit, because no subskill for this exist.
-                    LeegianOSApp.logger(prefix + "buildSkill-->" + "Failed search subSkill");
+                    LeegianOSApp.logger(prefix + "buildSkill-->" + "Failed search secondarySkill");
                     return false;
                 }
             } else {
-                LeegianOSApp.logger(prefix + "buildSkill-->" + "parentSkill standalone");
+                LeegianOSApp.logger(prefix + "buildSkill-->" + "primarySkill standalone");
                 // Start, if parent skill ist standalone
                 return this.executeJavaClassFunction();
             }
         } else {
             // If no parent skill exist!
-            LeegianOSApp.logger(prefix + "buildSkill-->" + "Failed search parentSkill");
+            LeegianOSApp.logger(prefix + "buildSkill-->" + "Failed search primarySkill");
             return false;
         }
     }
@@ -135,12 +131,12 @@ public class SkillProcessor {
     private boolean executeJavaClassFunction() {
         String class_name;
         String method_name;
-        if (subSkill == null) {
-            class_name = this.parentSkill.java_class;
-            method_name = this.parentSkill.java_method;
+        if (secondarySkill == null) {
+            class_name = this.primarySkill.java_class;
+            method_name = this.primarySkill.java_method;
         } else {
-            class_name = this.subSkill.java_class;
-            method_name = this.subSkill.java_method;
+            class_name = this.secondarySkill.java_class;
+            method_name = this.secondarySkill.java_method;
         }
 
         if (class_name == null || method_name == null) {
@@ -151,19 +147,15 @@ public class SkillProcessor {
         }
 
         try {
-            ClassLoader cl = new URLClassLoader(new URL[]{new File("").toURI().toURL()});
-
-            Class<ISkill> act = (Class<ISkill>) cl.loadClass("skills." + Character.toUpperCase(class_name.charAt(0)) + class_name.substring(1));
-
+            Class<ISkill> act = LeegianOSApp.leegianOSAppInstance.skillProcessor.skillList.get(class_name);
             ISkill selectedSkillTemplate = act.newInstance();
-            selectedSkillTemplate.setEnv(this.skillClient, this.parentSkill, this.subSkill);
-
+            selectedSkillTemplate.setEnv(this.skillClient, this.primarySkill, this.secondarySkill);
             //Search method in this class
             Method method = selectedSkillTemplate.getClass().getMethod(method_name);
             //Run method in this class
             method.invoke(selectedSkillTemplate);
 
-        } catch (ClassNotFoundException | InstantiationException | NoSuchMethodException | SecurityException | IllegalAccessException | InvocationTargetException | IllegalArgumentException | MalformedURLException e) {
+        } catch (InstantiationException | NoSuchMethodException | SecurityException | IllegalAccessException | InvocationTargetException | IllegalArgumentException e) {
             System.out.println(e.getMessage());
             ISkill defaultTemp = new DefaultSkill();
             defaultTemp.setEnv(this.skillClient, null, null);

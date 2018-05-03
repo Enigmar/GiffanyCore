@@ -12,8 +12,8 @@ package de.linzn.leegianOS.internal.databaseAccess;
 
 import de.linzn.leegianOS.LeegianOSApp;
 import de.linzn.leegianOS.database.DatabaseModule;
-import de.linzn.leegianOS.internal.objectDatabase.skillType.ParentSkill;
-import de.linzn.leegianOS.internal.objectDatabase.skillType.SubSkill;
+import de.linzn.leegianOS.internal.objectDatabase.skillType.PrimarySkill;
+import de.linzn.leegianOS.internal.objectDatabase.skillType.SecondarySkill;
 import de.linzn.leegianOS.internal.utils.SerialUtils;
 
 import java.sql.Connection;
@@ -23,22 +23,22 @@ import java.sql.Statement;
 import java.util.Map;
 
 
-public class GetSubSkill {
+public class GetSecondarySkill {
     /* Variables */
     private DatabaseModule mysqldb;
     private String[] input;
-    private ParentSkill parentskill;
+    private PrimarySkill parentskill;
 
     /* Create class instance */
-    public GetSubSkill(ParentSkill parentskill) {
+    public GetSecondarySkill(PrimarySkill parentskill) {
         this.input = parentskill.inputArray;
         this.mysqldb = LeegianOSApp.leegianOSAppInstance.mysqlData;
         this.parentskill = parentskill;
     }
 
     /* Select the databaseAccess from the mysql database for the subSkill objectclass*/
-    public SubSkill getSkill() {
-        SubSkill subSkill = null;
+    public SecondarySkill getSkill() {
+        SecondarySkill secondarySkill = null;
         try {
             Connection con = this.mysqldb.getConnection();
             Statement st = con.createStatement();
@@ -62,7 +62,7 @@ public class GetSubSkill {
                             String serial_data = rs.getString("serial_data");
 
                             Map serial_map = SerialUtils.stringToMap(serial_data);
-                            subSkill = new SubSkill(subskill_id, synonym, this.input, this.parentskill, java_class, java_function, serial_map);
+                            secondarySkill = new SecondarySkill(subskill_id, synonym, this.input, this.parentskill, java_class, java_function, serial_map);
                         }
                     }
                 }
@@ -72,7 +72,7 @@ public class GetSubSkill {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return subSkill;
+        return secondarySkill;
     }
 
 }

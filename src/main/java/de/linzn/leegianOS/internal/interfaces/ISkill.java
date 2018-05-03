@@ -11,11 +11,11 @@
 package de.linzn.leegianOS.internal.interfaces;
 
 import de.linzn.leegianOS.internal.objectDatabase.clients.SkillClient;
-import de.linzn.leegianOS.internal.objectDatabase.skillType.ParentSkill;
-import de.linzn.leegianOS.internal.objectDatabase.skillType.SubSkill;
+import de.linzn.leegianOS.internal.objectDatabase.skillType.PrimarySkill;
+import de.linzn.leegianOS.internal.objectDatabase.skillType.SecondarySkill;
 
 public interface ISkill {
 
-    void setEnv(SkillClient skillClient, ParentSkill parentSkill, SubSkill subSkill);
+    void setEnv(SkillClient skillClient, PrimarySkill primarySkill, SecondarySkill secondarySkill);
 
 }

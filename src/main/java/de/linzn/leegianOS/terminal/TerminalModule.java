@@ -13,7 +13,7 @@ package de.linzn.leegianOS.terminal;
 import de.linzn.leegianOS.LeegianOSApp;
 import de.linzn.leegianOS.internal.objectDatabase.clients.SkillClient;
 import de.linzn.leegianOS.internal.objectDatabase.clients.TerminalSkillClient;
-import de.linzn.leegianOS.internal.processor.SkillProcessor;
+import de.linzn.leegianOS.internal.processor.MainProcessor;
 import de.linzn.leegianOS.terminal.tmode.Tmode;
 
 import java.util.Arrays;
@@ -68,8 +68,8 @@ public class TerminalModule implements Runnable {
                 } else {
                     Runnable runnable = () -> {
                         SkillClient skillClient = this.leegianOSApp.skillClientList.get(new UUID(0, 0));
-                        SkillProcessor skillProcessor = new SkillProcessor(skillClient, input);
-                        skillProcessor.processing();
+                        MainProcessor mainProcessor = new MainProcessor(skillClient, input);
+                        mainProcessor.processing();
                     };
                     this.leegianOSApp.heartbeat.runTaskAsynchronous(runnable);
                 }
