@@ -44,7 +44,7 @@ public class TerminalModule implements Runnable {
                 input = System.console().readLine("T/M$: ");
                 inputArray = input.split(" ");
             } else {
-                input = System.console().readLine(": ");
+                input = System.console().readLine();
                 inputArray = input.split(" ");
             }
             String keyword = inputArray[0];
