@@ -23,6 +23,7 @@ public class GetSetting {
     /* Variables */
     private DatabaseModule mysqldb;
     private String settingName;
+    private String prefix = this.getClass().getSimpleName() + "->";
 
     /* Create class instance */
     public GetSetting(String settingName) {
@@ -32,7 +33,7 @@ public class GetSetting {
 
     public OBJSetting getSetting() {
         OBJSetting objSetting = null;
-        LeegianOSApp.logger(this.getClass().getSimpleName() + "--> accessing setting-->" + settingName);
+        LeegianOSApp.logger(prefix + "accessing setting->" + settingName);
         try {
             Connection con = this.mysqldb.getConnection();
             Statement st = con.createStatement();

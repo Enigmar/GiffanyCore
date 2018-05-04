@@ -25,9 +25,10 @@ public class SchedulerProcessor {
     public HashMap<UUID, IScheduler> schedulersList;
     // Define variables
     private LeegianOSApp leegianOSApp;
+    private String prefix = this.getClass().getSimpleName() + "->";
 
     public SchedulerProcessor(LeegianOSApp leegianOSApp) {
-        LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "creating Instance ");
+        LeegianOSApp.logger(prefix + "->" + "creating Instance ");
         this.leegianOSApp = leegianOSApp;
         this.schedulersList = new HashMap<>();
         this.loadSchedulers();

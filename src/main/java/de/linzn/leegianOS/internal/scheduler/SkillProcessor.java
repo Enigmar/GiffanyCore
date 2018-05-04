@@ -24,9 +24,10 @@ public class SkillProcessor {
     public HashMap<String, Class<ISkill>> skillList;
     // Define variables
     private LeegianOSApp leegianOSApp;
+    private String prefix = this.getClass().getSimpleName() + "->";
 
     public SkillProcessor(LeegianOSApp leegianOSApp) {
-        LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "creating Instance ");
+        LeegianOSApp.logger(prefix + "creating Instance ");
         this.leegianOSApp = leegianOSApp;
         this.skillList = new HashMap<>();
         this.loadSkills();
