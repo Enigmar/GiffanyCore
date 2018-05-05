@@ -33,6 +33,15 @@ public class SkillProcessor {
         this.loadSkills();
     }
 
+    public void loadSkill(Class<ISkill> iSkillClass, boolean globalLoad) {
+        if (!globalLoad) {
+            this.skillList.remove(iSkillClass.getSimpleName());
+        }
+        LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "loading " + iSkillClass.getSimpleName());
+
+        skillList.put(iSkillClass.getSimpleName(), iSkillClass);
+    }
+
     public void loadSkills() {
         skillList.clear();
         for (File classFiles : Objects.requireNonNull(new File("skills").listFiles())) {
@@ -40,9 +49,7 @@ public class SkillProcessor {
                 String class_name = classFiles.getName().replace(".class", "");
                 ClassLoader cl = new URLClassLoader(new URL[]{new File("").toURI().toURL()});
                 Class<ISkill> iSkillClass = (Class<ISkill>) cl.loadClass("skills." + Character.toUpperCase(class_name.charAt(0)) + class_name.substring(1));
-                LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "loading " + iSkillClass.getSimpleName());
-
-                skillList.put(iSkillClass.getSimpleName(), iSkillClass);
+                this.loadSkill(iSkillClass, true);
             } catch (ClassNotFoundException | MalformedURLException e) {
                 e.printStackTrace();
             }

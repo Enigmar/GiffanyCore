@@ -34,6 +34,42 @@ public class SchedulerProcessor {
         this.loadSchedulers();
     }
 
+    public void loadScheduler(UUID uuid, Class<IScheduler> iSchedulerClass, boolean globalLoad) {
+        if (!globalLoad && this.schedulersList.containsKey(uuid)) {
+            this.schedulersList.get(uuid).set_alive(false);
+            this.leegianOSApp.skillClientList.remove(uuid);
+            this.schedulersList.remove(uuid);
+        }
+        try {
+            IScheduler schedulerInstance = iSchedulerClass.newInstance();
+            schedulerInstance.set_alive(true);
+            this.schedulersList.put(schedulerInstance.schedulerUUID(), schedulerInstance);
+            this.leegianOSApp.skillClientList.put(schedulerInstance.schedulerUUID(), new SchedulerSkillClient(schedulerInstance.schedulerUUID()));
+            LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "loading " + iSchedulerClass.getSimpleName());
+
+            leegianOSApp.heartbeat.runRepeatTaskAsynchronous(() -> {
+                check_valid_scheduler(schedulerInstance);
+                try {
+                    schedulerInstance.scheduler();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }, schedulerInstance.scheduler_timer());
+
+            leegianOSApp.heartbeat.runRepeatTaskAsynchronous(() -> {
+                check_valid_scheduler(schedulerInstance);
+                try {
+                    schedulerInstance.loopback();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }, schedulerInstance.loopBack_timer());
+        } catch (IllegalAccessException | InstantiationException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public void loadSchedulers() {
         for (IScheduler iScheduler : schedulersList.values()) {
             iScheduler.set_alive(false);
@@ -46,30 +82,9 @@ public class SchedulerProcessor {
                 try {
                     ClassLoader cl = new URLClassLoader(new URL[]{new File("").toURI().toURL()});
                     Class<IScheduler> act = (Class<IScheduler>) cl.loadClass("schedulers." + Character.toUpperCase(class_name.charAt(0)) + class_name.substring(1));
-                    LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "loading " + act.getSimpleName());
                     IScheduler schedulerInstance = act.newInstance();
-                    schedulerInstance.set_alive(true);
-                    this.schedulersList.put(schedulerInstance.schedulerUUID(), schedulerInstance);
-                    this.leegianOSApp.skillClientList.put(schedulerInstance.schedulerUUID(), new SchedulerSkillClient(schedulerInstance.schedulerUUID()));
-
-                    leegianOSApp.heartbeat.runRepeatTaskAsynchronous(() -> {
-                        check_valid_scheduler(schedulerInstance);
-                        try {
-                            schedulerInstance.scheduler();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }, schedulerInstance.scheduler_timer());
-
-                    leegianOSApp.heartbeat.runRepeatTaskAsynchronous(() -> {
-                        check_valid_scheduler(schedulerInstance);
-                        try {
-                            schedulerInstance.loopback();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }, schedulerInstance.loopBack_timer());
-
+                    UUID uuid = schedulerInstance.schedulerUUID();
+                    this.loadScheduler(uuid, act, true);
                 } catch (ClassNotFoundException | InstantiationException | SecurityException | IllegalAccessException | IllegalArgumentException | MalformedURLException e) {
                     e.printStackTrace();
                 }
