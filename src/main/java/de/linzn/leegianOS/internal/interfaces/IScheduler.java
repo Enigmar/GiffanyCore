@@ -28,8 +28,6 @@ public interface IScheduler {
 
     TimeData scheduler_timer();
 
-    TimeData loopBack_timer();
-
     boolean is_alive();
 
     void set_alive(boolean set);

@@ -47,11 +47,6 @@ public class DefaultScheduler implements IScheduler {
     }
 
     @Override
-    public TimeData loopBack_timer() {
-        return new TimeData(1, 10, TimeUnit.SECONDS);
-    }
-
-    @Override
     public boolean is_alive() {
         return this.alive;
     }

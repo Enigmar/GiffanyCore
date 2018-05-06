@@ -11,6 +11,8 @@ package de.linzn.leegianOS.internal.scheduler;
 
 import de.linzn.leegianOS.LeegianOSApp;
 import de.linzn.leegianOS.internal.interfaces.IScheduler;
+import de.linzn.leegianOS.internal.objectDatabase.TimeData;
+import de.linzn.leegianOS.internal.objectDatabase.TimedTimeData;
 import de.linzn.leegianOS.internal.objectDatabase.clients.SchedulerSkillClient;
 
 import java.io.File;
@@ -20,6 +22,7 @@ import java.net.URLClassLoader;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class SchedulerProcessor {
     public HashMap<UUID, IScheduler> schedulersList;
@@ -46,15 +49,27 @@ public class SchedulerProcessor {
             this.schedulersList.put(schedulerInstance.schedulerUUID(), schedulerInstance);
             this.leegianOSApp.skillClientList.put(schedulerInstance.schedulerUUID(), new SchedulerSkillClient(schedulerInstance.schedulerUUID()));
             LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "loading " + iSchedulerClass.getSimpleName());
+            TimeData timeData = schedulerInstance.scheduler_timer();
 
-            leegianOSApp.heartbeat.runRepeatTaskAsynchronous(() -> {
-                check_valid_scheduler(schedulerInstance);
-                try {
-                    schedulerInstance.scheduler();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }, schedulerInstance.scheduler_timer());
+            if (timeData instanceof TimedTimeData) {
+                leegianOSApp.heartbeat.runTimedDailyRepeatAsynchronous(() -> {
+                    check_valid_scheduler(schedulerInstance);
+                    try {
+                        schedulerInstance.scheduler();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }, (TimedTimeData) timeData);
+            } else {
+                leegianOSApp.heartbeat.runRepeatTaskAsynchronous(() -> {
+                    check_valid_scheduler(schedulerInstance);
+                    try {
+                        schedulerInstance.scheduler();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }, timeData);
+            }
 
             leegianOSApp.heartbeat.runRepeatTaskAsynchronous(() -> {
                 check_valid_scheduler(schedulerInstance);
@@ -63,7 +78,7 @@ public class SchedulerProcessor {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }, schedulerInstance.loopBack_timer());
+            }, new TimeData(100, 100, TimeUnit.MILLISECONDS));
         } catch (IllegalAccessException | InstantiationException e) {
             e.printStackTrace();
         }
