@@ -32,7 +32,7 @@ public class MainProcessor {
     private String prefix = this.getClass().getSimpleName() + "->";
 
     public MainProcessor(SkillClient skillClient, String rawInput) {
-        LeegianOSApp.logger(prefix + "creating Instance ");
+        LeegianOSApp.logger(prefix + "creating Instance ", false);
         this.skillClient = skillClient;
         this.rawInput = rawInput;
     }
@@ -76,27 +76,27 @@ public class MainProcessor {
                 '÷', 'ø', 'ù', 'ú', 'û', 'ü', 'ý', 'þ', 'ÿ', '^'};
 
         // First clean up the string
-        LeegianOSApp.logger(prefix + "formattingInput-->" + "cleanup symbols");
+        LeegianOSApp.logger(prefix + "formattingInput-->" + "cleanup symbols", false);
         for (char c : symbols) {
             this.rawInput = this.rawInput.replace(String.valueOf(c), "");
         }
         if (this.rawInput.length() > 0) {
-            LeegianOSApp.logger(prefix + "formattingInput-->" + "cleanup single spacer");
+            LeegianOSApp.logger(prefix + "formattingInput-->" + "cleanup single spacer", false);
             // For special case
             if (this.rawInput.toCharArray()[0] == ' ') {
                 this.rawInput = this.rawInput.replaceFirst(" ", "");
             }
 
-            LeegianOSApp.logger(prefix + "formattingInput-->" + "cleanup double spacer");
+            LeegianOSApp.logger(prefix + "formattingInput-->" + "cleanup double spacer", false);
             // Replace in case than more than one spacer
             this.rawInput = this.rawInput.replaceAll("[ ]{2,}", " ");
             this.rawInput = this.rawInput.toLowerCase();
 
         }
-        LeegianOSApp.logger(prefix + "formattingInput-->" + "split to array");
+        LeegianOSApp.logger(prefix + "formattingInput-->" + "split to array", false);
         // Split the string in substrings
         this.formattedInput = this.rawInput.split(" ");
-        LeegianOSApp.logger(prefix + "formattingInput-->" + "end of method");
+        LeegianOSApp.logger(prefix + "formattingInput-->" + "end of method", false);
 
     }
 
@@ -104,26 +104,26 @@ public class MainProcessor {
     private boolean buildSkill() {
         this.primarySkill = new GetPrimarySkill(this.formattedInput).getSkill();
         if (this.primarySkill != null) {
-            LeegianOSApp.logger(prefix + "buildSkill-->" + "Success search primarySkill");
+            LeegianOSApp.logger(prefix + "buildSkill-->" + "Success search primarySkill", false);
             if (!this.primarySkill.standalone) {
                 this.secondarySkill = new GetSecondarySkill(this.primarySkill).getSkill();
                 if (this.secondarySkill != null) {
                     // Code for full support with sub and parent skill
-                    LeegianOSApp.logger(prefix + "buildSkill-->" + "Success search secondarySkill");
+                    LeegianOSApp.logger(prefix + "buildSkill-->" + "Success search secondarySkill", false);
                     return this.executeJavaClassFunction();
                 } else {
                     // Exit, because no subskill for this exist.
-                    LeegianOSApp.logger(prefix + "buildSkill-->" + "Failed search secondarySkill");
+                    LeegianOSApp.logger(prefix + "buildSkill-->" + "Failed search secondarySkill", false);
                     return false;
                 }
             } else {
-                LeegianOSApp.logger(prefix + "buildSkill-->" + "primarySkill standalone");
+                LeegianOSApp.logger(prefix + "buildSkill-->" + "primarySkill standalone", false);
                 // Start, if parent skill ist standalone
                 return this.executeJavaClassFunction();
             }
         } else {
             // If no parent skill exist!
-            LeegianOSApp.logger(prefix + "buildSkill-->" + "Failed search primarySkill");
+            LeegianOSApp.logger(prefix + "buildSkill-->" + "Failed search primarySkill", false);
             return false;
         }
     }
@@ -140,10 +140,10 @@ public class MainProcessor {
         }
 
         if (class_name == null || method_name == null) {
-            LeegianOSApp.logger(prefix + "executeJavaClassFunction-->" + "Failed " + class_name + "<->" + method_name);
+            LeegianOSApp.logger(prefix + "executeJavaClassFunction-->" + "Failed " + class_name + "<->" + method_name, false);
             return false;
         } else {
-            LeegianOSApp.logger(prefix + "executeJavaClassFunction-->" + "Success " + class_name + "<->" + method_name);
+            LeegianOSApp.logger(prefix + "executeJavaClassFunction-->" + "Success " + class_name + "<->" + method_name, false);
         }
 
         try {

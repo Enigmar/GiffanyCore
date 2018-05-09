@@ -25,7 +25,7 @@ public class DatabaseModule {
 
     /* Create class instance */
     public DatabaseModule(LeegianOSApp leegianOSApp) {
-        LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "creating Instance ");
+        LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "creating Instance ", true);
         this.leegianOSApp = leegianOSApp;
         this.url = "jdbc:mysql://" + this.leegianOSApp.appConfiguration.sqlHostName + ":" + this.leegianOSApp.appConfiguration.sqlPort + "/"
                 + this.leegianOSApp.appConfiguration.sqlDatabaseName;

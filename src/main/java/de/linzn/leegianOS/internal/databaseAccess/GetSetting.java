@@ -33,7 +33,7 @@ public class GetSetting {
 
     public OBJSetting getSetting() {
         OBJSetting objSetting = null;
-        LeegianOSApp.logger(prefix + "accessing setting->" + settingName);
+        LeegianOSApp.logger(prefix + "accessing setting->" + settingName, true);
         try {
             Connection con = this.mysqldb.getConnection();
             Statement st = con.createStatement();

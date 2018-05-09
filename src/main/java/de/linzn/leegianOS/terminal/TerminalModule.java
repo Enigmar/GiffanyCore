@@ -26,7 +26,7 @@ public class TerminalModule implements Runnable {
     private Tmode termCommands;
 
     public TerminalModule(LeegianOSApp leegianOSApp) {
-        LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "creating Instance ");
+        LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "creating Instance ", true);
         this.leegianOSApp = leegianOSApp;
         this.clientUUID = UUID.randomUUID();
         this.leegianOSApp.heartbeat.runTaskAsynchronous(this);
@@ -52,10 +52,10 @@ public class TerminalModule implements Runnable {
             if (keyword.equalsIgnoreCase("tmode")) {
                 if (this.terminalMode) {
                     this.terminalMode = false;
-                    LeegianOSApp.logger("Tmode disabled");
+                    LeegianOSApp.logger("Tmode disabled", false);
                 } else {
                     this.terminalMode = true;
-                    LeegianOSApp.logger("Tmode enabled");
+                    LeegianOSApp.logger("Tmode enabled", false);
                 }
             } else {
 
@@ -63,7 +63,7 @@ public class TerminalModule implements Runnable {
                     // Direct command
                     String[] valueArray = Arrays.copyOfRange(inputArray, 1, inputArray.length);
                     if (!this.termCommands.runCommand(keyword, valueArray)) {
-                        LeegianOSApp.logger("No tmode input.");
+                        LeegianOSApp.logger("No tmode input.", false);
                     }
                 } else {
                     Runnable runnable = () -> {

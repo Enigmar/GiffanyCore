@@ -27,7 +27,7 @@ public class SkillProcessor {
     private String prefix = this.getClass().getSimpleName() + "->";
 
     public SkillProcessor(LeegianOSApp leegianOSApp) {
-        LeegianOSApp.logger(prefix + "creating Instance ");
+        LeegianOSApp.logger(prefix + "creating Instance ", true);
         this.leegianOSApp = leegianOSApp;
         this.skillList = new HashMap<>();
         this.loadSkills();
@@ -37,7 +37,7 @@ public class SkillProcessor {
         if (!globalLoad) {
             this.skillList.remove(iSkillClass.getSimpleName());
         }
-        LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "loading " + iSkillClass.getSimpleName());
+        LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "loading " + iSkillClass.getSimpleName(), true);
 
         skillList.put(iSkillClass.getSimpleName(), iSkillClass);
     }

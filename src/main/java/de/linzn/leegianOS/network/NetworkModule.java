@@ -23,7 +23,7 @@ public class NetworkModule {
     private LeegianOSApp leegianOSApp;
 
     public NetworkModule(LeegianOSApp leegianOSApp) {
-        LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "creating Instance ");
+        LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "creating Instance ", true);
         this.leegianOSApp = leegianOSApp;
         this.jServer = new JServer(this.leegianOSApp.appConfiguration.socketHost, this.leegianOSApp.appConfiguration.socketPort);
 

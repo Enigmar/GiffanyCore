@@ -26,7 +26,7 @@ public class PrimarySkill {
     public Map serial_data;
 
     public PrimarySkill(int parentskill_id, boolean standalone, String trigger, String[] inputArray, String java_class, String java_method, Map serial_data) {
-        LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "creating Instance ");
+        LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "creating Instance ", false);
         this.parentskill_id = parentskill_id;
         this.standalone = standalone;
         this.trigger = trigger;

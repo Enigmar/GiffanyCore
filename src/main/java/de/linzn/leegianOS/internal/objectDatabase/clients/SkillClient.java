@@ -31,7 +31,7 @@ public class SkillClient {
 
     public SkillClient(UUID clientUUID) {
         this.clientUUID = clientUUID;
-        LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "creating Instance ");
+        LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "creating Instance ", true);
     }
 
     public void sendResponse(JSONObject object) {

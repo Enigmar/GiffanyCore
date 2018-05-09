@@ -30,7 +30,7 @@ public class AppConfiguration {
 
     /* Create class instance */
     public AppConfiguration(LeegianOSApp leegianOSApp) {
-        LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "creating Instance ");
+        LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "creating Instance ", true);
         this.leegianOSApp = leegianOSApp;
         this.init();
 

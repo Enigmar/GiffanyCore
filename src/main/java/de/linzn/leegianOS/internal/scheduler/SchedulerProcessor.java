@@ -31,7 +31,7 @@ public class SchedulerProcessor {
     private String prefix = this.getClass().getSimpleName() + "->";
 
     public SchedulerProcessor(LeegianOSApp leegianOSApp) {
-        LeegianOSApp.logger(prefix + "->" + "creating Instance ");
+        LeegianOSApp.logger(prefix + "->" + "creating Instance ", true);
         this.leegianOSApp = leegianOSApp;
         this.schedulersList = new HashMap<>();
         this.loadSchedulers();
@@ -48,7 +48,7 @@ public class SchedulerProcessor {
             schedulerInstance.set_alive(true);
             this.schedulersList.put(schedulerInstance.schedulerUUID(), schedulerInstance);
             this.leegianOSApp.skillClientList.put(schedulerInstance.schedulerUUID(), new SchedulerSkillClient(schedulerInstance.schedulerUUID()));
-            LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "loading " + iSchedulerClass.getSimpleName());
+            LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "loading " + iSchedulerClass.getSimpleName(), true);
             TimeData timeData = schedulerInstance.scheduler_timer();
 
             if (timeData instanceof TimedTimeData) {
@@ -109,7 +109,7 @@ public class SchedulerProcessor {
 
     private void check_valid_scheduler(IScheduler iScheduler) {
         if (!iScheduler.is_alive()) {
-            LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "terminate old scheduler ");
+            LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "terminate old scheduler ", false);
             Thread.currentThread().interrupt();
             Thread.currentThread().stop();
         }

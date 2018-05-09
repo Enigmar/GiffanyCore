@@ -27,7 +27,7 @@ public class ConnectionStream implements ConnectionListener {
 
     @Override
     public void onConnectEvent(final UUID uuid) {
-        LeegianOSApp.logger("Register new communication device: " + uuid);
+        LeegianOSApp.logger("Register new communication device: " + uuid, true);
         SkillClient skillClient = new SkillClient(uuid);
         this.leegianOSApp.skillClientList.put(skillClient.clientUUID, skillClient);
         skillClient.sendOSData();
@@ -35,7 +35,7 @@ public class ConnectionStream implements ConnectionListener {
 
     @Override
     public void onDisconnectEvent(final UUID uuid) {
-        LeegianOSApp.logger("Unregister communication device: " + uuid);
+        LeegianOSApp.logger("Unregister communication device: " + uuid, true);
         this.leegianOSApp.skillClientList.remove(uuid);
     }
 }

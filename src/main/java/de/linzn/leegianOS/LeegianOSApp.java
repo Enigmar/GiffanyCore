@@ -66,17 +66,19 @@ public class LeegianOSApp {
     // Main for init this framework
     public static void main(String[] args) {
         logSetup();
-        LeegianOSApp.logger(LeegianOSApp.class.getSimpleName() + "->" + "creating Instance ");
+        LeegianOSApp.logger(LeegianOSApp.class.getSimpleName() + "->" + "creating Instance ", true);
         new LeegianOSApp(args);
 
 
     }
 
     // The default fileLogger
-    public static synchronized void logger(String log) {
+    public static synchronized void logger(String log, boolean writeToFile) {
         System.out.print("[" + Thread.currentThread().getName() + "] " + log + "\n");
         System.out.flush();
-        fileLogger.info("[" + Thread.currentThread().getName() + "] " + log);
+        if (writeToFile) {
+            fileLogger.info("[" + Thread.currentThread().getName() + "] " + log);
+        }
     }
 
     private static void logSetup() {
@@ -120,7 +122,7 @@ public class LeegianOSApp {
     }
 
     private void finishStartup() {
-        Runnable finish = () -> logger("LeegianOS startup finished in " + (int) ((System.nanoTime() - start_time) / 1e6) + " ms.");
+        Runnable finish = () -> logger("LeegianOS startup finished in " + (int) ((System.nanoTime() - start_time) / 1e6) + " ms.", true);
         this.heartbeat.runTaskSynchronous(finish);
     }
 

@@ -26,7 +26,7 @@ public class SecondarySkill {
     public Map serial_data;
 
     public SecondarySkill(int subskill_id, String trigger, String[] inputArray, PrimarySkill parentskill, String java_class, String java_method, Map serial_data) {
-        LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "creating Instance ");
+        LeegianOSApp.logger(this.getClass().getSimpleName() + "->" + "creating Instance ", false);
         this.subskill_id = subskill_id;
         this.trigger = trigger;
         this.inputArray = ArrayUtils.removeElement(inputArray, trigger);

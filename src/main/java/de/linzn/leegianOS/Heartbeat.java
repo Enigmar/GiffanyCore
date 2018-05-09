@@ -28,7 +28,7 @@ public class Heartbeat implements Runnable, Executor {
     private String prefix = this.getClass().getSimpleName() + "->";
 
     public Heartbeat(LeegianOSApp leegianOSApp) {
-        LeegianOSApp.logger(prefix + "creating Instance ");
+        LeegianOSApp.logger(prefix + "creating Instance ", true);
         this.heartbeat = this;
         this.taskList = new LinkedList<>();
         this.leegianOSApp = leegianOSApp;
@@ -81,7 +81,7 @@ public class Heartbeat implements Runnable, Executor {
     public void runRepeatTaskAsynchronous(Runnable run, int delay, int period, TimeUnit timeUnit) {
         Runnable runnable = () -> Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(run, delay, period, timeUnit);
         this.taskList.add(runnable);
-        LeegianOSApp.logger(prefix + "runRepeatTaskAsynchronous->" + "Add new RepeatTaskAsynchronous Thread");
+        LeegianOSApp.logger(prefix + "runRepeatTaskAsynchronous->" + "Add new RepeatTaskAsynchronous Thread", false);
     }
 
     /* Run timed Task in a new Thread */
@@ -93,7 +93,7 @@ public class Heartbeat implements Runnable, Executor {
         long times = getTimerTime(days, hours, minutes);
         Runnable runnable = () -> Executors.newSingleThreadScheduledExecutor().schedule(run, times, TimeUnit.MILLISECONDS);
         this.taskList.add(runnable);
-        LeegianOSApp.logger(prefix + "runTimedTaskAsynchronous->" + "Add new TimedTaskAsynchronous Thread->" + new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date(times + System.currentTimeMillis())));
+        LeegianOSApp.logger(prefix + "runTimedTaskAsynchronous->" + "Add new TimedTaskAsynchronous Thread->" + new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date(times + System.currentTimeMillis())), false);
     }
 
     /* Run daily timed Task in a new Thread */
@@ -105,14 +105,14 @@ public class Heartbeat implements Runnable, Executor {
         long times = getTimerTime(days, hours, minutes);
         Runnable runnable = () -> Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(run, times, 1000 * 60 * 60 * 24, TimeUnit.MILLISECONDS);
         this.taskList.add(runnable);
-        LeegianOSApp.logger(prefix + "runTimedDailyRepeatAsynchronous->" + "Add new DailyTimedTaskAsynchronous Thread->DailyAt " + new SimpleDateFormat("HH:mm").format(new Date(times + System.currentTimeMillis())));
+        LeegianOSApp.logger(prefix + "runTimedDailyRepeatAsynchronous->" + "Add new DailyTimedTaskAsynchronous Thread->DailyAt " + new SimpleDateFormat("HH:mm").format(new Date(times + System.currentTimeMillis())), false);
     }
 
     /* Run repeat Task in a new Thread */
     public void runDelayedTaskAsynchronous(Runnable run, int delay, TimeUnit timeUnit) {
         Runnable runnable = () -> Executors.newSingleThreadScheduledExecutor().schedule(run, delay, timeUnit);
         this.taskList.add(runnable);
-        LeegianOSApp.logger(prefix + "runDelayedTaskAsynchronous->" + "Add new DelayedTaskAsynchronous Thread");
+        LeegianOSApp.logger(prefix + "runDelayedTaskAsynchronous->" + "Add new DelayedTaskAsynchronous Thread", false);
     }
 
 
@@ -120,7 +120,7 @@ public class Heartbeat implements Runnable, Executor {
     public void runTaskAsynchronous(Runnable async) {
         Runnable runnable = () -> Executors.newSingleThreadExecutor().submit(async);
         this.taskList.add(runnable);
-        LeegianOSApp.logger(prefix + "runTaskAsynchronous->" + "Add new TaskAsynchronous Thread");
+        LeegianOSApp.logger(prefix + "runTaskAsynchronous->" + "Add new TaskAsynchronous Thread", false);
     }
 
 
