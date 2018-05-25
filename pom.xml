@@ -13,9 +13,9 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.linzn</groupId>
     <packaging>jar</packaging>
-    <name>leegianOS</name>
-    <version>1.0.2</version>
-    <artifactId>leegianOS</artifactId>
+    <name>leegianOS-framework</name>
+    <version>1.0.3</version>
+    <artifactId>leegianOS-framework</artifactId>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
